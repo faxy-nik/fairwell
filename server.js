@@ -108,7 +108,8 @@ app.get('/admin/logout', (req, res) => {
 
 app.get('/admin', requireAuth, (req, res) => {
   const config = loadConfig();
-  res.render('admin', { people: config.people, req, msg: req.query.msg || null, err: req.query.err || null });
+  const publicUrl = process.env.PUBLIC_URL || (req.headers['x-forwarded-proto'] || req.protocol) + '://' + (req.headers['x-forwarded-host'] || req.get('host'));
+  res.render('admin', { people: config.people, req, publicUrl, msg: req.query.msg || null, err: req.query.err || null });
 });
 
 app.post('/api/person', requireAuth, (req, res) => {

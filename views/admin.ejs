@@ -56,7 +56,7 @@
         </div>
         <div class="access-link">
           <strong>Access Link:</strong>
-          <input type="text" value="<%= req.protocol %>://<%= req.get('host') %>/p/<%= person.accessToken %>" readonly onclick="this.select()" class="link-input">
+          <input type="text" value="<%= publicUrl %>/p/<%= person.accessToken %>" readonly onclick="this.select()" class="link-input">
           <button class="btn small" onclick="navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
         </div>
 
