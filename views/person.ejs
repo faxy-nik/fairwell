@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= person.name %> - Class Memories</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <h1>Hey <%= person.name %>! 🎉</h1>
+      <p class="subtitle">Here are your class memories</p>
+    </header>
+
+    <div class="sections">
+      <% if (person.sections.length === 0) { %>
+        <div class="empty-state">
+          <p>Nothing here yet. Check back later!</p>
+        </div>
+      <% } %>
+
+      <% person.sections.forEach(function(section) { %>
+        <div class="section-box">
+          <div class="section-header">
+            <span class="section-icon"><%= {voice: '🎤', images: '🖼️', videos: '🎬', texts: '📝', other: '📦'}[section.type] || '📦' %></span>
+            <h3><%= section.title %></h3>
+            <span class="item-count"><%= section.items.length %></span>
+          </div>
+
+          <% if (section.items.length === 0) { %>
+            <p class="empty-note">No items yet</p>
+          <% } %>
+
+          <div class="items-grid">
+            <% section.items.forEach(function(item) { %>
+              <% var now = new Date(); %>
+              <% var release = new Date(item.releaseDate + 'T23:59:59'); %>
+              <% var isUnlocked = now >= release; %>
+              <% var fileUrl = '/uploads/' + person.id + '/' + section.id + '/' + item.filename; %>
+              <% var isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(item.filename); %>
+              <% var isVideo = /\.(mp4|webm|mov)$/i.test(item.filename); %>
+              <% var isAudio = /\.(mp3|wav|ogg|m4a)$/i.test(item.filename); %>
+
+              <div class="item-card <%= isUnlocked ? 'unlocked' : 'locked' %>">
+                <% if (isUnlocked) { %>
+                  <div class="item-preview">
+                    <% if (isImage) { %>
+                      <img src="<%= fileUrl %>" alt="<%= item.title %>" loading="lazy">
+                    <% } else if (isVideo) { %>
+                      <video controls preload="metadata">
+                        <source src="<%= fileUrl %>">
+                      </video>
+                    <% } else if (isAudio) { %>
+                      <audio controls preload="metadata">
+                        <source src="<%= fileUrl %>">
+                      </audio>
+                    <% } else { %>
+                      <div class="file-icon">
+                        <a href="<%= fileUrl %>" download><%= item.originalName %></a>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="item-info">
+                    <span class="item-title"><%= item.title %></span>
+                  </div>
+                <% } else { %>
+                  <div class="lock-overlay">
+                    <div class="lock-icon">🔒</div>
+                    <div class="lock-text">
+                      <p>Available on</p>
+                      <p class="release-date"><%= new Date(item.releaseDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+                    </div>
+                    <% var daysUntil = Math.ceil((release - now) / (1000 * 60 * 60 * 24)); %>
+                    <% if (daysUntil > 0) { %>
+                      <p class="days-left"><%= daysUntil %> day<%= daysUntil > 1 ? 's' : '' %> left</p>
+                    <% } %>
+                  </div>
+                <% } %>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <footer class="site-footer">
+      <p>Made with love for our class</p>
+    </footer>
+  </div>
+</body>
+</html>

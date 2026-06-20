@@ -1,0 +1,221 @@
+const express = require('express');
+const session = require('express-session');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const CONFIG_PATH = path.join(__dirname, 'data', 'config.json');
+const SESSION_SECRET = process.env.SESSION_SECRET || 'class-memories-secret-key-change-in-production';
+
+function ensureDir(dir) {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+}
+ensureDir(path.join(__dirname, 'data'));
+ensureDir(path.join(__dirname, 'uploads'));
+if (!fs.existsSync(CONFIG_PATH)) {
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [] }, null, 2));
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, 'uploads', req.body.personId, req.body.sectionId);
+    ensureDir(dir);
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + '-' + Math.random().toString(36).slice(2, 8) + ext);
+  }
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 100 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /\.(jpg|jpeg|png|gif|webp|mp3|wav|ogg|m4a|mp4|webm|mov|pdf|txt|doc|docx|zip|rar)$/i;
+    if (allowed.test(path.extname(file.originalname))) cb(null, true);
+    else cb(new Error('File type not allowed'));
+  }
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+}));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+function loadConfig() {
+  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+  let changed = false;
+  config.people.forEach(p => { if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; } });
+  if (changed) saveConfig(config);
+  return config;
+}
+function saveConfig(config) {
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+}
+
+function requireAuth(req, res, next) {
+  if (req.session.authenticated) return next();
+  res.redirect('/admin/login');
+}
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/p/:token', (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.accessToken === req.params.token);
+  if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
+  res.render('person', { person });
+});
+
+app.get('/admin/login', (req, res) => {
+  if (req.session.authenticated) return res.redirect('/admin');
+  res.render('login', { error: null });
+});
+
+app.post('/admin/login', (req, res) => {
+  if (req.body.password === ADMIN_PASSWORD) {
+    req.session.authenticated = true;
+    res.redirect('/admin');
+  } else {
+    res.render('login', { error: 'Wrong password' });
+  }
+});
+
+app.get('/admin/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/admin/login'));
+});
+
+app.get('/admin', requireAuth, (req, res) => {
+  const config = loadConfig();
+  res.render('admin', { people: config.people, req });
+});
+
+app.post('/api/person', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const id = req.body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (!id) return res.status(400).send('Invalid name');
+  if (config.people.find(p => p.id === id)) return res.status(400).send('Person already exists');
+  config.people.push({ id, name: req.body.name, accessToken: crypto.randomBytes(16).toString('hex'), sections: [] });
+  saveConfig(config);
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const idx = config.people.findIndex(p => p.id === req.params.id);
+  if (idx !== -1) {
+    const dir = path.join(__dirname, 'uploads', req.params.id);
+    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
+    config.people.splice(idx, 1);
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/section', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person) {
+    const id = req.body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    if (id && !person.sections.find(s => s.id === id)) {
+      person.sections.push({ id, title: req.body.title, type: req.body.type || 'other', items: [] });
+      saveConfig(config);
+    }
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/section/:sectionId/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person) {
+    const idx = person.sections.findIndex(s => s.id === req.params.sectionId);
+    if (idx !== -1) {
+      const dir = path.join(__dirname, 'uploads', req.params.id, req.params.sectionId);
+      if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
+      person.sections.splice(idx, 1);
+      saveConfig(config);
+    }
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/upload', requireAuth, upload.single('file'), (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.body.personId);
+  if (person && req.file) {
+    const section = person.sections.find(s => s.id === req.body.sectionId);
+    if (section) {
+      section.items.push({
+        filename: req.file.filename,
+        originalName: req.file.originalname,
+        title: req.body.title || req.file.originalname.replace(/\.[^/.]+$/, ''),
+        releaseDate: req.body.releaseDate || new Date().toISOString().split('T')[0],
+        uploadedAt: new Date().toISOString()
+      });
+      saveConfig(config);
+    }
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person) {
+    const section = person.sections.find(s => s.id === req.params.sectionId);
+    if (section) {
+      const idx = section.items.findIndex(i => i.filename === req.body.filename);
+      if (idx !== -1) {
+        const filePath = path.join(__dirname, 'uploads', person.id, section.id, section.items[idx].filename);
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        section.items.splice(idx, 1);
+        saveConfig(config);
+      }
+    }
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/rename', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && req.body.name) {
+    person.name = req.body.name;
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
+app.get('/uploads/:person/:section/:file', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', req.params.person, req.params.section, req.params.file);
+  if (fs.existsSync(filePath)) res.sendFile(filePath);
+  else res.status(404).send('File not found');
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  if (err instanceof multer.MulterError) {
+    return res.status(400).send('File too large (max 100MB)');
+  }
+  res.status(500).send('Something went wrong');
+});
+
+app.listen(PORT, () => {
+  console.log(`Class Memories running on http://localhost:${PORT}`);
+  console.log(`Admin panel: http://localhost:${PORT}/admin/login`);
+  console.log(`Default password: ${ADMIN_PASSWORD}`);
+});

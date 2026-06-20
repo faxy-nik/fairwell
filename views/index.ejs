@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Memories</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <h1>Class Memories</h1>
+      <p class="subtitle">Our shared moments, released in time</p>
+    </header>
+
+    <div class="landing-message">
+      <div class="lock-icon-large">🔒</div>
+      <h2>You need an invite link</h2>
+      <p>This is a private space for our class. Each person has their own unique link to access their content.</p>
+      <p>If you received a QR code or link, paste it here or scan it to view your memories.</p>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="error-msg" style="margin-top:20px;"><%= error %></p>
+      <% } %>
+    </div>
+
+    <footer class="site-footer">
+      <p>Made with love for our class</p>
+    </footer>
+  </div>
+</body>
+</html>

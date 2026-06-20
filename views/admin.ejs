@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Class Memories</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+  <div class="container">
+    <header class="admin-header">
+      <h1>Admin Panel</h1>
+      <nav>
+        <a href="/" target="_blank">View Public Page</a>
+        <a href="/admin/logout">Logout</a>
+      </nav>
+    </header>
+
+    <section class="admin-section">
+      <h2>Add Person</h2>
+      <form method="POST" action="/api/person" class="inline-form">
+        <input type="text" name="name" placeholder="Person name" required>
+        <button type="submit" class="btn">Add</button>
+      </form>
+    </section>
+
+    <% people.forEach(function(person) { %>
+      <section class="admin-person">
+        <div class="person-head">
+          <h2><%= person.name %></h2>
+          <div class="person-actions">
+            <form method="POST" action="/api/person/<%= person.id %>/rename" class="inline-form">
+              <input type="text" name="name" placeholder="Rename" required>
+              <button type="submit" class="btn small">Rename</button>
+            </form>
+            <form method="POST" action="/api/person/<%= person.id %>/delete" onsubmit="return confirm('Delete this person and all their content?')">
+              <button type="submit" class="btn small danger">Delete</button>
+            </form>
+          </div>
+        </div>
+        <div class="access-link">
+          <strong>Access Link:</strong>
+          <input type="text" value="<%= req.protocol %>://<%= req.get('host') %>/p/<%= person.accessToken %>" readonly onclick="this.select()" class="link-input">
+          <button class="btn small" onclick="navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+        </div>
+
+        <div class="add-section">
+          <h3>Add Section to <%= person.name %></h3>
+          <form method="POST" action="/api/person/<%= person.id %>/section" class="inline-form">
+            <input type="text" name="title" placeholder="Section title" required>
+            <select name="type">
+              <option value="images">Images</option>
+              <option value="voice">Voice</option>
+              <option value="videos">Videos</option>
+              <option value="texts">Texts</option>
+              <option value="other">Other</option>
+            </select>
+            <button type="submit" class="btn small">Add</button>
+          </form>
+        </div>
+
+        <% person.sections.forEach(function(section) { %>
+          <div class="admin-section-box">
+            <div class="section-head">
+              <h3><%= section.title %> <span class="badge"><%= section.type %></span></h3>
+              <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/delete" onsubmit="return confirm('Delete this section and all its files?')">
+                <button type="submit" class="btn small danger">Delete Section</button>
+              </form>
+            </div>
+
+            <div class="upload-form">
+              <h4>Upload to <%= section.title %></h4>
+              <form method="POST" action="/api/upload" enctype="multipart/form-data" class="upload-form-inner">
+                <input type="hidden" name="personId" value="<%= person.id %>">
+                <input type="hidden" name="sectionId" value="<%= section.id %>">
+                <input type="file" name="file" required>
+                <input type="text" name="title" placeholder="Display title (optional)">
+                <label>
+                  Release Date:
+                  <input type="date" name="releaseDate" value="<%= new Date().toISOString().split('T')[0] %>">
+                </label>
+                <button type="submit" class="btn small">Upload</button>
+              </form>
+            </div>
+
+            <% if (section.items.length > 0) { %>
+              <div class="items-list">
+                <h4>Items (<%= section.items.length %>)</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>File</th>
+                      <th>Release Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% section.items.forEach(function(item) { %>
+                      <tr>
+                        <td><%= item.title %></td>
+                        <td><%= item.originalName %></td>
+                        <td><%= new Date(item.releaseDate).toLocaleDateString() %></td>
+                        <td>
+                          <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" onsubmit="return confirm('Delete this item?')">
+                            <input type="hidden" name="filename" value="<%= item.filename %>">
+                            <button type="submit" class="btn small danger">Delete</button>
+                          </form>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            <% } else { %>
+              <p class="empty-note">No items in this section</p>
+            <% } %>
+          </div>
+        <% }); %>
+      </section>
+    <% }); %>
+  </div>
+</body>
+</html>

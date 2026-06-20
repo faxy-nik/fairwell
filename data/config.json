@@ -1,0 +1,37 @@
+{
+  "people": [
+    {
+      "id": "maham",
+      "name": "maham",
+      "sections": [
+        {
+          "id": "images",
+          "title": "images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "1781901707849-94qdbr.jpg",
+              "originalName": "noor (1).jpg",
+              "title": "babar sher",
+              "releaseDate": "2026-06-19",
+              "uploadedAt": "2026-06-19T20:41:47.857Z"
+            }
+          ]
+        }
+      ],
+      "accessToken": "e702fee7adb630168a7ce27f46e6cd6c"
+    },
+    {
+      "id": "muaaz",
+      "name": "muaaz",
+      "sections": [],
+      "accessToken": "b385b46e7d88ce1e5646b234b5d048ff"
+    },
+    {
+      "id": "fahad",
+      "name": "fahad",
+      "accessToken": "c70285dbe96086842dee1b3097f7f77d",
+      "sections": []
+    }
+  ]
+}

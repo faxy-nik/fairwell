@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Class Memories</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <h1>Admin Login</h1>
+    <% if (error) { %>
+      <p class="error-msg"><%= error %></p>
+    <% } %>
+    <form method="POST" action="/admin/login">
+      <input type="password" name="password" placeholder="Enter admin password" required>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <a href="/" class="back-link">Back to public page</a>
+  </div>
+</body>
+</html>
