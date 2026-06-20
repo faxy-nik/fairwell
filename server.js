@@ -236,5 +236,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Class Memories running on http://localhost:${PORT}`);
   console.log(`Admin panel: http://localhost:${PORT}/admin/login`);
-  console.log(`Default password: ${ADMIN_PASSWORD}`);
 });
