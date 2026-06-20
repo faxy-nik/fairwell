@@ -7,24 +7,24 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, 'data');
-const CONFIG_PATH = path.join(DATA_DIR, 'config.json');
-const PASSWORD_FILE = path.join(DATA_DIR, 'admin-password.txt');
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const DATA_ROOT = fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data');
+const CONFIG_PATH = path.join(DATA_ROOT, 'config.json');
+const PASSWORD_FILE = path.join(DATA_ROOT, 'admin-password.txt');
+const UPLOADS_ROOT = path.join(DATA_ROOT, 'uploads');
 const SESSION_SECRET = process.env.SESSION_SECRET || 'class-memories-secret-key-change-in-production';
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
-ensureDir(DATA_DIR);
-ensureDir(UPLOADS_DIR);
+ensureDir(DATA_ROOT);
+ensureDir(UPLOADS_ROOT);
 if (!fs.existsSync(CONFIG_PATH)) {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [] }, null, 2));
 }
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = path.join(UPLOADS_DIR, req.body.personId, req.body.sectionId);
+    const dir = path.join(UPLOADS_ROOT, req.body.personId, req.body.sectionId);
     ensureDir(dir);
     cb(null, dir);
   },
@@ -69,9 +69,7 @@ function saveConfig(config) {
 function getAdminPassword() {
   if (fs.existsSync(PASSWORD_FILE)) return fs.readFileSync(PASSWORD_FILE, 'utf-8').trim();
   if (process.env.ADMIN_PASSWORD) return process.env.ADMIN_PASSWORD;
-  const defaultPw = 'admin123';
-  fs.writeFileSync(PASSWORD_FILE, defaultPw);
-  return defaultPw;
+  return 'admin123';
 }
 
 function requireAuth(req, res, next) {
@@ -127,7 +125,7 @@ app.post('/api/person/:id/delete', requireAuth, (req, res) => {
   const config = loadConfig();
   const idx = config.people.findIndex(p => p.id === req.params.id);
   if (idx !== -1) {
-    const dir = path.join(UPLOADS_DIR, req.params.id);
+    const dir = path.join(UPLOADS_ROOT, req.params.id);
     if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
     config.people.splice(idx, 1);
     saveConfig(config);
@@ -154,7 +152,7 @@ app.post('/api/person/:id/section/:sectionId/delete', requireAuth, (req, res) =>
   if (person) {
     const idx = person.sections.findIndex(s => s.id === req.params.sectionId);
     if (idx !== -1) {
-      const dir = path.join(UPLOADS_DIR, req.params.id, req.params.sectionId);
+      const dir = path.join(UPLOADS_ROOT, req.params.id, req.params.sectionId);
       if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
       person.sections.splice(idx, 1);
       saveConfig(config);
@@ -190,7 +188,7 @@ app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, re
     if (section) {
       const idx = section.items.findIndex(i => i.filename === req.body.filename);
       if (idx !== -1) {
-        const filePath = path.join(UPLOADS_DIR, person.id, section.id, section.items[idx].filename);
+        const filePath = path.join(UPLOADS_ROOT, person.id, section.id, section.items[idx].filename);
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         section.items.splice(idx, 1);
         saveConfig(config);
@@ -220,7 +218,7 @@ app.post('/api/person/:id/rename', requireAuth, (req, res) => {
 });
 
 app.get('/uploads/:person/:section/:file', (req, res) => {
-  const filePath = path.join(UPLOADS_DIR, req.params.person, req.params.section, req.params.file);
+  const filePath = path.join(UPLOADS_ROOT, req.params.person, req.params.section, req.params.file);
   if (fs.existsSync(filePath)) res.sendFile(filePath);
   else res.status(404).send('File not found');
 });
