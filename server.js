@@ -7,9 +7,9 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const DATA_ROOT = fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data');
 const CONFIG_PATH = path.join(DATA_ROOT, 'config.json');
+const PASSWORD_FILE = path.join(DATA_ROOT, 'admin-password.txt');
 const UPLOADS_ROOT = path.join(DATA_ROOT, 'uploads');
 const SESSION_SECRET = process.env.SESSION_SECRET || 'class-memories-secret-key-change-in-production';
 
@@ -66,6 +66,14 @@ function saveConfig(config) {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
 }
 
+function getAdminPassword() {
+  if (fs.existsSync(PASSWORD_FILE)) return fs.readFileSync(PASSWORD_FILE, 'utf-8').trim();
+  if (process.env.ADMIN_PASSWORD) return process.env.ADMIN_PASSWORD;
+  const defaultPw = 'admin123';
+  fs.writeFileSync(PASSWORD_FILE, defaultPw);
+  return defaultPw;
+}
+
 function requireAuth(req, res, next) {
   if (req.session.authenticated) return next();
   res.redirect('/admin/login');
@@ -88,7 +96,7 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.post('/admin/login', (req, res) => {
-  if (req.body.password === ADMIN_PASSWORD) {
+  if (req.body.password === getAdminPassword()) {
     req.session.authenticated = true;
     res.redirect('/admin');
   } else {
@@ -102,7 +110,7 @@ app.get('/admin/logout', (req, res) => {
 
 app.get('/admin', requireAuth, (req, res) => {
   const config = loadConfig();
-  res.render('admin', { people: config.people, req });
+  res.render('admin', { people: config.people, req, msg: req.query.msg || null, err: req.query.err || null });
 });
 
 app.post('/api/person', requireAuth, (req, res) => {
@@ -190,6 +198,15 @@ app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, re
     }
   }
   res.redirect('/admin');
+});
+
+app.post('/admin/change-password', requireAuth, (req, res) => {
+  if (req.body.currentPassword === getAdminPassword() && req.body.newPassword) {
+    fs.writeFileSync(PASSWORD_FILE, req.body.newPassword);
+    res.redirect('/admin?msg=Password+changed');
+  } else {
+    res.redirect('/admin?err=Wrong+current+password');
+  }
 });
 
 app.post('/api/person/:id/rename', requireAuth, (req, res) => {

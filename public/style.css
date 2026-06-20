@@ -363,6 +363,25 @@ body {
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
 }
 
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.alert.success {
+  background: #1a3a2a;
+  color: #4caf50;
+  border: 1px solid #2a5a3a;
+}
+
+.alert.error {
+  background: #3a1a1a;
+  color: #ff6b6b;
+  border: 1px solid #5a2a2a;
+}
+
 .admin-page .container {
   max-width: 1000px;
 }
