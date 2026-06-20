@@ -58,7 +58,10 @@ app.set('views', path.join(__dirname, 'views'));
 function loadConfig() {
   const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
   let changed = false;
-  config.people.forEach(p => { if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; } });
+  config.people.forEach(p => {
+    if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; }
+    if (!p.roadmap) { p.roadmap = []; changed = true; }
+  });
   if (changed) saveConfig(config);
   return config;
 }
@@ -117,7 +120,7 @@ app.post('/api/person', requireAuth, (req, res) => {
   const id = req.body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   if (!id) return res.status(400).send('Invalid name');
   if (config.people.find(p => p.id === id)) return res.status(400).send('Person already exists');
-  config.people.push({ id, name: req.body.name, accessToken: crypto.randomBytes(16).toString('hex'), sections: [] });
+  config.people.push({ id, name: req.body.name, accessToken: crypto.randomBytes(16).toString('hex'), roadmap: [], sections: [] });
   saveConfig(config);
   res.redirect('/admin');
 });
@@ -195,6 +198,27 @@ app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, re
         saveConfig(config);
       }
     }
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/roadmap/add', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && req.body.title) {
+    if (!person.roadmap) person.roadmap = [];
+    person.roadmap.push({ date: req.body.date || '', title: req.body.title, description: req.body.description || '' });
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.roadmap) {
+    person.roadmap.splice(parseInt(req.body.index), 1);
+    saveConfig(config);
   }
   res.redirect('/admin');
 });

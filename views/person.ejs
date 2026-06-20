@@ -13,8 +13,26 @@
       <p class="subtitle">Here are your class memories</p>
     </header>
 
+    <% if (person.roadmap && person.roadmap.length > 0) { %>
+      <div class="roadmap-section">
+        <h2 class="roadmap-title">Our Journey 🗺️</h2>
+        <div class="roadmap-timeline">
+          <% person.roadmap.forEach(function(item) { %>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <% if (item.date) { %><span class="roadmap-date"><%= item.date %></span><% } %>
+                <h3 class="roadmap-heading"><%= item.title %></h3>
+                <% if (item.description) { %><p class="roadmap-desc"><%= item.description %></p><% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+
     <div class="sections">
-      <% if (person.sections.length === 0) { %>
+      <% if (person.sections.length === 0 && (!person.roadmap || person.roadmap.length === 0)) { %>
         <div class="empty-state">
           <p>Nothing here yet. Check back later!</p>
         </div>

@@ -75,6 +75,53 @@
           </form>
         </div>
 
+        <div class="admin-section-box roadmap-box">
+          <div class="section-head">
+            <h3>Roadmap</h3>
+          </div>
+          <div class="upload-form">
+            <h4>Add Milestone</h4>
+            <form method="POST" action="/api/person/<%= person.id %>/roadmap/add" class="upload-form-inner">
+              <input type="text" name="title" placeholder="Milestone title" required>
+              <input type="date" name="date">
+              <input type="text" name="description" placeholder="Description">
+              <button type="submit" class="btn small">Add</button>
+            </form>
+          </div>
+          <% if (person.roadmap && person.roadmap.length > 0) { %>
+            <div class="items-list">
+              <h4>Milestones (<%= person.roadmap.length %>)</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% person.roadmap.forEach(function(item, idx) { %>
+                    <tr>
+                      <td><%= item.date %></td>
+                      <td><%= item.title %></td>
+                      <td><%= item.description %></td>
+                      <td>
+                        <form method="POST" action="/api/person/<%= person.id %>/roadmap/delete" onsubmit="return confirm('Delete this milestone?')">
+                          <input type="hidden" name="index" value="<%= idx %>">
+                          <button type="submit" class="btn small danger">Delete</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          <% } else { %>
+            <p class="empty-note">No milestones yet. Add the key moments for <%= person.name %>!</p>
+          <% } %>
+        </div>
+
         <% person.sections.forEach(function(section) { %>
           <div class="admin-section-box">
             <div class="section-head">
