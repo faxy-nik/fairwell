@@ -3,14 +3,13 @@ const path = require('path');
 const fs = require('fs');
 
 const APP_DIR = __dirname;
-const DATA_DIR = path.join(APP_DIR, 'data');
-const CONFIG_PATH = path.join(DATA_DIR, 'config.json');
-const PASSWORD_PATH = path.join(DATA_DIR, 'admin-password.txt');
 
 let isHF = false;
 let gitInitialized = false;
+let DATA_DIR;
 
-function init() {
+function init(dataRoot) {
+  DATA_DIR = dataRoot || path.join(__dirname, 'data');
   isHF = !!process.env.SPACE_ID;
   if (!isHF) {
     console.log('Not on HF Spaces, git persistence disabled');
@@ -28,24 +27,32 @@ function init() {
 
 function commitAndPush(message) {
   if (!isHF || !gitInitialized) return;
+  const token = process.env.HF_TOKEN || process.env.HUGGINGFACE_TOKEN;
+  if (!token) {
+    console.log('No HF_TOKEN set, data will not persist across restarts');
+    return;
+  }
   try {
     execSync('git add -A', { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
     const status = execSync('git status --porcelain', { cwd: APP_DIR, stdio: 'pipe', timeout: 5000, encoding: 'utf-8' }).trim();
     if (!status) return;
     execSync(`git commit -m "${message.replace(/"/g, '\'')}"`, { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
-    execSync('git pull --rebase origin main 2>/dev/null; git push origin main', { cwd: APP_DIR, stdio: 'pipe', timeout: 30000 });
+    const remote = execSync('git remote get-url origin', { cwd: APP_DIR, encoding: 'utf-8', timeout: 5000 }).trim();
+    const authRemote = remote.replace('://', `://user:${token}@`);
+    execSync(`git pull --rebase origin main 2>/dev/null`, { cwd: APP_DIR, stdio: 'pipe', timeout: 15000 });
+    execSync(`git push ${authRemote} main`, { cwd: APP_DIR, stdio: 'pipe', timeout: 30000 });
   } catch (e) {
     console.log('Git persist error:', e.message);
   }
 }
 
 function saveConfig(config) {
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+  fs.writeFileSync(path.join(DATA_DIR, 'config.json'), JSON.stringify(config, null, 2));
   commitAndPush('Update config');
 }
 
 function savePassword(password) {
-  fs.writeFileSync(PASSWORD_PATH, password);
+  fs.writeFileSync(path.join(DATA_DIR, 'admin-password.txt'), password);
   commitAndPush('Update password');
 }
 

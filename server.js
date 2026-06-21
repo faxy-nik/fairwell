@@ -7,7 +7,7 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_ROOT = fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data');
+const DATA_ROOT = process.env.SPACE_ID ? path.join(__dirname, 'data') : (fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data'));
 const CONFIG_PATH = path.join(DATA_ROOT, 'config.json');
 const PASSWORD_FILE = path.join(DATA_ROOT, 'admin-password.txt');
 const UPLOADS_ROOT = path.join(DATA_ROOT, 'uploads');
@@ -28,7 +28,7 @@ if (!fs.existsSync(CONFIG_PATH)) {
 }
 
 const persist = require('./persist');
-persist.init();
+persist.init(DATA_ROOT);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
