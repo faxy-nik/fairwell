@@ -19,8 +19,16 @@ function ensureDir(dir) {
 ensureDir(DATA_ROOT);
 ensureDir(UPLOADS_ROOT);
 if (!fs.existsSync(CONFIG_PATH)) {
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [] }, null, 2));
+  const defaultConfig = path.join(__dirname, 'data', 'config.json');
+  if (fs.existsSync(defaultConfig)) {
+    fs.copyFileSync(defaultConfig, CONFIG_PATH);
+  } else {
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [] }, null, 2));
+  }
 }
+
+const persist = require('./persist');
+persist.init();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -66,7 +74,7 @@ function loadConfig() {
   return config;
 }
 function saveConfig(config) {
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+  persist.saveConfig(config);
 }
 
 function getAdminPassword() {
@@ -227,7 +235,7 @@ app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
 
 app.post('/admin/change-password', requireAuth, (req, res) => {
   if (req.body.currentPassword === getAdminPassword() && req.body.newPassword) {
-    fs.writeFileSync(PASSWORD_FILE, req.body.newPassword);
+    persist.savePassword(req.body.newPassword);
     res.redirect('/admin?msg=Password+changed');
   } else {
     res.redirect('/admin?err=Wrong+current+password');
