@@ -88,7 +88,9 @@ app.get('/p/:token', (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.accessToken === req.params.token);
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
-  res.render('person', { person });
+  const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
+  const hasCard = fs.existsSync(cardPath);
+  res.render('person', { person, hasCard });
 });
 
 app.get('/admin/login', (req, res) => {

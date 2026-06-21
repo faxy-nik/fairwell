@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maham &mdash; Semester 2 Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e2d9cd;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      padding: 24px;
+      line-height: 1.7;
+      color: #2e2a26;
+    }
+    .card {
+      max-width: 600px;
+      width: 100%;
+      background: #faf3ea;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(46, 42, 38, 0.12), 0 2px 8px rgba(46, 42, 38, 0.06);
+      border: 1px solid rgba(122, 47, 59, 0.12);
+      padding: 56px 48px;
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .archive-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a2f3b;
+      margin-bottom: 28px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 44px;
+      color: #2e2a26;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 17px;
+      color: #7a2f3b;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(122, 47, 59, 0.2), transparent);
+      margin: 28px 0;
+    }
+    .message p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #3e3832;
+      margin-bottom: 18px;
+    }
+    .message p:last-child {
+      margin-bottom: 0;
+    }
+    .signoff {
+      margin-top: 28px;
+      font-size: 15px;
+      color: #2e2a26;
+    }
+    .signoff .name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .signoff .count {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #7a2f3b;
+      margin-top: 4px;
+    }
+    @media (max-width: 520px) {
+      body { padding: 16px; }
+      .card { padding: 36px 24px; border-radius: 16px; }
+      h1 { font-size: 34px; }
+      .quote { font-size: 15px; }
+      .message p { font-size: 14px; }
+    }
+    @media (max-width: 380px) {
+      .card { padding: 28px 18px; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="archive-label">Semester 2 Archive</p>
+    <h1>Maham</h1>
+    <p class="quote">The language without words</p>
+    <div class="divider"></div>
+    <div class="message">
+      <p>It started with the simplest question: "Class khatam hogyi k nahi?" Four words that somehow turned into one of the most unexpected friendships of my life. You did not enter with a grand introduction. You just appeared, and suddenly you were part of everything.</p>
+      <p>There was the funny confusion of being mixed up with Aimal. A running joke that never quite got old. But underneath the laughter was something deeper. A connection that did not need to be explained or justified. It just existed. And we both felt it.</p>
+      <p>Eye contact that replaced words. That is rare. Most people need to fill silence. With you, silence was never empty. A single glance could carry an entire conversation. And your dark humour &mdash; the kind that most people would not understand &mdash; only you got it. Only you responded in the same language.</p>
+      <p>We did not plan to become family. It just happened. Slowly, quietly, without announcement. You became someone I think of when I think of what it means to belong without trying. No labels. No expectations. Just a bond that speaks in glances and laughter and the comfort of knowing you are understood without saying a word.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="signoff">
+      <span class="name">&mdash; Fahad</span>
+      <span class="count">Me And 8 Others</span>
+    </div>
+  </main>
+</body>
+</html>

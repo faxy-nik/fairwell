@@ -31,11 +31,27 @@
       </div>
     <% } %>
 
+    <% if (typeof hasCard !== 'undefined' && hasCard) { %>
+      <div class="section-box farewell-card-box">
+        <div class="section-header">
+          <span class="section-icon">💌</span>
+          <h3>Farewell Card</h3>
+          <span class="item-count">1</span>
+        </div>
+        <div class="farewell-card-preview">
+          <p>A farewell letter for you</p>
+          <a href="/cards/<%= person.id %>.html" target="_blank" class="btn">View Card</a>
+        </div>
+      </div>
+    <% } %>
+
     <div class="sections">
       <% if (person.sections.length === 0 && (!person.roadmap || person.roadmap.length === 0)) { %>
+        <% if (typeof hasCard === 'undefined' || !hasCard) { %>
         <div class="empty-state">
           <p>Nothing here yet. Check back later!</p>
         </div>
+        <% } %>
       <% } %>
 
       <% person.sections.forEach(function(section) { %>

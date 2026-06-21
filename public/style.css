@@ -658,6 +658,27 @@ td {
   color: #ccc;
 }
 
+.farewell-card-box {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 100%);
+  border: 1px solid #3a2a5e;
+  margin-bottom: 24px;
+}
+
+.farewell-card-preview {
+  text-align: center;
+  padding: 24px;
+}
+
+.farewell-card-preview p {
+  color: #aaa;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.farewell-card-preview .btn {
+  display: inline-block;
+}
+
 @media (max-width: 768px) {
   .items-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
