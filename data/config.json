@@ -41,6 +41,48 @@
           "title": "a",
           "type": "videos",
           "items": []
+        },
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-maham-1.mp3",
+              "originalName": "maham-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-maham-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-maham-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-maham-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
         }
       ]
     },
@@ -65,7 +107,71 @@
           "description": "Read 'Man's Search for Meaning' by Viktor Frankl. You like deep conversations about human nature. This book will give you more to think about than any cafe discussion ever could."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-muaaz-1.mp3",
+              "originalName": "muaaz-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-muaaz-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-muaaz-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-muaaz-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-muaaz-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-muaaz-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "fahad",
@@ -88,7 +194,71 @@
           "description": "Not for anyone else. Just for you. You spend so much time talking to others — spend some time talking to yourself. One page every night before Isha."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-fahad-1.mp3",
+              "originalName": "fahad-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-fahad-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-fahad-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-fahad-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-fahad-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-fahad-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "aimal",
@@ -111,7 +281,71 @@
           "description": "Keep a playlist of songs that match your mood each week. Music says what energy alone cannot. At the end of 3 months, listen to the whole playlist in order. You will hear your own story."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-aimal-1.mp3",
+              "originalName": "aimal-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-aimal-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-aimal-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-aimal-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-aimal-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-aimal-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "muneeba",
@@ -134,7 +368,71 @@
           "description": "Every day write one thing you were thankful for. Open it on the last day of the break. You will be surprised how full it gets."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-muneeba-1.mp3",
+              "originalName": "muneeba-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-muneeba-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-muneeba-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-muneeba-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-muneeba-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-muneeba-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "eeshah",
@@ -157,7 +455,71 @@
           "description": "Read 'The Forty Rules of Love' by Elif Shafak. It talks about paradoxes in a way I think you will understand. Also, write down one paradox you noticed about yourself every week. You might surprise yourself."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-eeshah-1.mp3",
+              "originalName": "eeshah-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-eeshah-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-eeshah-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-eeshah-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-eeshah-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-eeshah-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "moazam",
@@ -180,7 +542,71 @@
           "description": "Write down one joke or funny moment every day. By the end of 3 months, you will have 90 moments of your own life that made you laugh. That is worth keeping."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-moazam-1.mp3",
+              "originalName": "moazam-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-moazam-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-moazam-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-moazam-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-moazam-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-moazam-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "ahsan",
@@ -203,7 +629,71 @@
           "description": "Read 'Atomic Habits' by James Clear. You already understand the power of small consistent actions. This book will show you how to use it intentionally."
         }
       ],
-      "sections": []
+      "sections": [
+        {
+          "id": "vms",
+          "title": "VMs",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "sample-voice-ahsan-1.mp3",
+              "originalName": "ahsan-voice-note.mp3",
+              "title": "A little message for you",
+              "releaseDate": "2026-06-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-voice-ahsan-2.mp3",
+              "originalName": "group-chat-voice.mp3",
+              "title": "Group voice note — memories",
+              "releaseDate": "2026-07-15",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "sample-image-ahsan-1.jpg",
+              "originalName": "group-photo.jpg",
+              "title": "Group photo",
+              "releaseDate": "2026-06-10",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-image-ahsan-2.jpg",
+              "originalName": "class-selfie.jpg",
+              "title": "Class selfie",
+              "releaseDate": "2026-07-05",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "videos",
+          "title": "Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "sample-video-ahsan-1.mp4",
+              "originalName": "class-moment.mp4",
+              "title": "Our class moment",
+              "releaseDate": "2026-06-20",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            },
+            {
+              "filename": "sample-video-ahsan-2.mp4",
+              "originalName": "farewell-clip.mp4",
+              "title": "Farewell clip",
+              "releaseDate": "2026-07-01",
+              "uploadedAt": "2026-06-27T12:00:00.000Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
