@@ -1151,6 +1151,50 @@ html {
   display: inline-block;
 }
 
+/* ── Chat Glimpse Embed ── */
+
+.chat-glimpse-box {
+  background: #0d0d1a;
+  border: 1px solid rgba(160, 100, 220, 0.15);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.chat-glimpse-box .section-header {
+  padding: 16px 20px 0;
+}
+
+.chat-glimpse-box .section-header h3 {
+  color: #e0d8f0;
+  font-size: 1.15rem;
+}
+
+.chat-glimpse-embed {
+  padding: 16px;
+}
+
+.card-iframe {
+  width: 100%;
+  height: 560px;
+  border: none;
+  border-radius: 12px;
+  background: #0a0a0f;
+  overflow-y: auto;
+}
+
+.card-iframe::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-iframe::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card-iframe::-webkit-scrollbar-thumb {
+  background: rgba(160, 100, 220, 0.3);
+  border-radius: 3px;
+}
+
 /* ── Namaz standalone (no tabs) ── */
 
 .namaz-section-standalone .roadmap-section {
