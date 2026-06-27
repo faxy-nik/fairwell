@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muneeba - Our Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      padding: 32px 24px;
+      line-height: 1.8;
+      color: #f0e0e8;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(200, 50, 120, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.03) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 80%, rgba(249, 168, 212, 0.02) 0%, transparent 40%);
+      background-attachment: fixed;
+      animation: bgShift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .book {
+      max-width: 720px;
+      margin: 0 auto;
+      background: linear-gradient(170deg, #0d0d1a 0%, #1a0d18 40%, #1a0d20 100%);
+      border-radius: 24px;
+      box-shadow: 0 12px 60px rgba(200, 50, 120, 0.15), 0 0 80px rgba(236, 72, 153, 0.05);
+      border: 1px solid rgba(200, 80, 140, 0.12);
+      padding: 56px 48px;
+      animation: fadeIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease;
+    }
+
+    .book:hover {
+      transform: translateY(-2px);
+      border-color: rgba(200, 80, 140, 0.25);
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(200, 50, 120, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(249, 168, 212, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 12px 60px rgba(200, 50, 120, 0.15), 0 0 80px rgba(236, 72, 153, 0.05); }
+      50% { box-shadow: 0 12px 80px rgba(200, 50, 120, 0.25), 0 0 120px rgba(236, 72, 153, 0.1); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    .cover-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #f9a8d4;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 52px;
+      background: linear-gradient(135deg, #f9a8d4, #f472b6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 18px;
+      color: #f9a8d4;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .byline {
+      font-size: 13px;
+      color: #8b5a7a;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200, 80, 140, 0.2), rgba(236, 72, 153, 0.2), transparent);
+      margin: 36px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section:hover h2 {
+      background: linear-gradient(135deg, #f9a8d4, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section h2 {
+      transition: all 0.4s ease;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 24px;
+      color: #f9a8d4;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .section h2 .date {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5a7a;
+      margin-top: 4px;
+    }
+
+    .section p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #e8d4e0;
+      margin-bottom: 14px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 17px;
+      color: #f472b6;
+      text-align: center;
+      padding: 20px 16px;
+      margin: 24px 0;
+      line-height: 1.6;
+      border-top: 1px solid rgba(244, 114, 182, 0.12);
+      border-bottom: 1px solid rgba(244, 114, 182, 0.12);
+      position: relative;
+      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+      transition: color 0.4s ease;
+    }
+
+    .pull-quote:hover { color: #f0abfc; }
+
+    .chat {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chat .msg {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease-out forwards;
+    }
+
+    .chat .msg:nth-child(1) { animation-delay: 0.1s; }
+    .chat .msg:nth-child(2) { animation-delay: 0.25s; }
+    .chat .msg:nth-child(3) { animation-delay: 0.4s; }
+    .chat .msg:nth-child(4) { animation-delay: 0.55s; }
+    .chat .msg:nth-child(5) { animation-delay: 0.7s; }
+
+    .msg {
+      max-width: 88%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 300;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .msg:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .msg .sender {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .msg.fahad {
+      align-self: flex-end;
+      background: linear-gradient(135deg, rgba(200, 50, 120, 0.2), rgba(147, 51, 234, 0.1));
+      border: 1px solid rgba(200, 50, 120, 0.15);
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.fahad .sender { color: #f9a8d4; }
+
+    .msg.muneeba {
+      align-self: flex-start;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(249, 168, 212, 0.08));
+      border: 1px solid rgba(236, 72, 153, 0.1);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.muneeba .sender { color: #f472b6; }
+
+    .poetry-block {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      padding: 28px 24px;
+      margin: 24px 0;
+      background: linear-gradient(135deg, rgba(200, 50, 120, 0.06), rgba(236, 72, 153, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(200, 80, 140, 0.08);
+      font-size: 16px;
+      line-height: 2;
+      color: #e0c8d8;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .poetry-block:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(200, 50, 120, 0.15);
+      border-color: rgba(200, 80, 140, 0.2);
+    }
+
+    .poetry-block .attr {
+      display: block;
+      margin-top: 12px;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8b5a7a;
+    }
+
+    .urdu-block {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-style: normal;
+      text-align: center;
+      direction: rtl;
+      padding: 28px 24px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(200, 50, 120, 0.06), rgba(249, 168, 212, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(200, 80, 140, 0.08);
+      font-size: 22px;
+      line-height: 3;
+      color: #e0c8d8;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .urdu-block:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(200, 50, 120, 0.15);
+      border-color: rgba(200, 80, 140, 0.2);
+    }
+
+    .letter-block {
+      padding: 28px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(200, 50, 120, 0.06), rgba(236, 72, 153, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(236, 72, 153, 0.1);
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .letter-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(236, 72, 153, 0.15);
+    }
+
+    .letter-block p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #e0c8d8;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .letter-block p:last-child { margin-bottom: 0; }
+
+    .moment-card {
+      padding: 24px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(249, 168, 212, 0.04), rgba(200, 50, 120, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(249, 168, 212, 0.08);
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .moment-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(249, 168, 212, 0.1);
+      border-color: rgba(249, 168, 212, 0.2);
+    }
+
+    .moment-card .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #f9a8d4;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .moment-card p {
+      font-size: 14px;
+      font-weight: 300;
+      color: #e0c8d8;
+      margin-bottom: 10px;
+    }
+
+    .moment-card p:last-child { margin-bottom: 0; }
+
+    .signoff {
+      margin-top: 48px;
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(200, 80, 140, 0.12);
+      position: relative;
+      z-index: 1;
+    }
+
+    .signoff .name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 20px;
+      background: linear-gradient(135deg, #f9a8d4, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .signoff .tag {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5a7a;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 16px; }
+      .book { padding: 32px 20px; border-radius: 16px; }
+      h1 { font-size: 36px; }
+      .msg { max-width: 95%; font-size: 13px; padding: 14px 16px; }
+      .poetry-block { padding: 20px 16px; font-size: 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .book { padding: 24px 14px; }
+      h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="book">
+
+    <p class="cover-label">A Memory Book</p>
+    <h1>Muneeba</h1>
+    <p class="subtitle">Some bonds are written in the moments words can't capture</p>
+    <p class="byline">Written with love &middot; Semester 2 Archive</p>
+
+    <div class="divider"></div>
+
+    <!-- Opening Letter -->
+    <div class="section reveal">
+      <h2>For You, Muneeba</h2>
+      <p>Muneeba 1st April — 22 December main campus meeting. Some stories begin with a hello. Ours began with a shawl.</p>
+    </div>
+
+    <!-- The Shawl Moment -->
+    <div class="section reveal reveal-delay-1">
+      <h2>The Beginning</h2>
+      <div class="moment-card">
+        <span class="tag">First Meeting</span>
+        <p>Sb syy phlyy tu apky uot shwal ufff 🔥🔥</p>
+        <p>Baki jb ma ja ka khriii hoii thii tu ap chair mangvaii ot apny set kr ka di hyy — pighal gyii thi maa shmo bhi a gyii thi. Or uss waqt bhi jb ap meraa bag pkra tha — apnu wali feeling thi yawr.</p>
+      </div>
+    </div>
+
+    <!-- Moments Together -->
+    <div class="section reveal reveal-delay-1">
+      <h2>Moments That Stayed</h2>
+
+      <div class="moment-card">
+        <span class="tag">HTML/CSS Class</span>
+        <p>Next jb ap html css ktva rhyy thy tu ma apko dekh ka zone out ho rhii thii. Or jb hum calculus kr rhyy thy or ek moment pa ap muje dekh rhyy thy or ma achanak apko dekha — or vo eye contact mere hosh uraaa gya tha kasm syy. Feel ap kr liya hona muje lgta.</p>
+      </div>
+
+      <div class="moment-card">
+        <span class="tag">Cafe</span>
+        <p>Next cafe bethy hoyy shake jb pii rhiu thi ma ice cream syy lrr rhii thii or ap ek cute sii nzr syy muje dekh rhyy thy. Kya apki ankhy thi nasheelii yawr — tb tu ma shrmatiii hi rhii ho bss. Or wapsiii pa jb round about pa thy ma ruk gyii thii ka ap loog baaty chupatyy — or ap agyy hath brahaya ho chlny ka bola.</p>
+      </div>
+
+      <div class="moment-card">
+        <span class="tag">Walking Together</span>
+        <p>Chlty chltyy vo koi baaat hoi thii or ap face mere face position pa lyy ❤💘💘</p>
+      </div>
+
+      <div class="moment-card">
+        <span class="tag">The Last Thing</span>
+        <p>Or last pa expression wali baaat vo hyy fyyy jo tha hamara. Or bhi hoga shayed kuch lekin ya sb muje yad ha or bhttt achyy syy yad ❤❤❤❤❤</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">"Cafe mein end pr Pyar se ho dekh rhi thi na dayummmmmmm"</div>
+
+    <!-- What I Noticed -->
+    <div class="section reveal reveal-delay-2">
+      <h2>What I Noticed</h2>
+      <div class="chat">
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Cafe mein end pr Pyar se ho dekh rhi thi na dayummmmmmm
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Or jab ice cream kha rhi thi bht pyari LG rhi thi cute c ❤️
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Or jab jab eye contact hua that was awsm
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Or shaawl Wala to mujhe dene mein b itnaaaa axha lga na aaahaa akskakshsksjhs
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Or aj ka ek ek lmha on another lvl tha 😭 🤌🏻
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Baki ek chz Jo bht bht bht zydaaaaaa fit lagi aj — pen pkre hue tmne hath pkra tha 😭 😭🤌🏻 🤌🏻 💗
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Or mein zone out hogya k ye Kya hua hai. Or bri dfa unknowingly touch hua. Us wqt Thora awkward SA lga mujhe but mein to pighal gya Yaha 🤌🏻🤌🏻🤌🏻
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          Phir html krte hue tm itne Pyar se sun rhi thi itna axha LG rha tha
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Fahad</span>
+          And the main thing — Tm jab Apne balon se lar rhi thi — It was wholesome 🤌🏻
+        </div>
+      </div>
+    </div>
+
+    <!-- Poetry -->
+    <div class="section reveal reveal-delay-3">
+      <h2>Poetry for Eyes</h2>
+      <div class="urdu-block">
+        تم نے دیکھی وہ آنکھیں؟<br>
+        تم نے دیکھی وہ آنکھیں؟<br>
+        اچھا کیسی ہے وہ آنکھیں؟<br>
+        کتنا پیارا ہے وہ چہرا؟<br>
+        کتنی پیاری ہے وہ آنکھیں؟<br>
+        اور ایسے ویسوں کو کیوں دیکھیں<br>
+        ایسی ویسی ہے وہ آنکھیں
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- New Year Letter -->
+    <div class="section reveal reveal-delay-3">
+      <h2>New Year 2026 🥳✨</h2>
+      <p class="pull-quote">HAPPY NEW YEAR</p>
+      <div class="letter-block">
+        <p>A new year means new memories ❤, new smiles, and another chance to be grateful for the people who make life feel lighter. 🫸🏻🫷🏻 🥰</p>
+        <p>As this year begins, I just want to say I'm thankful for the comfort, laughter, and calm that came with you. 😍 May this year be kind to you, and may we keep sharing moments that quietly matter ❤🌙</p>
+      </div>
+    </div>
+
+    <!-- A Letter from Muneeba -->
+    <div class="section reveal reveal-delay-4">
+      <h2>A Letter for You</h2>
+      <div class="letter-block">
+        <p>Ma kabhi dost nhi bnaya ya shayed bany nhi ya bnana nhi chahy. 💔 But when I became friends with you 😚, it honestly made me realize ke yes, dost hotay hain aur aisay hi hotay hain 🤍✨</p>
+        <p>I'm a very quiet, moody kind of girl, 😭 someone who usually stays to herself. But whenever I'm with you all, I somehow manage to stay okay 🙂 in fact, ap log hi mujhe theek rakhte ho 💫💙</p>
+        <p>Apky sath dusti ki and i really feel special because I don't usually share things with anyone, but with you, I end up sharing everything without fear 🌙✨</p>
+        <p>I never knew I'd have a friendship like this, or if I ever would… but now that I do, I'm genuinely happy 🤍</p>
+        <p>That's all I wish — that no matter what comes, 🙂‍↕️ we choose understanding over silence and stay through it all 💙✨</p>
+        <p>Thank you for being my safe place in the chaos, ❤ my smile in random moments, and my calm without even trying. Here's a year of trust, laughter, and us being us 🌙💙</p>
+        <p>Stay the same ✨🤍❤</p>
+      </div>
+    </div>
+
+    <!-- Final Message -->
+    <div class="section reveal reveal-delay-4">
+      <h2>Mine.</h2>
+      <div class="letter-block">
+        <p>I'm sorry I couldn't write you a paragraph early due to my mood and condition.</p>
+        <p>Usually I don't do long paragraphs but you deserve books to be written upon — every word spoken by you. Pages of pages just explain how you look at a moment. Ink could be ended up easily writing about your pros. But you are still unaware of yourself. Harming, demotivating yourself.</p>
+        <p>At the start of 26 I'll just say we didn't get much time last year to understand each other in depth but jitna bhi mila, utna hi kaafi tha. Here's to more moments, more eye contact, more shawl memories, and more of us.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="signoff">
+      <span class="name">- Fahad</span>
+      <span class="tag">Me And 8 Others</span>
+    </div>
+
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const bookGlow = document.querySelector('.book');
+    let glowPhase = 0;
+    setInterval(() => {
+      glowPhase = (glowPhase + 1) % 360;
+      const intensity = 0.15 + 0.08 * Math.sin(glowPhase * Math.PI / 180);
+      bookGlow.style.boxShadow = `0 12px 60px rgba(200, 50, 120, ${intensity}), 0 0 80px rgba(236, 72, 153, ${intensity * 0.5})`;
+    }, 100);
+  </script>
+</body>
+
+</html>

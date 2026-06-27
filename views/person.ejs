@@ -246,6 +246,20 @@
       </div>
     <% } %>
 
+    <% if (person.id === 'muneeba') { %>
+      <div class="section-box chat-glimpse-box animate-fade-up">
+        <div class="section-header">
+          <span class="section-icon">💬</span>
+          <h3>Our whole chat in one glimpse</h3>
+          <span class="item-count">1</span>
+        </div>
+        <div class="chat-glimpse-preview">
+          <p>Every message, every moment — our story in full</p>
+          <a href="/cards/muneeba_chat.html" target="_blank" class="btn">View Card</a>
+        </div>
+      </div>
+    <% } %>
+
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
       <div class="section-box farewell-card-box animate-fade-up">
         <div class="section-header">
