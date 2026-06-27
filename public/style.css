@@ -777,6 +777,316 @@ html {
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
+/* ── Tabbed Interface ── */
+
+.tabs-container {
+  margin-bottom: 24px;
+}
+
+.tabs-nav {
+  display: flex;
+  gap: 4px;
+  background: #1a1a2e;
+  border-radius: 14px;
+  padding: 6px;
+  margin-bottom: 20px;
+  border: 1px solid #2a2a3e;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #888;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeUp 0.5s ease-out forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ── General Roadmap ── */
+
+.url-placeholder {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 1px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px dashed #3a5a8e;
+  transition: all 0.2s ease;
+}
+
+.url-placeholder:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+/* ── 9 AI Skills Grid ── */
+
+.ai-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ai-skill-card {
+  background: #16213e;
+  border-radius: 12px;
+  padding: 18px 16px;
+  text-align: center;
+  border: 1px solid #233054;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  border-color: #3a5a8e;
+}
+
+.ai-skill-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.ai-skill-card h3 {
+  font-size: 0.95rem;
+  color: #eee;
+  margin-bottom: 6px;
+}
+
+.ai-skill-card p {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.ai-skill-card .url-placeholder {
+  font-size: 0.75rem;
+}
+
+/* ── Namaz Tracker ── */
+
+.namaz-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.namaz-stats-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.namaz-stat-card {
+  flex: 1;
+  background: #16213e;
+  border-radius: 12px;
+  padding: 18px 12px;
+  text-align: center;
+  border: 1px solid #233054;
+  transition: all 0.3s ease;
+}
+
+.namaz-stat-card:hover {
+  border-color: #3a5a8e;
+  transform: translateY(-2px);
+}
+
+.namaz-stat-value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.namaz-stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.namaz-prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.namaz-prayer-card {
+  background: #16213e;
+  border-radius: 12px;
+  padding: 16px 10px;
+  text-align: center;
+  border: 1px solid #233054;
+  transition: all 0.3s ease;
+}
+
+.namaz-prayer-card:hover {
+  border-color: #3a5a8e;
+  transform: translateY(-2px);
+}
+
+.prayer-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #eee;
+  margin-bottom: 2px;
+}
+
+.prayer-time {
+  display: block;
+  font-size: 0.7rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.prayer-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #3a3a5e;
+  background: transparent;
+  color: transparent;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prayer-check:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.prayer-check.checked {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  animation: checkPop 0.3s ease-out;
+}
+
+@keyframes checkPop {
+  0%   { transform: scale(0.8); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ── Namaz Week History ── */
+
+.namaz-week-history {
+  margin-top: 8px;
+}
+
+.namaz-week-history h3 {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.week-day {
+  background: #16213e;
+  border-radius: 10px;
+  padding: 10px 4px;
+  text-align: center;
+  border: 1px solid #233054;
+  transition: all 0.3s ease;
+}
+
+.week-day.week-today {
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.15);
+}
+
+.week-day-name {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.week-day-bar {
+  width: 100%;
+  height: 40px;
+  background: #0f0f1a;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 6px;
+}
+
+.week-day-fill {
+  width: 100%;
+  background: linear-gradient(180deg, #667eea, #764ba2);
+  border-radius: 6px;
+  transition: height 0.5s ease;
+  min-height: 2px;
+}
+
+.week-day-count {
+  font-size: 0.7rem;
+  color: #888;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .items-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -789,5 +1099,31 @@ html {
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
+  }
+  .tabs-nav {
+    gap: 3px;
+    padding: 4px;
+  }
+  .tab-btn {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+  .ai-skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .namaz-prayer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .namaz-stats-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .week-grid {
+    gap: 4px;
+  }
+  .week-day {
+    padding: 8px 2px;
   }
 }

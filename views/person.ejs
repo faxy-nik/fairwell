@@ -13,23 +13,218 @@
       <p class="subtitle">Here are your class memories</p>
     </header>
 
-    <% if (person.roadmap && person.roadmap.length > 0) { %>
-      <div class="roadmap-section animate-fade-up">
-        <h2 class="roadmap-title">A short roadmap or todo list specially for you 📋</h2>
-        <div class="roadmap-timeline">
-          <% person.roadmap.forEach(function(item, idx) { %>
-            <div class="roadmap-item animate-stagger" style="animation-delay: <%= idx * 0.15 %>s">
+    <!-- ─── TABBED ROADMAP ─── -->
+    <div class="tabs-container animate-fade-up">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="personal">Personal 📋</button>
+        <button class="tab-btn" data-tab="general">General 🚀</button>
+        <button class="tab-btn" data-tab="namaz">Namaz 🕌</button>
+      </div>
+
+      <!-- TAB 1: PERSONAL ROADMAP -->
+      <div class="tab-content active" id="tab-personal">
+        <% if (person.roadmap && person.roadmap.length > 0) { %>
+          <div class="roadmap-section">
+            <h2 class="roadmap-title">A short roadmap or todo list specially for you 📋</h2>
+            <div class="roadmap-timeline">
+              <% person.roadmap.forEach(function(item, idx) { %>
+                <div class="roadmap-item animate-stagger" style="animation-delay: <%= idx * 0.15 %>s">
+                  <div class="roadmap-dot"></div>
+                  <div class="roadmap-content">
+                    <% if (item.date) { %><span class="roadmap-date"><%= item.date %></span><% } %>
+                    <h3 class="roadmap-heading"><%= item.title %></h3>
+                    <% if (item.description) { %><p class="roadmap-desc"><%= item.description %></p><% } %>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        <% } else { %>
+          <div class="empty-state"><p>No personal milestones yet.</p></div>
+        <% } %>
+      </div>
+
+      <!-- TAB 2: GENERAL ROADMAP -->
+      <div class="tab-content" id="tab-general">
+        <div class="roadmap-section">
+          <h2 class="roadmap-title">7-Week AI & Vibe-Coding Plan 🧠</h2>
+          <div class="roadmap-timeline">
+            <div class="roadmap-item">
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
-                <% if (item.date) { %><span class="roadmap-date"><%= item.date %></span><% } %>
-                <h3 class="roadmap-heading"><%= item.title %></h3>
-                <% if (item.description) { %><p class="roadmap-desc"><%= item.description %></p><% } %>
+                <span class="roadmap-date">Week 1</span>
+                <h3 class="roadmap-heading">Python Basics Crash Course</h3>
+                <p class="roadmap-desc">Variables, loops, functions, and file I/O. Code along with a short YouTube playlist. <a href="#" class="url-placeholder">[Add URL]</a></p>
               </div>
             </div>
-          <% }); %>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 2</span>
+                <h3 class="roadmap-heading">How AI APIs Work</h3>
+                <p class="roadmap-desc">OpenAI, Claude, Gemini APIs. Make your first API call. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 3</span>
+                <h3 class="roadmap-heading">Vibe Coding with Cursor &amp; Claude</h3>
+                <p class="roadmap-desc">Learn to prompt-code. Build a small app using natural language. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 4</span>
+                <h3 class="roadmap-heading">Build a Real Project (AI-assisted)</h3>
+                <p class="roadmap-desc">Todo app, blog, or portfolio — use AI to generate and iterate. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 5</span>
+                <h3 class="roadmap-heading">HTML/CSS + v0.dev UI</h3>
+                <p class="roadmap-desc">Design beautiful UIs with AI-powered tools like v0.dev. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 6</span>
+                <h3 class="roadmap-heading">Deploy it Live</h3>
+                <p class="roadmap-desc">Vercel, Netlify, or HuggingFace Spaces. Ship your project. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-dot"></div>
+              <div class="roadmap-content">
+                <span class="roadmap-date">Week 7</span>
+                <h3 class="roadmap-heading">Polish, Portfolio, Next Steps</h3>
+                <p class="roadmap-desc">Add a README, clean up code, share it with friends. Plan what to build next. <a href="#" class="url-placeholder">[Add URL]</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-section">
+          <h2 class="roadmap-title">9 AI Skills to Master in 2026 🔥</h2>
+          <div class="ai-skills-grid">
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">1</div>
+              <h3>Prompt Engineering</h3>
+              <p>ChatGPT, Claude, Gemini</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">2</div>
+              <h3>AI Workflow Automation</h3>
+              <p>Zapier, Make, n8n</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">3</div>
+              <h3>AI Agents</h3>
+              <p>Crew AI, LangGraph, AutoGen</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">4</div>
+              <h3>RAG (Retrieval-Augmented Gen)</h3>
+              <p>LangChain, Vectara, LlamaIndex</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">5</div>
+              <h3>Fine-Tuning &amp; Custom GPTs</h3>
+              <p>OpenAI GPT Builder, Hugging Face, Cohere</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">6</div>
+              <h3>Multimodal AI</h3>
+              <p>GPT-4, Gemini, Grok</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">7</div>
+              <h3>AI Video Generation</h3>
+              <p>Runway, OpusClip, Pika</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">8</div>
+              <h3>AI Tool Stacking</h3>
+              <p>Notion, ClickUp, Zapier</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+            <div class="ai-skill-card">
+              <div class="ai-skill-num">9</div>
+              <h3>LLM Evaluation &amp; Management</h3>
+              <p>Helicone, PromptLayer, TruLens</p>
+              <a href="#" class="url-placeholder">[Add URL]</a>
+            </div>
+          </div>
         </div>
       </div>
-    <% } %>
+
+      <!-- TAB 3: NAMAZ DIARY -->
+      <div class="tab-content" id="tab-namaz">
+        <div class="roadmap-section">
+          <h2 class="roadmap-title">Keep Your Namaz Up to Date 🕌</h2>
+          <p class="namaz-subtitle">Track your 5 daily prayers. Consistency over perfection.</p>
+
+          <div class="namaz-stats-row">
+            <div class="namaz-stat-card">
+              <span class="namaz-stat-value" id="today-progress">0%</span>
+              <span class="namaz-stat-label">Today</span>
+            </div>
+            <div class="namaz-stat-card">
+              <span class="namaz-stat-value" id="streak-count">0</span>
+              <span class="namaz-stat-label">Day Streak</span>
+            </div>
+            <div class="namaz-stat-card">
+              <span class="namaz-stat-value" id="total-prayers">0</span>
+              <span class="namaz-stat-label">Total Prayers</span>
+            </div>
+          </div>
+
+          <div class="namaz-prayer-grid" id="namaz-prayer-grid">
+            <div class="namaz-prayer-card" data-prayer="Fajr">
+              <span class="prayer-name">Fajr</span>
+              <span class="prayer-time">Before sunrise</span>
+              <button class="prayer-check" data-prayer="Fajr">✓</button>
+            </div>
+            <div class="namaz-prayer-card" data-prayer="Dhuhr">
+              <span class="prayer-name">Dhuhr</span>
+              <span class="prayer-time">Midday</span>
+              <button class="prayer-check" data-prayer="Dhuhr">✓</button>
+            </div>
+            <div class="namaz-prayer-card" data-prayer="Asr">
+              <span class="prayer-name">Asr</span>
+              <span class="prayer-time">Afternoon</span>
+              <button class="prayer-check" data-prayer="Asr">✓</button>
+            </div>
+            <div class="namaz-prayer-card" data-prayer="Maghrib">
+              <span class="prayer-name">Maghrib</span>
+              <span class="prayer-time">Sunset</span>
+              <button class="prayer-check" data-prayer="Maghrib">✓</button>
+            </div>
+            <div class="namaz-prayer-card" data-prayer="Isha">
+              <span class="prayer-name">Isha</span>
+              <span class="prayer-time">Night</span>
+              <button class="prayer-check" data-prayer="Isha">✓</button>
+            </div>
+          </div>
+
+          <div class="namaz-week-history">
+            <h3>Last 7 Days</h3>
+            <div class="week-grid" id="week-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
       <div class="section-box farewell-card-box animate-fade-up">
@@ -122,5 +317,136 @@
       <p>Made with love for you</p>
     </footer>
   </div>
+
+  <script>
+  // ─── TAB SWITCHING ───
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  // ─── NAMAZ TRACKER ───
+  (function() {
+    var STORAGE_KEY = 'namaz-logs-<%= person.id %>';
+    var PRAYER_NAMES = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+    function getToday() {
+      var d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function loadLogs() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+    }
+
+    function saveLogs(logs) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+    }
+
+    function getTodayLog(logs) {
+      var today = getToday();
+      if (!logs[today]) {
+        logs[today] = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
+      }
+      return logs[today];
+    }
+
+    function calcStats(logs) {
+      var today = getToday();
+      var todayLog = logs[today] || {};
+      var doneToday = 0;
+      PRAYER_NAMES.forEach(function(p) { if (todayLog[p]) doneToday++; });
+
+      var totalPrayers = 0;
+      var dates = Object.keys(logs).sort().reverse();
+
+      var streak = 0;
+      var checkDate = new Date();
+      while (true) {
+        var key = checkDate.getFullYear() + '-' + String(checkDate.getMonth() + 1).padStart(2, '0') + '-' + String(checkDate.getDate()).padStart(2, '0');
+        var dayLog = logs[key];
+        var anyDone = false;
+        if (dayLog) {
+          PRAYER_NAMES.forEach(function(p) { if (dayLog[p]) { totalPrayers++; anyDone = true; } });
+        }
+        if (anyDone) {
+          streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          if (key === today) {
+            checkDate.setDate(checkDate.getDate() - 1);
+            continue;
+          }
+          break;
+        }
+      }
+
+      return { doneToday: doneToday, totalPrayers: totalPrayers, streak: streak, todayLog: todayLog };
+    }
+
+    function renderWeek(logs) {
+      var grid = document.getElementById('week-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      for (var i = 6; i >= 0; i--) {
+        var d = new Date();
+        d.setDate(d.getDate() - i);
+        var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        var dayLog = logs[key] || {};
+        var count = 0;
+        PRAYER_NAMES.forEach(function(p) { if (dayLog[p]) count++; });
+        var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var cell = document.createElement('div');
+        cell.className = 'week-day';
+        if (key === getToday()) cell.classList.add('week-today');
+        var filled = Math.round((count / 5) * 100);
+        cell.innerHTML = '<div class="week-day-name">' + dayNames[d.getDay()] + '</div><div class="week-day-bar"><div class="week-day-fill" style="height:' + filled + '%"></div></div><div class="week-day-count">' + count + '/5</div>';
+        grid.appendChild(cell);
+      }
+    }
+
+    function updateUI() {
+      var logs = loadLogs();
+      var stats = calcStats(logs);
+      var todayLog = stats.todayLog;
+
+      document.getElementById('today-progress').textContent = Math.round((stats.doneToday / 5) * 100) + '%';
+      document.getElementById('streak-count').textContent = stats.streak;
+      document.getElementById('total-prayers').textContent = stats.totalPrayers;
+
+      document.querySelectorAll('.prayer-check').forEach(function(btn) {
+        var prayer = btn.getAttribute('data-prayer');
+        if (todayLog[prayer]) {
+          btn.classList.add('checked');
+        } else {
+          btn.classList.remove('checked');
+        }
+      });
+
+      renderWeek(logs);
+    }
+
+    function togglePrayer(prayer) {
+      var logs = loadLogs();
+      var today = getToday();
+      if (!logs[today]) logs[today] = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
+      logs[today][prayer] = !logs[today][prayer];
+      saveLogs(logs);
+      updateUI();
+    }
+
+    document.querySelectorAll('.prayer-check').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        togglePrayer(this.getAttribute('data-prayer'));
+      });
+    });
+
+    updateUI();
+  })();
+  </script>
 </body>
 </html>
