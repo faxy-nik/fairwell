@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eeshah - Our Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      padding: 32px 24px;
+      line-height: 1.8;
+      color: #e0d8f0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(120, 50, 200, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.03) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 40%);
+      background-attachment: fixed;
+      animation: bgShift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      100% {
+        background-position: 100% 100%;
+      }
+    }
+
+    .book {
+      max-width: 720px;
+      margin: 0 auto;
+      background: linear-gradient(170deg, #0d0d1a 0%, #120d1a 40%, #1a0d20 100%);
+      border-radius: 24px;
+      box-shadow: 0 12px 60px rgba(120, 50, 200, 0.15), 0 0 80px rgba(200, 100, 255, 0.05);
+      border: 1px solid rgba(160, 100, 220, 0.12);
+      padding: 56px 48px;
+      animation: fadeIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease;
+    }
+
+    .book:hover {
+      transform: translateY(-2px);
+      border-color: rgba(160, 100, 220, 0.25);
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(120, 50, 200, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 12px 60px rgba(120, 50, 200, 0.15), 0 0 80px rgba(200, 100, 255, 0.05);
+      }
+
+      50% {
+        box-shadow: 0 12px 80px rgba(120, 50, 200, 0.25), 0 0 120px rgba(200, 100, 255, 0.1);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes borderGlow {
+
+      0%,
+      100% {
+        border-color: rgba(160, 100, 220, 0.12);
+      }
+
+      50% {
+        border-color: rgba(160, 100, 220, 0.3);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    .cover-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 52px;
+      background: linear-gradient(135deg, #c084fc, #e879f9, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 18px;
+      color: #a78bfa;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .byline {
+      font-size: 13px;
+      color: #6b5b8a;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(160, 100, 220, 0.2), rgba(236, 72, 153, 0.2), transparent);
+      margin: 36px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section:hover h2 {
+      background: linear-gradient(135deg, #d8b4fe, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section h2 {
+      transition: all 0.4s ease;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 24px;
+      color: #c084fc;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .section h2 .date {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6b5b8a;
+      margin-top: 4px;
+    }
+
+    .section p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #d4ccf0;
+      margin-bottom: 14px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 17px;
+      color: #e879f9;
+      text-align: center;
+      padding: 20px 16px;
+      margin: 24px 0;
+      line-height: 1.6;
+      border-top: 1px solid rgba(232, 121, 249, 0.12);
+      border-bottom: 1px solid rgba(232, 121, 249, 0.12);
+      position: relative;
+      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+      transition: color 0.4s ease;
+    }
+
+    .pull-quote:hover {
+      color: #f0abfc;
+    }
+
+    .chat {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chat .msg {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease-out forwards;
+    }
+
+    .chat .msg:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .chat .msg:nth-child(2) {
+      animation-delay: 0.25s;
+    }
+
+    .chat .msg:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .chat .msg:nth-child(4) {
+      animation-delay: 0.55s;
+    }
+
+    .chat .msg:nth-child(5) {
+      animation-delay: 0.7s;
+    }
+
+    .msg {
+      max-width: 88%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 300;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .msg:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .msg .sender {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .msg.fahad {
+      align-self: flex-end;
+      background: linear-gradient(135deg, rgba(120, 50, 200, 0.2), rgba(147, 51, 234, 0.1));
+      border: 1px solid rgba(147, 51, 234, 0.15);
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.fahad .sender {
+      color: #a78bfa;
+    }
+
+    .msg.eeshah {
+      align-self: flex-start;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(59, 130, 246, 0.08));
+      border: 1px solid rgba(236, 72, 153, 0.1);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.eeshah .sender {
+      color: #f472b6;
+    }
+
+    .poetry-block {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      padding: 28px 24px;
+      margin: 24px 0;
+      background: linear-gradient(135deg, rgba(120, 50, 200, 0.06), rgba(236, 72, 153, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(160, 100, 220, 0.08);
+      font-size: 16px;
+      line-height: 2;
+      color: #c4b8e8;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .poetry-block:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(120, 50, 200, 0.15);
+      border-color: rgba(160, 100, 220, 0.2);
+    }
+
+    .poetry-block .attr {
+      display: block;
+      margin-top: 12px;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b5b8a;
+    }
+
+    .urdu-block {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-style: normal;
+      text-align: center;
+      direction: rtl;
+      padding: 28px 24px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(120, 50, 200, 0.06), rgba(59, 130, 246, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(160, 100, 220, 0.08);
+      font-size: 22px;
+      line-height: 3;
+      color: #c4b8e8;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .urdu-block:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(120, 50, 200, 0.15);
+      border-color: rgba(160, 100, 220, 0.2);
+    }
+
+    .letter-block {
+      padding: 28px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(120, 50, 200, 0.06), rgba(147, 51, 234, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(147, 51, 234, 0.1);
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .letter-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(147, 51, 234, 0.15);
+    }
+
+    .letter-block p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #d4ccf0;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .letter-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .moment-card {
+      padding: 24px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.04), rgba(120, 50, 200, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(59, 130, 246, 0.08);
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .moment-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .moment-card .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .moment-card p {
+      font-size: 14px;
+      font-weight: 300;
+      color: #d4ccf0;
+      margin-bottom: 10px;
+    }
+
+    .moment-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .signoff {
+      margin-top: 48px;
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(160, 100, 220, 0.12);
+      position: relative;
+      z-index: 1;
+    }
+
+    .signoff .name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 20px;
+      background: linear-gradient(135deg, #c084fc, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .signoff .tag {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6b5b8a;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .book {
+        padding: 32px 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .msg {
+        max-width: 95%;
+        font-size: 13px;
+        padding: 14px 16px;
+      }
+
+      .poetry-block {
+        padding: 20px 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .book {
+        padding: 24px 14px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="book">
+
+    <p class="cover-label">A Memory Book</p>
+    <h1>Eeshah</h1>
+    <p class="subtitle">You calm my chaos and somehow match it too</p>
+    <p class="byline">Written by Fahad &middot; ASH 25 Oct</p>
+
+    <div class="divider"></div>
+
+    <!-- Opening Poem -->
+    <div class="section reveal">
+      <h2>Opening Poem</h2>
+      <div class="poetry-block">
+        We met in the spaces where orientation went blur,<br>
+        An extrovert’s echo, a quiet girl’s stir.<br>
+        But the rooftop held secrets, the night call held peace,<br>
+        And the distance between us was destined to cease.<br>
+        You looked for a shelter, I looked for a home,<br>
+        And we found in each other what we sought all alone.<br>
+        <br>
+        You are my Paradox, my favorite contradiction,<br>
+        A beautiful truth in a world full of fiction.<br>
+        Half light and half shadow, too loud in your head,<br>
+        Yet you sat in my chaos where others had fled.<br>
+        You did not try to fix me, nor did I ask you to change,<br>
+        We just sat in the dark where the silence felt strange<br>
+        And suddenly, the war in my chest felt so light,<br>
+        Like a storm finding peace in the middle of night.<br>
+        <br>
+        I remember the slope where the garden grew deep,<br>
+        The bench where my arms had a promise to keep.<br>
+        When I reached for your glasses, you whispered so sweet,<br>
+        <i>"Chashma pehle, aap baad,"</i> as our two worlds would meet.<br>
+        And then came the kiss not of hurry or rush,<br>
+        But a soft, breathing world in a heart-stopping hush.<br>
+        The taste of your lips and the warmth of your hand,<br>
+        A map of a country only we understand.<br>
+        <br>
+        You told me my eyes held a depth in the sun,<br>
+        Holding warm, messy thoughts where the gold rays would run.<br>
+        And I fell for your eyes, and the scent of your hair,<br>
+        The tantrums, the laughter, the way that you care.<br>
+        I am here, my bhondu, my rasamalai, my Ash,<br>
+        To rebuild the colors that the world tried to clash.<br>
+        I want you to love all the pink once again,<br>
+        To stand tall and heal from the scars and the pain.<br>
+        <br>
+        I carried the weight of a world on my own,<br>
+        A shelter for many, yet bleeding alone.<br>
+        But the world doesn't know how the caretaker breaks,<br>
+        Or the quiet, cold storms that a silent heart makes.<br>
+        I wanted that breakdown with you, only you,<br>
+        To show you the one tear I never let through.<br>
+        For <i>Sukuun</i> is a person found out of the blue,<br>
+        And I found my <i>Sukuun</i> when my heart anchored you.<br>
+        <br>
+        We are two slots on one ship, sailing the deep,<br>
+        A dream that we woke to and promised to keep.<br>
+        You are me, I am you, in the dark and the shine,<br>
+        Two threads interlinked by a design so divine.<br>
+        So just stay, my Eeshah, let the heavy parts fall<br>
+        With you by my side, we will conquer it all.
+      </div>
+    </div>
+
+    <!-- How We Saw Each Other -->
+    <div class="section reveal reveal-delay-1">
+      <h2>How We Saw Each Other</h2>
+
+      <div class="moment-card">
+        <span class="tag">Faxy's first impressions</span>
+        <p>First time I saw you outside the department. Oh wow a girl exists in our class. Mm interesting. Wow that car
+          mm interesting.. ah whatever miss krao...</p>
+        <p>2nd impression. Lab presentation. Oh wow nice cute girl. Oh my god sassy behavior. Cool.. minding her
+          business pretty good.. Cute to hai.. Didn't focus much..</p>
+        <p>3rd impression after presentation on the road. Oh wow your confidence was damn pretty as I expected
+          before....</p>
+        <p>4th impression. WhatsApp group chat. Music taste and further chat, still not in DM except that presentation
+          chat.</p>
+        <p>And next. On the rooftop. Wow she's so cute innocent. She'll be fine here with me. And day by day you just
+          went closer and closer to me.... And the biggest one, that late night call. First call of 4-6 hours. Pretty
+          good. You started trusting me and vice versa.</p>
+        <p>All this but I just figured out that somehow something is wrong with her. She is pretending to be someone she
+          ain't. Deep secrets under the face.</p>
+      </div>
+
+      <div class="moment-card">
+        <span class="tag">Ash's first impressions</span>
+        <p>At first I thought I saw you on orientation but it's just blurry. I don't know if it was you or someone else.
+          I think you were in blue.</p>
+        <p>Then saw you in class. I was like hmmm okay that's fine I guess.</p>
+        <p>Then when you started speaking and I was in my non-talking era. I was like, gosh he speaks too much he's so
+          extrovert.. okay miss krao.</p>
+        <p>At one point I was like hmm language.. okay.</p>
+        <p>Then you were funny in class made me laugh. I was like okay that's good not that bad.</p>
+        <p>Then when we did presentations together, when we officially introduced ourselves, I was like he seems good. I
+          was thinking wrong about him.</p>
+        <p>Then when we got to know each other I was like, daaammnn gurl how can you think he's rude? He's so caring and
+          all that.</p>
+        <p>Yeah that rooftop, that was something else. Then we just got along. I liked how you keep everything together.
+          Then I started trusting you. Like studying together, talking all night, etc.</p>
+        <p>I just came to know you're the sweetest person. You take care of others, you try to get everyone along.
+          That's the sweetest thing. But I want you to reach out when you want someone.</p>
+      </div>
+    </div>
+
+    <!-- 5 Things -->
+    <div class="section reveal reveal-delay-2">
+      <h2>5 Things I Like About You</h2>
+      <p>I like your clingy behavior. Your short anger. Your smile, eyes, glasses. Apka rona pyara se mere age.</p>
+      <p>I hate you hating yourself. Not being strong. Not being able to study. You when you're not with me.</p>
+      <p>You always just zone out randomly. Not in the present.</p>
+      <p>2 phrases you say: Mein tau tujhe. Tao tao tao.</p>
+      <p>I'd like to change your mindset about life, people, negativity, and yourself mainly.</p>
+    </div>
+
+    <div class="pull-quote">"I don't know what your eyes are saying exactly, but somehow they say everything."</div>
+
+    <!-- Her POV of His Eyes -->
+    <div class="section reveal reveal-delay-3">
+      <h2>Her POV of My Eyes</h2>
+      <div class="poetry-block">
+        I don't know how to explain it properly...<br>
+        but your eyes...<br>
+        they're deep.<br>
+        Not scary deep,<br>
+        just the kind that makes me stop talking for a second.<br>
+        <br>
+        They're brown. Simple brown.<br>
+        But when sunlight touches them, ufff....<br>
+        They change.<br>
+        Like they're holding something warm inside.<br>
+        <br>
+        Your eyes don't stay quiet. They talk.<br>
+        Sometimes they're messy,<br>
+        like they're carrying too many thoughts.<br>
+        Sometimes they're soft,<br>
+        like they care more than they say.<br>
+        <br>
+        There's love in them. Not loud love.<br>
+        The calm kind. The kind that feels real.<br>
+        They look emotional, but strong.<br>
+        Like you've felt things and still chose to stay gentle.<br>
+        <br>
+        I don't know what your eyes are saying exactly,<br>
+        but somehow they say everything.
+        <span class="attr">- Eeshah</span>
+      </div>
+    </div>
+
+    <!-- 26 Jan Morning -->
+    <div class="section reveal">
+      <h2>26 Jan Morning <span class="date">26 January 2026</span></h2>
+      <div class="poetry-block">
+        Oh kind soul, your words reached me like a quiet hug wrapped in warmth. They settled gently on my heart and made
+        this morning feel lighter than it was a moment ago.<br>
+        I'll carry this care with me through the day, in my smiles, and even in my silences.<br>
+        May your own day return this kindness to you. And may you know that you too are deeply appreciated, more than
+        words can ever fully say.
+      </div>
+    </div>
+
+    <!-- Wed 11 March -->
+    <div class="section reveal reveal-delay-1">
+      <h2>11 March <span class="date">Wednesday</span></h2>
+      <div class="msg eeshah">
+        <span class="sender">Eeshah wrote</span>
+        Come sit close to me. You don't have to carry that heaviness somewhere else when my arms are right here. Let me
+        wrap you in all the warmth I know how to hold. You can place every tired piece of yourself here. The worries,
+        the quiet hurts, even the scars you try to hide. I won't look away from them. I'll hold them gently, brush
+        around them with care, like they're something real and rare. You're safe here with me. Truly. So come here. Let
+        me hug you until the word unease forgets it ever existed. Stay with me a while. And I'll keep you warm until the
+        night feels softer again.
+      </div>
+      <p>I feel so bad that I just slept unconsciously while waiting for you. Wish I could just sneak in and be with you
+        right now. To make it up to you.</p>
+    </div>
+
+    <div class="pull-quote">"Mm there exists someone in my life. Someone whom I can surrender myself completely to at
+      any time. To whom I can say anything about anything. The one who lays her head on my chest and makes me forget
+      everything except her."</div>
+
+    <!-- PARADOX -->
+    <div class="section reveal reveal-delay-2">
+      <h2>Paradox</h2>
+      <p>It's funny how this was my word before it was ever ours. Before I even knew you, I was strangely obsessed with
+        it. Two opposites standing side by side. Sad yet happy. Broken yet beautiful. Losing yet somehow still winning.
+      </p>
+      <p>But then you happened.</p>
+      <p>You are my paradox. You calm my chaos and somehow match it too. You understand my silence but laugh at my
+        madness.</p>
+      <p>So if your mind ever feels heavy, if your thoughts ever get too loud, let me be the comfort to your chaos. Let
+        me be the quiet in your storm. Let me be the place where your paradox feels safe.</p>
+      <p>My favorite word became my favorite person. Our word. Always. Paradox.</p>
+
+      <div class="chat">
+        <div class="msg eeshah">
+          <span class="sender">Eeshah said about paradox</span>
+          Paradox. You chose that word but you don't understand what it does to me. It's like a reflection of me. I have
+          always lived in extremes. Half light, half shadow. Too calm on the outside, too loud in my head. I learned how
+          to carry storms quietly, how to feel everything and show nothing. Then you walked in like you were not afraid
+          of the dark parts. You did not try to fix my chaos. You sat inside it like it belonged there. You are the only
+          person who can match my silence and survive my intensity. It's like we are the same body, same soul.
+        </div>
+        <div class="msg fahad">
+          <span class="sender">Faxy said</span>
+          You turn the war in my head into something that almost feels beautiful. And if your mind ever turns loud, if
+          your thoughts ever feel too sharp, do not carry it alone. Just say the word Paradox. And I will be there. Not
+          running. Not fading. Not afraid. Maybe we are complicated. Maybe we are contradictions. Maybe we do not make
+          sense to anyone else. But we make sense to each other. No one can understand us the way we understand each
+          other. And that is rare. So yes, you are my favorite contradiction. Our word. Always. Paradox.
+        </div>
+      </div>
+    </div>
+
+    <!-- 20th April Meetup -->
+    <div class="section reveal reveal-delay-3">
+      <h2>20th April <span class="date">The Best Day Narrated By Faxy</span></h2>
+      <p>So I am writing this to save today in texts. All the things we have done will be in this text. If I left
+        something you add it.</p>
+      <p>It is 20 April. The date I will never forget. The best day I spent with you.</p>
+      <p>I saw you in the morning in front of Library. We sat in BSSC. Talked about different things. Repaired that
+        keychain thing. Held eye contact. At 10 we went to Shalimar Bagh. We sat on the bench. You in my arms. Your head
+        on my chest. Hand in hand. Everything in our side. Everything we wished for. Everything we thought we would do
+        when we meet.</p>
+      <p>When you were in my lap, you were the most beautiful thing I ever had. I still can't believe you and me were
+        there.</p>
+      <p>And then we moved. You holding my whole arm while walking. Gestures and love. Then walking down and up that
+        slope. That was cute. Then when we went to the corner, first me and you. Me holding your waist and eye contact
+        and peace. Then we went to cafe. Drank water. Then came back to the same spot. And we kissed.</p>
+      <div class="pull-quote">"I was you. You were me. We were us. We were something unreal. In an unrealistic realm. We
+        weren't there. That kiss, hug, and waist combo could kill me bro."</div>
+      <p>Thanks for letting me. Letting me hug you. Letting me kiss you. Letting me hold you. Letting me pull you
+        towards me. Letting me do everything. Letting me feel you. Letting me love you. Letting me just be with you.</p>
+      <p>And then we went to Savour. Ordering. Feeding you. Just watching you. Then your tantrums and all that. It was
+        lit. Then playing games. Teasing each other. Then on the bike, I showed you my area. That rash driving. Then Bey
+        bakery. Cream puffs. You holding me so tight and with love on the bike.</p>
+      <p>Thank you. For everything. It couldn't have been possible without you. Without your permission. Without you.
+        Thank you for giving me the best day.</p>
+    </div>
+
+    <!-- Her texts about 20th April -->
+    <div class="section reveal">
+      <h2>Her Words About That Day</h2>
+      <div class="chat">
+        <div class="msg eeshah">
+          <span class="sender">Ash replied</span>
+          Oommyyjeee! I was waiting for your text. Wanted to know how you felt. You summarized the whole day
+          beautifully. When I was with you, I felt like I don't have to do anything. I mean I felt at peace. I enjoyed
+          every single conversation. Every single fight. Every single thing. Us laughing. Us eating. Us riding bike. You
+          showing me your hometown was so sweet. Showing the areas you go to. The food spots. Cream puffs moment was
+          cute. Your gestures. Playing with my hair. Hugging me while sitting. Holding me on the bike.
+        </div>
+        <div class="msg eeshah">
+          <span class="sender">continued</span>
+          Today was something. Something that can't be put into words. It's something you can just feel. You convincing
+          me to come. Being there with me at every single thing I was hesitant for. Leading everything. Like I put
+          everything on you. Because I trusted you. I was nervous at first but the moment I saw you coming over I was
+          completely at peace. Like COMPLETELY.
+        </div>
+        <div class="msg eeshah">
+          <span class="sender">About the kiss</span>
+          Oh god. To be honest I wasn't expecting it. I was getting some signals but wasn't sure. I was very nervous.
+          Like my heartbeat was on peak within a minute. Never been this high in such a short time. But you kissed. You
+          kissed me. Yeah that was something. I mean never been kissed before so that was something really special. And
+          those after hugs were so emotional. It was like I was gonna cry idk why. I still can't get this out of my
+          head. It was UNREAL.
+        </div>
+      </div>
+    </div>
+
+    <!-- The First Kiss -->
+    <div class="section reveal reveal-delay-1">
+      <h2>The First Kiss</h2>
+      <p>I moved and tilted my head towards you. Lips touching each other. Ups and downs and heartbeat running faster
+        and faster. Hand moving down your back to your waist. Then towards your face. Then again towards your waist.
+        Lips were on lips. Kissing harder and harder. The more we kissed, stronger it got.</p>
+      <p>But then we hugged again. And when you put your forehead on mine and that eye contact... I just felt like
+        someone is kissing me. And I was like, WHATT. He's kissing me. He's KISSING me. I was surprised but there was a
+        moment when you kissed kinda passionately. I was like yeah, that's nice. I felt you. Your lips. Your kiss. Your
+        taste. And that after hug was emotional. My heartbeat was so high.</p>
+      <p>I was nervous. That's why when you were in my lap I couldn't. That was the best moment. I was afraid of what
+        you would think. But whenever I thought of kissing I couldn't. But it was uncontrolled. Natural.</p>
+      <p>Bawa I was just in love with the moment. I was thinking, yeah what have I done. Kissed. Mm. Dayum. She's
+        mimicking the same. Okay do passionate. I guess this is enough. Let's hug again. Hug so tight. I don't know when
+        I'll get a chance to hug again. I was shy to do eye contact after it. But I did.</p>
+    </div>
+
+    <div class="pull-quote">"Yess I kissed. Kissed you. I wasn't sure what would be the reaction. But whenever I think
+      of it now, I'm just blushing. Like it happened. It was my dream. Now it was reality. I'm blessed. Love you."</div>
+
+    <!-- Movie Day -->
+    <div class="section reveal">
+      <h2>23rd April - Movie Day</h2>
+      <div class="msg eeshah">
+        <span class="sender">Eeshah's POV</span>
+        I didn't know quiet could feel like this. Not empty. Not heavy. Just soft in a way that doesn't ask questions.
+        Us at the cinema enjoying everything like even the small moments mattered. Your hand in mine. You brushing my
+        arm. My hands and that brush on lips. That comfort without even trying. Like we had our own little world there.
+        It was in the way my head just went on your shoulder like it belonged there. No thinking. No explaining. Just
+        easy. And everything felt calm like we didn't need to act or pretend anything.
+      </div>
+
+      <div class="moment-card">
+        <span class="tag">Faxy's account</span>
+        <p>The way you were almost fully wrapped around my arm was wholesome. I wasn't focused on the movie much. I was
+          more indulged in feeling your physical touches everywhere. The micro eye contacts in the cinema. The minor
+          teasing. The laugh. My arm on your chest. You holding it. My hand on your thighs. Your head on my shoulder. We
+          were almost fully into each other. When the kiss scene came I instantly remembered our kiss moment.</p>
+        <p>After the movie we went to Dogar. I love how you behave like a child while eating. I can't explain it. Me
+          giving you pieces of chicken, raita, and sauce. You drinking more coke than food. Me adding more rice in front
+          of you and you holding me saying no no no. Dogar Sajji was peak food experience of ours till now.</p>
+        <p>Then Sweet Creme. You being mindless, holding my arm, trying to figure out where Eeshah is. Completely
+          unaware of everything. Ahh. Eating ice cream with you made it 10/10. That girl sitting beside me trying to eat
+          ice cream with brownie stole my heart there. She was so adorable. That girl was my Eeshah.</p>
+      </div>
+    </div>
+
+    <!-- Shalimar Bagh Kiss -->
+    <div class="section reveal">
+      <h2>The Second Time</h2>
+      <p>Ahhh, finally the best part. THE SHALIMAR BAGH. And we both knew why we were going there. You sitting on the
+        bench facing me. So much cute. Adorable. Almost had a kiss there when we had a very close eye contact. Then I
+        asked you, you want a hug? You said yes. You want a kiss? I'm not sure, you said. When you're unsure about
+        something it means you are afraid of the environment, not the thing. It means yes. And we started finding a spot
+        to kiss.</p>
+      <div class="moment-card">
+        <span class="tag">The kiss part</span>
+        <p>Your glasses. I took them off. And you said, "Chashma pehle aaya tha, ap baad mein." And we were just looking
+          into each other's eyes. Didn't wait a moment. Let our lips bump into each other. Upper lip on your upper lip.
+          Lower lip on your lower lip. My hand on your waist. Brushing up and down. We kissed for 36-42 seconds. Your
+          movement got intense. We had a passionate kiss. Still lips on lips. Moving up and down. And we stopped
+          kissing. Started again for a moment. Stopped. And hugged each other so hard. So much love. Warmth.</p>
+        <p>And then my face was directly in front of yours. And I gave a gentle soft kiss on your lips again. And we
+          hugged finally. Feeling every part of you touching me. From your hair to legs. From your back to chest. From
+          your arms to hands. From your neck to waist. Everything I fell in love with was there. And at last, the eyes.
+          They got me. And I was down there.</p>
+      </div>
+    </div>
+
+    <!-- What She Said -->
+    <div class="section reveal">
+      <h2>5 Things That Remind Her of Me</h2>
+      <p>1. Warmth or some comforting feeling. My comfort. My comfort food. My comfort movie. My comfort blanket.</p>
+      <p>2. Peace. Like nothing else matters. Everything is alright and perfect when I see you.</p>
+      <p>3. I will remember you kissing me whenever I see someone else having a kiss.</p>
+      <p>4. Bike. I don't think there is need of explanation here.</p>
+      <p>5. Wherever I am I will be like, you are missing here. You should have been here. So you can say everything.
+      </p>
+    </div>
+
+    <div class="pull-quote">"Every passing second. Every movement. Every expression. Every eye contact. Every line of
+      song. Hitting hard. Piercing the heart. Speechless."</div>
+
+    <!-- Her Words -->
+    <div class="section reveal">
+      <h2>Her Words That Stayed</h2>
+
+      <div class="chat">
+        <div class="msg eeshah">
+          <span class="sender">Eeshah wrote</span>
+          Fahad, I genuinely think you are such a beautiful person in ways I don't even say enough. The way you care,
+          the way you make room for people, the softness you have even when you try to hide things. And I adore you.
+          When you open up or stay with me. Because it is us. That "us" feeling gets me. Every time. Every single time.
+          The way you love, it is all so captivating to me. You are magnetic. You are one of those people I feel like I
+          could adore for a really long time and still not get enough.
+        </div>
+
+        <div class="msg eeshah">
+          <span class="sender">Eeshah wrote</span>
+          I feel like we say "I love you" a lot on text. But sometimes I worry words start losing their essence compared
+          to what I actually feel for you. Because it is more than just those three words to me. It is me wanting to
+          understand you. Wanting to protect your peace. Wanting to know the parts of you that go quiet when you are
+          hurting. I don't just want to love you in good moments. I want to be there in the heavy ones too. Because it
+          is us against everything.
+        </div>
+
+        <div class="msg eeshah">
+          <span class="sender">Eeshah wrote</span>
+          Pyaar se, you have been holding a lot inside for a long time. I don't see your emotions as something wrong or
+          weak. I don't lose respect for you if you feel things. I just want you to be a little kinder to yourself when
+          you are hurting. Please. For me. For us. You don't have to explain everything perfectly. Just letting me in a
+          little is enough. Because I care about you. And I don't want your emotions to become something you fight alone
+          all the time. Because it is us. Just us. I will try harder to notice. And you try to tell me a little more.
+          For us. For our growth. For our bond to stay magical.
+        </div>
+
+        <div class="msg eeshah">
+          <span class="sender">Eeshah said after the call</span>
+          This call was vulnerable. Emotional. Growing. Us being low. Intimate. Our love confession. And most
+          importantly, it was magical. And I loved it. And I love you. I keep replaying that call in my head. I don't
+          think you realize how special that moment felt. We were both low and somehow in between all of that missing
+          phase, hearing you say that felt so soft and real. It felt intimate. Like even when things weren't perfect, we
+          still had each other in that moment.
+        </div>
+
+        <div class="msg eeshah">
+          <span class="sender">Eeshah wrote</span>
+          When you said "I love you too" on call, something in me just stopped. Like for a moment everything around me
+          paused and my whole mind went quiet. I was still there, stuck in that exact moment. It felt so intimate. I
+          wasn't just hearing words. I was feeling them. Feeling you. Feeling us. Feeling the fact that the person I
+          love, the person I care about this deeply, loves me too. Hearing it from you healed me.
+        </div>
+      </div>
+    </div>
+
+    <!-- His Response -->
+    <div class="section reveal">
+      <h2>How I Felt</h2>
+      <p>I came home and saw your text. And I was like, damn. This is peak. I knew I would get a paragraph but didn't
+        expect to get this much. Every word of it felt real. And hit directly. I just kept reading it. Once. Twice.
+        Three times. Many times. Every time, the same smile.</p>
+      <p>And I am so glad that you are healed by this. The needed thing, I gave it to you without you even asking. Do
+        not say thank you, bacha. It is me. I can listen to your silent eyes. Hear your voiceless words. Feel your
+        warmth. You said things are easier on calls. Yes, they are way easier on calls. But I have a grip on texts more
+        than calls. And you have more on calls than texts. That is the true love spirit. You being you. Me being me. No
+        pretending.</p>
+      <p>You will try harder. I am with you. I am eager to get inside your head, to hear your thoughts that are
+        bothering you. To make them replaced by my love and affection. And I will do my best to know you. And you can be
+        awkward. You can hesitate. After that call, you can do anything except not being better than yesterday.</p>
+      <p>The four stages I told you about. Text, voice message, call, video call. We have improved so much. Growing with
+        a slow pace but the quality is A1. You didn't say everything properly on call. But I got everything. On point.
+      </p>
+    </div>
+
+    <div class="pull-quote">"It's not a situationship. It is the one ship with only two slots. Wondering how just you
+      and me are in it. Wandering around each other, exploring things together. Because it is just the you-and-me-ship."
+    </div>
+
+    <!-- On Growing -->
+    <div class="section reveal">
+      <h2>On Growing Together</h2>
+      <p>As the CEO of overthinking and research department, I noticed that we are stuck in the same pace. Daily same
+        things. Missing, loving, kissing, sexting, and just soft sides. I am loving it. Totally loving it. But I can get
+        bored. Not of you. But the same routine.</p>
+      <p>So parallel to these things, we get together and gain knowledge about different things. Your interests. My
+        interests. Intellectually strong. More and more. We can decide a video to watch and then discuss. Different
+        topics. Existentialism. Communism. History. Anything. So we could have more knowledge. Just not to bound
+        ourselves in this nutshell.</p>
+      <p>Because I want to groom. Before you I wanted to groom individually. But now I want to groom with you. Grow with
+        you.</p>
+      <p>We will be giving constructive feedback to each other. Like if you lack somewhere, I will tell. And vice versa.
+        Without any fear of separation. Increasing our understanding. We both are going to rise. Rise to such a level
+        that no one could reach us. Just us.</p>
+
+      <div class="msg eeshah">
+        <span class="sender">Eeshah responded</span>
+        Today's conversation felt really important to me. Like genuinely important and deep. It was much needed. I
+        realized and finally said out loud that I really do struggle with expressing myself on text sometimes. When we
+        are together or on call, things feel easier. Like you somehow understand me even when my words aren't perfect.
+        But on text my mind goes blank. But today made me realize something. Maybe this isn't something to hide from.
+        Maybe it is just something we learn through. Slowly. I want to try harder because I genuinely want to reach you
+        better. And maybe I'll be awkward. Maybe I'll struggle for words. Sometimes maybe I'll overthink again. But I
+        want to learn. With you.
+      </div>
+    </div>
+
+    <!-- On Being There -->
+    <div class="section reveal">
+      <h2>On Being There for Each Other</h2>
+      <div class="chat">
+        <div class="msg fahad">
+          <span class="sender">Fahad said</span>
+          Har koi nahi de sakta saath. Bht log waqt parne par saath chor jaate hain. People just leave when you start
+          believing that these can be with you in your difficult times. But please, I don't want you to be like this. If
+          you ever felt like I don't love this guy anymore, he's just a normal guy, just talk to me. We will do a
+          peaceful goodbye. Mutual. Not like with misunderstandings.
+        </div>
+        <div class="msg eeshah">
+          <span class="sender">Eeshah said</span>
+          Fahad, I am here with you. Look, I don't want to force you. For me your health, even if it's mental or
+          physical, it's top priority. If you need a break or anything, just tell me. You're the last person I'm going
+          to trust. Literally the last. I'm saying this because you have me all. And every other person has messed up.
+          So there's no room for anyone except you. I will always always put you first. You are my priority. I love you.
+          It's not the hurting kind of love. I want you to rise. I want you to grow. Not to fall.
+        </div>
+      </div>
+      <p>And I replied, it is about a person taking off their shoes, sitting by your head, running their hand over your
+        head, comforting you, and calmly whispering in your ear, "Eeshah, you are not alone. I am here with you. Your
+        Fahad is with you. Do not worry. I will fix everything."</p>
+      <p>If I am the reason for someone's happiness, for someone's peace, even if just for a moment, then sacrificing
+        mine is not a big deal.</p>
+    </div>
+
+    <!-- 5 Things That Remind Me -->
+    <div class="section reveal">
+      <h2>What Reminds Me of You</h2>
+      <p>The very first and I should say top one is kissing. I'm still seeing us kissing. I will never forget this
+        moment.</p>
+      <p>The words: hug, kiss, paradox, love, care, ash, mota, gadha, ulu. All these instantly remind me of you. You are
+        in my mind.</p>
+      <p>Whenever I see my iPhone. Like the opening screen. I'm yading-yading you. Because always the top notification
+        is "ash-twin sent a message." And I love it.</p>
+      <p>Whenever I see a beautiful poetry, quote, some real piece of literature or anything like that, I suddenly get
+        struck. Yeah my twin would love this.</p>
+      <p>Whenever I'm low. Whenever I feel sad. Whenever I was left alone. After meeting you, you were the first one in
+        my mind.</p>
+      <p>Whenever I see people calling, texting, or anything they're doing, I imagine my love and think she must have
+        been here.</p>
+      <p>Whenever I see beautiful eyes, I zone out and see your eyes in my vision.</p>
+      <p>Every app in my mobile almost reminds me of you. Because I showed you. Games I played with you. Social apps
+        because you are there. My gallery. Everything reminds me of you.</p>
+    </div>
+
+    <!-- The Longest Night -->
+    <div class="section reveal">
+      <h2>The Longest Night</h2>
+      <p>When no one can tell you cried last night. Because you are the goated one. The strong one. The caretaker. The
+        one who understands before people even speak. The listener. The guider. The teacher. The one giving everyone
+        lessons about life while forgetting what life is doing to him.</p>
+      <p>You let them pour their souls into your hands. You collect their broken pieces. You tell them they will
+        survive. You sit with their storms until the sky clears. But why does the one who carries everyone never get to
+        put his own weight down?</p>
+      <p>You think I opened up? You're delusional. If out of a hundred wounds you know one or two, that does not mean
+        you know me. You only know the version of me that survived long enough to smile. No one knows me.</p>
+      <p>I can read the silence in everyone's voice. I can hear the tears they never cried. At least let them cry in my
+        arms. At least let them fall apart with me. But where are the arms that will hold me until I stop pretending?
+        Where is the place where I do not have to be strong?</p>
+      <p>Will someone ever let me cry? Really cry. Not the silent tears at three in the morning. Not the smile while my
+        chest is bleeding. Not the "I'm fine" with a shaking voice.</p>
+      <p>Maybe one day they will realize. The strongest one in the room was never strong. He was just the one who cried
+        so quietly, the world mistook his silence for strength. It's me. Just me.</p>
+      <p>And the cruelest part? Even after all this, if you called me tonight and said "I am breaking, please stay" I
+        would still wipe my tears, hide my pain, and save you. While no one even notices that I was dying too.</p>
+    </div>
+
+    <div class="pull-quote">"You matter? Bro I wish I could just make you see how much you matter. I haven't cried for a
+      long time but I can if I ever hurt you so bad. I'm not afraid to lose anyone. But I will be in forever pain to let
+      you go."</div>
+
+    <!-- The One Tear -->
+    <div class="section reveal">
+      <h2>The One Tear</h2>
+      <div class="msg fahad">
+        <span class="sender">Fahad wrote</span>
+        That one tear. You didn't ask why that tear escaped. I texted Noor and just said "You up!?" We talked a bit
+        about paper and I said "yara it's heavy." And her reply was "Mein hu na, tu bol mujhe." And here I broke. And
+        that one tear escaped. That one drop of tears was so much heavier than you can imagine. It held the biggest
+        storm ever. That single droplet. I wanted that breakdown with you. Just you to be the one that is worthy enough
+        to see that single drop of tears. Not anyone else.
+      </div>
+      <p>Eeshah, it was never meant to make you afraid. I never want consolation. You know it better. And I know it will
+        be messy. Awkward. But we will handle it. I knew that if I shared it with you, I would find more peace. I just
+        rebuilt myself. And rose again.</p>
+    </div>
+
+    <!-- Sukuun -->
+    <div class="section reveal">
+      <h2>Sukuun</h2>
+      <div class="pull-quote">"Sukuun, in itself, is so deep. You find it all over the world. But it lies in a random
+        person you found randomly out of nowhere and got attached randomly. And on a random night which was too heavy
+        for you, you randomly opened up and now you are at the real sukuun."</div>
+    </div>
+
+    <!-- Urdu Poetry -->
+    <div class="section reveal">
+      <h2>Written for You</h2>
+
+      <div class="urdu-block">
+        سادگی میں بھی خوبصورتی کا جواب دیتی<br>
+        ایک ہستی مسکراتی کھلکھلاتی دبے لہجے میں اپنی کہانی بیان کرتی<br>
+        باتوں سے پھول آنکھوں سے تیر چلاتی<br>
+        ایک خوبصورت سادہ سی پیاری لڑکی عیشہ
+      </div>
+
+      <div class="urdu-block">
+        وہ پھول جو زینت بنے بیٹھا ہے کانوں کی<br>
+        نادان ہے شاید انجان ہے خبر نہیں باتوں کی<br>
+        پھولوں کی شہزادی کے سر کا تاج بنے بیٹھا ہے<br>
+        لگتا ہے فکر نہیں اسے اپنی پتیوں کی
+      </div>
+
+      <div class="urdu-block">
+        آہ وہ نخرہ وہ ناز وہ ادائیں<br>
+        کیسے ہم دل اپنا ہار نہ جائیں<br>
+        آنکھ جو ہٹائیں ایک لمحہ بھی<br>
+        خود کو ملال میں تڑپتا نہ پائیں؟
+      </div>
+
+      <div class="urdu-block">
+        کہتے جسکو ہیں گھر میں اسکو بڑی بیٹی کے نام سے جانا جاتا ہے<br>
+        نام اسکا عیشہ دیا گیا ہے<br>
+        ہمارے ہاں اسکی ایش پکارا جاتا ہے<br>
+        خوبصورت ہے پیاری ہے نخرے والی بھی ہے<br>
+        میرے ہاں دل میں بسایا جاتا ہے
+      </div>
+
+      <div class="urdu-block">
+        آپکو نہارنے کو تو چاند بھی کم ہے<br>
+        آپکی زلفیں کھل جائیں تو ظلم کی انتہا ہے<br>
+        ہم انہیں سنوار نہ پائیں<br>
+        انکو ہاتھوں سے سہلا نہ پائیں<br>
+        ہم ترس کر مر نہ جائیں؟
+      </div>
+
+      <div class="urdu-block">
+        میرا دل تمہاری یادوں میں ڈوبتا ہے<br>
+        ہر لمحہ تیری کمی میں ڈوبتا گیا<br>
+        تیری دوری میں ہر پل گزر گیا
+      </div>
+
+      <div class="urdu-block">
+        یہ جو دھوپ میں چمکتی آنکھیں ہیں<br>
+        یہ وہی آنکھیں ہیں<br>
+        ڈوبنا چاہوں ہر لمحہ ہر پل جس میں<br>
+        ہاں یہ وہی آنکھیں ہیں<br>
+        جو لاکھوں کی بھیڑ میں مجھے دیکھیں<br>
+        جنہیں تلاش ہے تو صرف میری
+      </div>
+
+      <div class="urdu-block">
+        خواب کا آغاز آپ۔ دوریاں آپ۔ اختتام آپ۔<br>
+        مدعا آپ۔ مدعی آپ۔<br>
+        کہانی آپ۔ بیان کرنے والے ہم۔<br>
+        ادائیں بچھاتے آپ۔ دل سنبھالتے ہم۔<br>
+        خوابوں میں اک حور کی مانند آپ۔<br>
+        حقیقت میں گنہگار ہم۔
+      </div>
+    </div>
+
+    <div class="pull-quote">"I feel like I'm in love with your eyes. In love with your hair. In love with your lips.
+      With your presence. With you. I feel complete. Like something was lost and I found it in you. It was my peace that
+      was in you. Is in you. You are my peace."</div>
+
+    <!-- How I Would Like You to Love Me -->
+    <div class="section reveal">
+      <h2>How I Would Like You to Love Me</h2>
+      <p>First, the things I would like you to do more. Just be clumsy. Careless. Cute bacha with me. Every tension,
+        every stress, everything just tell me and forget. Sending me risky texts. Every thought you get, you share it
+        with me. Not worrying about anything.</p>
+      <p>Now the things you already do that I love so much. You just existing in my life. Eye contacts. You asking about
+        me in the morning, evening, afternoon, night. Every time. How am I. What I'm doing. Where am I. Efforts for
+        calls. Waiting for me. Sending me cute and flirty and loving reels. Sending me voice notes.</p>
+      <p>Now the top tier things. You sending me your videos. I'm so happy that I am worthy enough to see you. Your
+        eyes. Like those big brown eyes that get me every time. Your scent. Like whenever I am with you.</p>
+    </div>
+
+    <!-- 11 June -->
+    <div class="section reveal">
+      <h2>11 June <span class="date">The Last Day</span></h2>
+      <div class="moment-card">
+        <span class="tag">A day in college</span>
+        <p>For me, the most peaceful thing was in the lab. When we were talking and Muneeba came. You went to Muaaz and
+          the others. When you came back, I stopped your way a bit with my head. And you were like, "Aree, let me go."
+          You know what? That micro moment felt more peaceful than the whole conversation and holding hands. It was a
+          wave of peace. So much. It was so good.</p>
+        <p>The start of the day. You came. We went upstairs to the class. That fries moment. We were giving each other.
+          Ayayay. Then the bottle flip. I knew you would win your own game. And getting beaten by you, I always enjoy
+          that.</p>
+        <p>Then the conversation session. I was low. The situation was like that. But I calmed down a bit. Holding hands
+          and all that stuff.</p>
+        <p>After evaluation, the journey to the cafe. That dog session. It was perfect. So much fun. Like we were us.
+          Besides our tensions, we were happy. Enjoying our time together.</p>
+        <p>When I said we should go to the electrical department, I know you caught it. That was our kiss that we did in
+          that department.</p>
+        <p>And when we were in class, we had that eye contact. The urge to kiss you.</p>
+        <p>And the biggest one. You showing me your eyes to scare me. Ahh, cute as hell. Genuinely, they were the cutest
+          thing you did today.</p>
+      </div>
+    </div>
+
+    <!-- The Intimacy -->
+    <div class="section reveal">
+      <h2>The Intimacy Between Us</h2>
+      <p>From cutest clingy moments to sexting. Your eyes. The touch. The peace that runs across the body by just a mere
+        brushing. The care. The affection. The trust. It is love. And we just got lost in each other so deeply that we
+        forget everything and just want to be with each other.</p>
+      <p>In the paradoxes. Let us sleep while hugging you. Loving you. Kissing you.</p>
+    </div>
+
+    <!-- The Letter -->
+    <div class="section reveal">
+      <h2>Fahad's Letter to Eeshah</h2>
+      <div class="letter-block">
+        <p>Hey bacha. It is me. Your Mota. Wanted to say something. Just to you. Just us.</p>
+        <p>The thing is, do not be upset. Your Fahad, your Mota Gadha is with you. Always. This situation, do not ever
+          think you are alone. Whatever we do, we are we. We are ASH and FAXY. We are going to destroy everyone. Just
+          some time. Some time and it will pass.</p>
+        <p>And after that person leaves, when we sit together, watch, we will make such memories that we will forget
+          anything ever happened between us.</p>
+        <p>And bacha do not worry about me. I am fine. If I had a problem I would have hugged you and cried. But my baby
+          is not crying. Do not take tension for anything. Just study with all your heart.</p>
+        <p>Your Fahad is always with you. In every difficult moment.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">"If you ask me how much I will love you, I will just say the amount of love your body can
+      handle. Enough that your lungs get filled, your vessels get filled up with love instead of blood, your thoughts
+      filled up with love, your wounds pour out the love I gave to you, your eyes pull out love instead of tears. I will
+      love you this much."</div>
+
+    <!-- Who I Am -->
+    <div class="section reveal">
+      <h2>Who I Am</h2>
+      <p>Myself Fahad, aka Nawab Khan. You call me Mota Gadha. I am a professional mood uplifter. I can listen to you
+        the whole night without even making you feel bored. You can spend time with me by just giving me free food. I
+        lack sometimes in expressing myself, but you made it possible. I do graphic design, web dev, coding, AI agents,
+        bakchodi, taking care of others, being selfless. And a bit narcissist. And absurdist. And sometimes nihilist.
+      </p>
+      <p>At the end of the day, when I talk with my bhondu Rasamalai, I always get a good sleep.</p>
+    </div>
+
+    <!-- What I Want for You -->
+    <div class="section reveal">
+      <h2>What I Want for You</h2>
+      <p>I am here to make you love the pink again. To feel yourself proud. To love yourself. To heal from the things.
+        To heal the scars of the unknown. Heal the wounds that were hidden. Just unleash the potential of you. Because
+        if we could not be with each other in a year or a few, at least you will be with yourself. And not with a bundle
+        of regrets and insecurities and wounds. All negative things will be sucked out.</p>
+      <p>I will always want you at peace. I want you to choose you. Please go easy on yourself. I care about you.</p>
+    </div>
+
+    <!-- Remember Me -->
+    <div class="section reveal">
+      <h2>Remember Me</h2>
+      <div class="poetry-block">
+        It is a terrifying thing, to love you this deep and this true,<br>
+        To know that my heart could bleed out and still call for you.<br>
+        The distance is a cold, sharp knife that cuts through the night,<br>
+        Leaving us holding our breath, searching for a glimmer of light.<br>
+        It hurts to want you this much, it is a beautiful, aching scar<br>
+        To look at the sky and realize how far apart we are.<br>
+        <br>
+        But if the dark ever swallows you, and your thoughts turn to stone,<br>
+        If the weight of your own mind makes you feel utterly alone<br>
+        I would tear my own chest open, I would break every bone in my frame,<br>
+        Just to build you a shelter, just to whisper your name.<br>
+        I would gather your storms in my hands, let them tear me apart,<br>
+        Just so your lungs could breathe easy, just to quiet your heart.<br>
+        <br>
+        You ask if you matter, while I bleed out my love at your feet,<br>
+        Every promise I broke for you made my own life complete.<br>
+        If one day the silence takes me, and I can no longer speak,<br>
+        If my smile finally crumbles, and my armor grows weak<br>
+        Do not look for me in sadness, do not let your tears start,<br>
+        For you will find me resting in the quiet beats of your heart.<br>
+        <br>
+        For me is in you, Eeshah, and you is in me, always.<br>
+        No shadow can sever the bond that we built in the haze.<br>
+        If you wake up in the cold, and the world feels empty and wide,<br>
+        Just close your eyes and feel me I am standing right by your side.<br>
+        Our ship has only two slots, and though the storms may roar,<br>
+        I will hold your breaking pieces till we reach the quiet shore.
+      </div>
+    </div>
+
+    <!-- The Last Text -->
+    <div class="section reveal">
+      <h2>So Here We Are</h2>
+      <p>Before you, I had built myself into someone no one could reach. Layers upon layers of walls, silence dressed as
+        strength, laughter used as armor. I never let anyone in not this deep, not this real, not this raw. But then
+        you happened. And without even trying, you walked past every wall like they were made of air. With you, I became
+        someone I never knew I was hiding this real, this soft, this caring, this freaky, this alive. Everything I
+        kept buried, you made it feel safe to let breathe. Only you. And now I am so much happier loving you the way
+        your heart always needed.</p>
+      <p>And that love lives in the smallest things the things no one else would notice. I rush home not because the
+        day is over, but because you are waiting on the other side of the screen. I save my peace for you. I hold my
+        words all day just so I can pour them into you without breaks, without gaps, without making you wonder where I
+        went. Because I know you, Eeshah. Whether you say it or not, I know that somewhere between my messages, your
+        mind whispers, "Where did he go?" And I never want you to feel that silence again. Not from me. Never from me.
+      </p>
+      <p>Eeshah. Ash. Ashtwin. Pidi. Podi. Cutie pie. Pumpkin. Dumplings. Chashmish. Baddie. Chalta phirta bomb. Every
+        name I gave you carries a moment a laugh, a fight, a soft night, a silly joke that only we understand. You are
+        not just one person to me. You are an entire world wrapped in every name my heart could think of. And each one
+        of them is just another way of saying: I love you, I see you, you are mine.</p>
+      <p>And yet you ask me do you matter? Eeshah. Look at what you have done to me. I don't tell anything to anyone
+        except my 2-3 close ones but I tell you everything at its purest, unfiltered truth. I don't trust anyone but
+        I handed you my heart and my trust like they were always meant to be yours. I don't like physical touch but my
+        arms ached to hold you. I am not a call guy but I stayed on the phone with you for 6 hours and wanted more. I
+        am not a voice message guy but I send them to you because your happiness rewrites my rules. I don't seek
+        validation from anyone but I send you videos of myself just to hear you say something sweet. I don't send
+        poetry to many people but I write it for you, send it to you, and wait for your reaction like it holds my
+        entire world in it. Every single thing I said I would never do I did it for you. Willingly. Happily. Without a
+        second thought. Because you didn't just enter my life, you rearranged it.</p>
+      <p>And after all of this after every wall I broke for you, every rule I rewrote, every piece of myself I placed
+        in your hands you still ask if you matter? You don't just matter, Eeshah. You are the reason the word even
+        exists for me.</p>
+      <p>So let me say this, even though words will always fall short of what I truly feel. Thank you. Not the kind of
+        thank you people say out of habit the kind that shakes inside your chest because the gratitude is too heavy
+        for your tongue. You are that feeling that gives peace to the heart without any sound just through texts, just
+        through your presence, just through being you. You are the light that doesn't blind but gently glows, warming
+        every cold corner I forgot existed. People come and go, Eeshah. They meet you, they make promises, and then they
+        disappear like they were never there. Everyone does. But you you came and you stayed. You didn't just become a
+        part of my story. You became the story. And now there is no version of my life that makes sense without you in
+        it. We are not two anymore. We are we. And if I ever go quiet, if I ever fall silent for a while, know that even
+        my silence is whispering your name with gratitude. Just stay. That is all I will ever ask. Just stay. Everything
+        else every broken thing, every heavy thing, every uncertain thing it will fix itself. In fact, it already
+        is. Because you are here.</p>
+      <p>Me is you. You is me. We are not just connected we are interlinked. Woven into each other so deeply that
+        where I end, you begin. And where you begin, I am already there. Always. This is not just love. This is us. And
+        us is forever.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="signoff">
+      <span class="name">- Fahad</span>
+      <span class="tag">Your FAXY</span>
+    </div>
+
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const bookGlow = document.querySelector('.book');
+    let glowPhase = 0;
+    setInterval(() => {
+      glowPhase = (glowPhase + 1) % 360;
+      const intensity = 0.15 + 0.08 * Math.sin(glowPhase * Math.PI / 180);
+      bookGlow.style.boxShadow = `0 12px 60px rgba(120, 50, 200, ${intensity}), 0 0 80px rgba(200, 100, 255, ${intensity * 0.5})`;
+    }, 100);
+  </script>
+</body>
+
+</html>
