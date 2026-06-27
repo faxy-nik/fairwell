@@ -33,6 +33,30 @@
     </section>
 
     <section class="admin-section">
+      <h2>General Roadmap URLs</h2>
+      <p class="empty-note">Paste resource links for the 7-week plan and 9 AI skills. Students will see these as clickable links.</p>
+      <form method="POST" action="/api/general-urls" class="urls-form">
+        <div class="urls-grid">
+          <div class="url-group">
+            <h4>7-Week Plan</h4>
+            <% var weekLabels = {week1:'Week 1 — Python Basics',week2:'Week 2 — AI APIs',week3:'Week 3 — Vibe Coding',week4:'Week 4 — Build a Project',week5:'Week 5 — HTML/CSS + v0.dev',week6:'Week 6 — Deploy Live',week7:'Week 7 — Polish & Portfolio'}; %>
+            <% Object.keys(weekLabels).forEach(function(k) { %>
+              <label><%= weekLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
+            <% }); %>
+          </div>
+          <div class="url-group">
+            <h4>9 AI Skills</h4>
+            <% var skillLabels = {skill1:'Prompt Engineering',skill2:'AI Workflow Automation',skill3:'AI Agents',skill4:'RAG',skill5:'Fine-Tuning & GPTs',skill6:'Multimodal AI',skill7:'AI Video Generation',skill8:'AI Tool Stacking',skill9:'LLM Evaluation'}; %>
+            <% Object.keys(skillLabels).forEach(function(k) { %>
+              <label><%= skillLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
+            <% }); %>
+          </div>
+        </div>
+        <button type="submit" class="btn">Save URLs</button>
+      </form>
+    </section>
+
+    <section class="admin-section">
       <h2>Add Person</h2>
       <form method="POST" action="/api/person" class="inline-form">
         <input type="text" name="name" placeholder="Person name" required>

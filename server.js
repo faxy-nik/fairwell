@@ -63,9 +63,18 @@ app.use(session({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+var DEFAULT_URLS = {
+  week1: '', week2: '', week3: '', week4: '', week5: '', week6: '', week7: '',
+  skill1: '', skill2: '', skill3: '', skill4: '', skill5: '', skill6: '', skill7: '', skill8: '', skill9: ''
+};
+
 function loadConfig() {
   const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
   let changed = false;
+  if (!config.generalUrls) { config.generalUrls = {}; changed = true; }
+  Object.keys(DEFAULT_URLS).forEach(function(k) {
+    if (!config.generalUrls[k]) { config.generalUrls[k] = ''; changed = true; }
+  });
   config.people.forEach(p => {
     if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; }
     if (!p.roadmap) { p.roadmap = []; changed = true; }
@@ -98,7 +107,7 @@ app.get('/p/:token', (req, res) => {
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
   const hasCard = fs.existsSync(cardPath);
-  res.render('person', { person, hasCard });
+  res.render('person', { person, hasCard, generalUrls: config.generalUrls });
 });
 
 app.get('/admin/login', (req, res) => {
@@ -122,7 +131,7 @@ app.get('/admin/logout', (req, res) => {
 app.get('/admin', requireAuth, (req, res) => {
   const config = loadConfig();
   const publicUrl = process.env.PUBLIC_URL || (req.headers['x-forwarded-proto'] || req.protocol) + '://' + (req.headers['x-forwarded-host'] || req.get('host'));
-  res.render('admin', { people: config.people, req, publicUrl, msg: req.query.msg || null, err: req.query.err || null });
+  res.render('admin', { people: config.people, generalUrls: config.generalUrls, req, publicUrl, msg: req.query.msg || null, err: req.query.err || null });
 });
 
 app.post('/api/person', requireAuth, (req, res) => {
@@ -250,6 +259,15 @@ app.post('/api/person/:id/rename', requireAuth, (req, res) => {
     saveConfig(config);
   }
   res.redirect('/admin');
+});
+
+app.post('/api/general-urls', requireAuth, (req, res) => {
+  const config = loadConfig();
+  Object.keys(DEFAULT_URLS).forEach(function(k) {
+    if (req.body[k] !== undefined) config.generalUrls[k] = req.body[k];
+  });
+  saveConfig(config);
+  res.redirect('/admin?msg=URLs+updated');
 });
 
 app.get('/uploads/:person/:section/:file', (req, res) => {
