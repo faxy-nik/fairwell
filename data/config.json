@@ -6,9 +6,19 @@
       "accessToken": "e702fee7adb630168a7ce27f46e6cd6c",
       "roadmap": [
         {
-          "date": "2026-07-08",
-          "title": "ASD",
-          "description": ""
+          "date": "",
+          "title": "Skill — Sketching or Digital Art",
+          "description": "You already communicate without words. Learn to do it on paper too. One sketch every 3 days."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Isha",
+          "description": "The night prayer. A quiet way to end your day before your mind starts running again."
+        },
+        {
+          "date": "",
+          "title": "Extra — Read & Observe",
+          "description": "Read 'The Art of Happiness' by Dalai Lama. You will find parts of yourself in it. Also, try spending one day without using eye contact to communicate. See how many people actually notice."
         }
       ],
       "sections": [
@@ -40,9 +50,19 @@
       "accessToken": "b385b46e7d88ce1e5646b234b5d048ff",
       "roadmap": [
         {
-          "date": "2026-06-26",
-          "title": "ASD",
-          "description": "ASD"
+          "date": "",
+          "title": "Skill — Backend Framework (Django or Go)",
+          "description": "You already have the logic. Now learn how to build something that actually ships. Build one small project by the end."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Fajr",
+          "description": "The hardest one. If you can wake up for Fajr consistently for 90 days, you can train yourself to do anything."
+        },
+        {
+          "date": "",
+          "title": "Extra — Read",
+          "description": "Read 'Man's Search for Meaning' by Viktor Frankl. You like deep conversations about human nature. This book will give you more to think about than any cafe discussion ever could."
         }
       ],
       "sections": []
@@ -51,42 +71,138 @@
       "id": "fahad",
       "name": "fahad",
       "accessToken": "c70285dbe96086842dee1b3097f7f77d",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Public Speaking or Debate",
+          "description": "You already have the thoughts. Now learn how to structure them so people cannot look away. Record one video every week."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Maghrib + Isha",
+          "description": "The evening prayers. A way to close your day with intention instead of just scrolling until you sleep."
+        },
+        {
+          "date": "",
+          "title": "Extra — Write a Journal",
+          "description": "Not for anyone else. Just for you. You spend so much time talking to others — spend some time talking to yourself. One page every night before Isha."
+        }
+      ],
       "sections": []
     },
     {
       "id": "aimal",
       "name": "aimal",
       "accessToken": "0041b01074470c6b7a9bc68c085180d3",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Photography or Content Creation",
+          "description": "You have energy that translates well visually. Learn basic composition and editing. Capture one thing that made you smile every day."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Dhuhr",
+          "description": "A midday pause. You have so much energy — use it to remind yourself where it all comes from."
+        },
+        {
+          "date": "",
+          "title": "Extra — Mood Playlist",
+          "description": "Keep a playlist of songs that match your mood each week. Music says what energy alone cannot. At the end of 3 months, listen to the whole playlist in order. You will hear your own story."
+        }
+      ],
       "sections": []
     },
     {
       "id": "muneeba",
       "name": "muneeba",
       "accessToken": "e4b795e5076c9c0b604494746c314333",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Baking or Cooking",
+          "description": "You already have the patience for it. Learn 3 new dishes by the end of the break and document them."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Zuhr + Asr",
+          "description": "The midday prayers. They pull you back in the middle of a busy day and remind you why you are doing what you are doing."
+        },
+        {
+          "date": "",
+          "title": "Extra — Gratitude Jar",
+          "description": "Every day write one thing you were thankful for. Open it on the last day of the break. You will be surprised how full it gets."
+        }
+      ],
       "sections": []
     },
     {
       "id": "eeshah",
       "name": "eeshah",
       "accessToken": "1eb8b4802a43dad9ddc56151777d6e20",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Urdu Calligraphy or Poetry",
+          "description": "You have a way with words that deserves a form. Try khattati or write one ghazal by the end of 3 months."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Fajr + Isha",
+          "description": "The two prayers most people miss. If you can hold those for 90 days, you can hold anything."
+        },
+        {
+          "date": "",
+          "title": "Extra — Read & Write",
+          "description": "Read 'The Forty Rules of Love' by Elif Shafak. It talks about paradoxes in a way I think you will understand. Also, write down one paradox you noticed about yourself every week. You might surprise yourself."
+        }
+      ],
       "sections": []
     },
     {
       "id": "moazam",
       "name": "moazam",
       "accessToken": "34970b7b0ed757656d6de55ec63dbd5c",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Video Editing or Short-Form Content",
+          "description": "You already make people laugh. Learn how to edit — you can turn group moments into something everyone will want to watch."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — Fajr",
+          "description": "You bring energy to everyone else. Start your day by bringing some to yourself first. 90 days of Fajr. You can do it."
+        },
+        {
+          "date": "",
+          "title": "Extra — Joke Log",
+          "description": "Write down one joke or funny moment every day. By the end of 3 months, you will have 90 moments of your own life that made you laugh. That is worth keeping."
+        }
+      ],
       "sections": []
     },
     {
       "id": "ahsan",
       "name": "ahsan",
       "accessToken": "0614388c389b0d2e5bd18de225198984",
-      "roadmap": [],
+      "roadmap": [
+        {
+          "date": "",
+          "title": "Skill — Fitness or a Sport",
+          "description": "You are consistent in presence. Now be consistent in movement. Pick a routine and do not skip it for 90 days."
+        },
+        {
+          "date": "",
+          "title": "Namaz Diary — All 5",
+          "description": "You do not need a gradual start. You show up when it matters. Treat namaz the same way."
+        },
+        {
+          "date": "",
+          "title": "Extra — Read",
+          "description": "Read 'Atomic Habits' by James Clear. You already understand the power of small consistent actions. This book will show you how to use it intentionally."
+        }
+      ],
       "sections": []
     }
   ]
