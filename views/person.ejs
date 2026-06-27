@@ -8,17 +8,17 @@
 </head>
 <body>
   <div class="container">
-    <header class="site-header">
+    <header class="site-header animate-fade-down">
       <h1>Hey <%= person.name %>! 🎉</h1>
       <p class="subtitle">Here are your class memories</p>
     </header>
 
     <% if (person.roadmap && person.roadmap.length > 0) { %>
-      <div class="roadmap-section">
-        <h2 class="roadmap-title">Our Journey 🗺️</h2>
+      <div class="roadmap-section animate-fade-up">
+        <h2 class="roadmap-title">A short roadmap or todo list specially for you 📋</h2>
         <div class="roadmap-timeline">
-          <% person.roadmap.forEach(function(item) { %>
-            <div class="roadmap-item">
+          <% person.roadmap.forEach(function(item, idx) { %>
+            <div class="roadmap-item animate-stagger" style="animation-delay: <%= idx * 0.15 %>s">
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <% if (item.date) { %><span class="roadmap-date"><%= item.date %></span><% } %>
@@ -32,7 +32,7 @@
     <% } %>
 
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
-      <div class="section-box farewell-card-box">
+      <div class="section-box farewell-card-box animate-fade-up">
         <div class="section-header">
           <span class="section-icon">💌</span>
           <h3>Farewell Card</h3>
@@ -54,8 +54,8 @@
         <% } %>
       <% } %>
 
-      <% person.sections.forEach(function(section) { %>
-        <div class="section-box">
+      <% person.sections.forEach(function(section, secIdx) { %>
+        <div class="section-box animate-fade-up" style="animation-delay: <%= 0.1 + secIdx * 0.1 %>s">
           <div class="section-header">
             <span class="section-icon"><%= {voice: '🎤', images: '🖼️', videos: '🎬', texts: '📝', other: '📦'}[section.type] || '📦' %></span>
             <h3><%= section.title %></h3>
@@ -119,7 +119,7 @@
     </div>
 
     <footer class="site-footer">
-      <p>Made with love for our class</p>
+      <p>Made with love for you</p>
     </footer>
   </div>
 </body>
