@@ -73,7 +73,7 @@ function loadConfig() {
   let changed = false;
   if (!config.generalUrls) { config.generalUrls = {}; changed = true; }
   Object.keys(DEFAULT_URLS).forEach(function(k) {
-    if (!config.generalUrls[k]) { config.generalUrls[k] = ''; changed = true; }
+    if (config.generalUrls[k] === undefined) { config.generalUrls[k] = ''; changed = true; }
   });
   config.people.forEach(p => {
     if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; }
