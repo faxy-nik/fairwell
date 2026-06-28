@@ -631,6 +631,10 @@ body {
   font-size: 0.85rem;
 }
 
+.items-list {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .items-list h4 {
   margin-bottom: 8px;
   color: #aaa;
@@ -1215,45 +1219,82 @@ html {
   margin-top: 0;
 }
 
-@media (max-width: 768px) {
-  .items-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
-  .inline-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .admin-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .tabs-nav {
-    gap: 3px;
-    padding: 4px;
-  }
-  .tab-btn {
-    font-size: 0.8rem;
-    padding: 8px 10px;
-  }
-  .ai-skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .namaz-prayer-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  .namaz-stats-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .week-grid {
-    gap: 4px;
-  }
-  .week-day {
-    padding: 8px 2px;
-  }
+@media (max-width: 900px) {
+  .site-header h1 { font-size: 1.8rem; }
+  .site-header { padding: 24px 0; }
+  .person-header h2 { font-size: 1.3rem; }
+  .items-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .items-masonry { column-count: 2; }
+  .countdown { gap: 12px; flex-wrap: wrap; }
+  .countdown-item { padding: 12px 16px; min-width: 65px; }
+  .countdown-item span:first-child { font-size: 1.6rem; }
+  .tabs-nav { gap: 2px; padding: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-btn { font-size: 0.78rem; padding: 8px 10px; white-space: nowrap; }
+  .urls-grid { grid-template-columns: 1fr; }
+  .admin-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .inline-form { flex-direction: column; align-items: stretch; }
+  .roadmap-timeline { padding-left: 16px; }
+  .roadmap-content { padding-left: 16px; }
+  .person-card { padding: 16px; }
+  .person-card .avatar { font-size: 2rem; }
+  .photo-wall { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .site-header h1 { font-size: 1.5rem; }
+  .subtitle { font-size: 0.95rem; }
+  .items-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+  .items-masonry { column-count: 1; }
+  .item-card { font-size: 0.85rem; }
+  .section-box { padding: 12px; }
+  .section-header h3 { font-size: 0.95rem; }
+  .section-header { flex-wrap: wrap; }
+  .roadmap-section { padding: 16px; }
+  .roadmap-title { font-size: 1.1rem; }
+  .roadmap-date { font-size: 0.7rem; }
+  .roadmap-heading { font-size: 0.9rem; }
+  .roadmap-desc { font-size: 0.8rem; }
+  .ai-skills-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .ai-skill-card { padding: 12px; }
+  .ai-skill-card h3 { font-size: 0.85rem; }
+  .ai-skill-card p { font-size: 0.75rem; }
+  .tabs-nav { gap: 2px; padding: 3px; }
+  .tab-btn { font-size: 0.72rem; padding: 6px 8px; }
+  .namaz-prayer-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .namaz-prayer-card { padding: 10px 6px; }
+  .prayer-name { font-size: 0.75rem; }
+  .prayer-check { width: 32px; height: 32px; font-size: 0.9rem; }
+  .namaz-stat-value { font-size: 1.3rem; }
+  .namaz-stat-card { padding: 12px 8px; }
+  .namaz-stats-row { flex-direction: column; gap: 8px; }
+  .week-grid { gap: 3px; }
+  .week-day { padding: 6px 2px; }
+  .week-day-bar { height: 30px; }
+  .week-day-count { font-size: 0.6rem; }
+  .countdown { gap: 8px; }
+  .countdown-item { padding: 8px 10px; min-width: 55px; }
+  .countdown-item span:first-child { font-size: 1.3rem; }
+  .cd-label { font-size: 0.6rem; }
+  .locked-page h2 { font-size: 1.3rem; }
+  .locked-page p { font-size: 0.95rem; }
+  .chat-glimpse-preview { padding: 16px; }
+  .chat-glimpse-preview p { font-size: 0.85rem; }
+  .site-header .btn { font-size: 0.8rem; padding: 8px 16px; }
+  .admin-section-box { padding: 12px; overflow-x: auto; }
+  .admin-section-box table { font-size: 0.8rem; }
+  .admin-section-box th, .admin-section-box td { padding: 6px 4px; }
+  .urls-form input { font-size: 0.8rem; padding: 6px 8px; }
+  .url-group h4 { font-size: 0.8rem; }
+  .hero h1 { font-size: 1.6rem; }
+  .people-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .person-card .name { font-size: 0.9rem; }
+  .final-message h2 { font-size: 1.3rem; }
+  .final-message p { font-size: 0.9rem; }
+  .memory-quote { font-size: 0.9rem; padding: 14px 16px; }
+  .photo-wall { grid-template-columns: repeat(2,1fr); gap: 8px; }
+  .photo-wall .photo-placeholder { font-size: 1.8rem; }
+  #music-toggle { bottom: 12px; right: 12px; padding: 8px 14px; font-size: 0.75rem; }
 }
 
 /* ── Countdown Timer (locked page) ── */

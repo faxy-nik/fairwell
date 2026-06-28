@@ -8,7 +8,10 @@ const archiver = require('archiver');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_ROOT = process.env.SPACE_ID ? path.join(__dirname, 'data') : (fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data'));
+const APP_DATA = path.join(__dirname, 'data');
+
+// Use /data on HF Spaces (persistent storage), fall back to __dirname/data locally
+const DATA_ROOT = (fs.existsSync('/data') ? '/data' : APP_DATA);
 const CONFIG_PATH = path.join(DATA_ROOT, 'config.json');
 const PASSWORD_FILE = path.join(DATA_ROOT, 'admin-password.txt');
 const UPLOADS_ROOT = path.join(DATA_ROOT, 'uploads');
@@ -19,8 +22,25 @@ function ensureDir(dir) {
 }
 ensureDir(DATA_ROOT);
 ensureDir(UPLOADS_ROOT);
+
+// Migrate existing data from git-tracked data/ to persistent /data on first run
+if (DATA_ROOT !== APP_DATA && !fs.existsSync(CONFIG_PATH) && fs.existsSync(path.join(APP_DATA, 'config.json'))) {
+  console.log('Migrating data to persistent storage...');
+  const copyRecursive = function(src, dst) {
+    if (!fs.existsSync(src)) return;
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    for (const e of entries) {
+      const s = path.join(src, e.name);
+      const d = path.join(dst, e.name);
+      if (e.isDirectory()) { ensureDir(d); copyRecursive(s, d); }
+      else fs.copyFileSync(s, d);
+    }
+  };
+  copyRecursive(APP_DATA, DATA_ROOT);
+}
+
 if (!fs.existsSync(CONFIG_PATH)) {
-  const defaultConfig = path.join(__dirname, 'data', 'config.json');
+  const defaultConfig = path.join(APP_DATA, 'config.json');
   if (fs.existsSync(defaultConfig)) {
     fs.copyFileSync(defaultConfig, CONFIG_PATH);
   } else {
