@@ -168,7 +168,17 @@
                 </label>
                 <button type="submit" class="btn small">Upload</button>
               </form>
-            </div>
+
+              <% if (section.type === 'voice') { %>
+              <div class="voice-recorder" style="margin-top:10px;padding:12px;border:1px dashed #555;border-radius:8px">
+                <h4>🎙 Record Voice Note</h4>
+                <button type="button" class="btn small" onclick="startRecording(this)" data-person="<%= person.id %>" data-section="<%= section.id %>">Start Recording</button>
+                <span class="rec-status"></span>
+                <input type="text" id="rec-title-<%= section.id %>" placeholder="Voice title" style="width:100%;margin-top:6px;box-sizing:border-box">
+                <audio id="rec-preview-<%= section.id %>" controls style="display:none;width:100%;margin-top:6px"></audio>
+                <button type="button" class="btn small" id="rec-upload-<%= section.id %>" style="display:none;margin-top:6px" onclick="uploadRecording('<%= person.id %>','<%= section.id %>')">Upload Recording</button>
+              </div>
+              <% } %>
 
             <% if (section.items.length > 0) { %>
               <div class="items-list">
@@ -207,5 +217,65 @@
       </section>
     <% }); %>
   </div>
+
+<script>
+var mediaRecorder, audioChunks = [], recordingPersonId, recordingSectionId;
+
+function startRecording(btn) {
+  recordingPersonId = btn.getAttribute('data-person');
+  recordingSectionId = btn.getAttribute('data-section');
+  var status = btn.parentElement.querySelector('.rec-status');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    status.textContent = '❌ Recording not supported in this browser';
+    return;
+  }
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    mediaRecorder.stop();
+    return;
+  }
+  audioChunks = [];
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = function(e) { if (e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = function() {
+      stream.getTracks().forEach(function(t) { t.stop(); });
+      var blob = new Blob(audioChunks, { type: 'audio/wav' });
+      var url = URL.createObjectURL(blob);
+      var preview = btn.parentElement.querySelector('audio');
+      preview.src = url;
+      preview.style.display = 'block';
+      btn.parentElement.querySelector('#rec-upload-' + recordingSectionId).style.display = 'inline-block';
+      btn.textContent = '🔴 Record Again';
+      status.textContent = '✓ Recorded ' + (blob.size / 1024).toFixed(1) + 'KB';
+    };
+    mediaRecorder.start();
+    btn.textContent = '⏹ Stop Recording';
+    status.textContent = '🔴 Recording...';
+  }).catch(function(err) {
+    status.textContent = '❌ Microphone access denied: ' + err.message;
+  });
+}
+
+function uploadRecording(personId, sectionId) {
+  var status = document.querySelector('#rec-upload-' + sectionId).parentElement.querySelector('.rec-status');
+  var title = document.getElementById('rec-title-' + sectionId).value || 'Voice recording';
+  var blob = new Blob(audioChunks, { type: 'audio/wav' });
+  var reader = new FileReader();
+  reader.onload = function() {
+    var base64 = reader.result.split(',')[1];
+    var formData = new URLSearchParams();
+    formData.append('audio', base64);
+    formData.append('title', title);
+    fetch('/api/person/' + personId + '/record-voice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    }).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.success) { status.textContent = '✅ Uploaded! Refresh to see it.'; } else { status.textContent = '❌ ' + (data.error || 'Upload failed'); }
+    }).catch(function(err) { status.textContent = '❌ ' + err.message; });
+  };
+  reader.readAsDataURL(blob);
+}
+</script>
 </body>
 </html>

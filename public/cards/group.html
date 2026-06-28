@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Our Class — Together Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background: #0a0a14;
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.container { max-width: 820px; margin: 0 auto; padding: 40px 20px 60px; }
+
+.hero {
+  text-align: center;
+  padding: 60px 0 40px;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 2px;
+  background: linear-gradient(90deg,transparent,#667eea,transparent);
+}
+.hero h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg,#667eea,#764ba2,#f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.hero .date {
+  color: #666;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+.hero .tagline {
+  color: #999;
+  font-size: 1.1rem;
+  margin-top: 16px;
+  font-weight: 300;
+}
+
+.memory-section {
+  margin: 48px 0;
+}
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ccc;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg,#2a3a5e,transparent);
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  gap: 16px;
+}
+
+.person-card {
+  background: linear-gradient(135deg,#12122a 0%,#1a0d20 100%);
+  border: 1px solid #2a2a4a;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+.person-card:hover {
+  border-color: #667eea;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(102,126,234,0.2);
+}
+.person-card .avatar {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.person-card .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #eee;
+}
+.person-card .role {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 4px;
+}
+
+.memory-quote {
+  background: linear-gradient(135deg,#16213e 0%,#1a0d20 100%);
+  border-left: 3px solid #667eea;
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-style: italic;
+  color: #bbb;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+.memory-quote .author {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,#667eea,#764ba2,transparent);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: fadeIn 0.5s ease forwards;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #667eea;
+  border: 2px solid #0a0a14;
+  box-shadow: 0 0 0 2px #667eea;
+}
+.timeline-item .year {
+  font-size: 0.8rem;
+  color: #667eea;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.timeline-item .desc {
+  color: #bbb;
+  margin-top: 4px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.photo-wall {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+.photo-wall .photo-placeholder {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg,#1a1a3a,#2a1a3a);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  border: 1px solid #2a2a4a;
+  transition: all 0.3s ease;
+}
+.photo-wall .photo-placeholder:hover {
+  border-color: #667eea;
+  transform: scale(1.03);
+}
+
+.final-message {
+  text-align: center;
+  padding: 60px 0 40px;
+  border-top: 1px solid #1a1a3a;
+  margin-top: 40px;
+}
+.final-message h2 {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg,#667eea,#f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+.final-message p {
+  color: #888;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.stagger { animation-delay: var(--d); }
+
+@media (max-width:600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .people-grid { grid-template-columns: repeat(2,1fr); }
+  .photo-wall { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <h1>Our Class, Our Story</h1>
+    <div class="date">Batch of 2024–2026</div>
+    <p class="tagline">Eight hearts, one bond — memories that will last forever ✨</p>
+  </div>
+
+  <div class="memory-section">
+    <h2 class="section-title">👥 The Crew</h2>
+    <div class="people-grid">
+      <div class="person-card" style="--d:0.1s"><div class="avatar">🌙</div><div class="name">Eeshah</div><div class="role">The heart of the group</div></div>
+      <div class="person-card" style="--d:0.2s"><div class="avatar">🌸</div><div class="name">Muneeba</div><div class="role">The gentle soul</div></div>
+      <div class="person-card" style="--d:0.3s"><div class="avatar">⚡</div><div class="name">Muaaz</div><div class="role">The powerhouse</div></div>
+      <div class="person-card" style="--d:0.4s"><div class="avatar">🔥</div><div class="name">Fahad</div><div class="role">The firestarter</div></div>
+      <div class="person-card" style="--d:0.5s"><div class="avatar">🌺</div><div class="name">Maham</div><div class="role">The graceful one</div></div>
+      <div class="person-card" style="--d:0.6s"><div class="avatar">💫</div><div class="name">Aimal</div><div class="role">The star</div></div>
+      <div class="person-card" style="--d:0.7s"><div class="avatar">🌊</div><div class="name">Moazam</div><div class="role">The calm force</div></div>
+      <div class="person-card" style="--d:0.8s"><div class="avatar">🌄</div><div class="name">Ahsan</div><div class="role">The sunrise</div></div>
+    </div>
+  </div>
+
+  <div class="memory-section">
+    <h2 class="section-title">💬 Words from the Heart</h2>
+    <div class="memory-quote" style="--d:0.3s">
+      "This class wasn't just about lessons and grades — it was about laughter at 2 AM, inside jokes no one else gets, and a bond that distance can't break."
+      <span class="author">— All of us</span>
+    </div>
+    <div class="memory-quote" style="--d:0.5s">
+      "Some people come into your life for a reason, a season, or a lifetime. You guys? You're the lifetime kind."
+      <span class="author">— For everyone</span>
+    </div>
+    <div class="memory-quote" style="--d:0.7s">
+      "Wherever life takes us, this little corner of the internet will always remember who we were — and who we'll always be to each other."
+      <span class="author">— The class of 2026</span>
+    </div>
+  </div>
+
+  <div class="memory-section">
+    <h2 class="section-title">📅 Our Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item" style="--d:0.1s">
+        <div class="year">2024 — The Beginning</div>
+        <div class="desc">We walked into that classroom as strangers. Little did we know, we were about to meet some of the most important people in our lives.</div>
+      </div>
+      <div class="timeline-item" style="--d:0.2s">
+        <div class="year">Late Nights, Deep Talks</div>
+        <div class="desc">Shared projects turned into shared meals. Study sessions turned into 3 AM conversations about life, dreams, and everything in between.</div>
+      </div>
+      <div class="timeline-item" style="--d:0.3s">
+        <div class="year">The Inside Jokes</div>
+        <div class="desc">The memes, the nicknames, the moments that made us cry with laughter — those are the threads that wove us together.</div>
+      </div>
+      <div class="timeline-item" style="--d:0.4s">
+        <div class="year">2025 — Growing Together</div>
+        <div class="desc">Through highs and lows, celebrations and struggles, we were there for each other. That's what made this class different.</div>
+      </div>
+      <div class="timeline-item" style="--d:0.5s">
+        <div class="year">2026 — Forever</div>
+        <div class="desc">As we go our separate ways, we carry a piece of each other. This isn't goodbye — it's see you later.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memory-section">
+    <h2 class="section-title">🖼️ Memory Wall</h2>
+    <div class="photo-wall">
+      <div class="photo-placeholder">🌙</div>
+      <div class="photo-placeholder">🌸</div>
+      <div class="photo-placeholder">⚡</div>
+      <div class="photo-placeholder">🔥</div>
+      <div class="photo-placeholder">🌺</div>
+      <div class="photo-placeholder">💫</div>
+    </div>
+    <p style="text-align:center;color:#666;font-size:0.85rem;margin-top:10px">(Add your photos to the uploads section to fill this wall)</p>
+  </div>
+
+  <div class="final-message">
+    <h2>Thank you for everything 💙</h2>
+    <p>Eight names. One class. Countless memories that will live on forever. This page is our little time capsule — come back anytime to relive the moments.</p>
+    <p style="margin-top:16px;color:#667eea;font-size:0.9rem">Made with love,<br>Your classmate</p>
+  </div>
+
+</div>
+</body>
+</html>

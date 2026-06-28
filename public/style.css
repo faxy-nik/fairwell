@@ -1255,3 +1255,108 @@ html {
     padding: 8px 2px;
   }
 }
+
+/* ── Countdown Timer (locked page) ── */
+
+.locked-sub {
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.countdown {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #16213e;
+  border: 1px solid #2a3a5e;
+  border-radius: 14px;
+  padding: 18px 22px;
+  min-width: 80px;
+  transition: all 0.3s ease;
+}
+
+.countdown-item:hover {
+  border-color: #667eea;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102,126,234,0.15);
+}
+
+.countdown-item span:first-child {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.cd-label {
+  font-size: 0.75rem;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.locked-cta {
+  color: #888;
+  font-size: 1.05rem;
+}
+.locked-cta strong {
+  color: #667eea;
+}
+
+/* ── Masonry Gallery ── */
+
+.items-masonry {
+  column-count: 3;
+  column-gap: 14px;
+  grid-template-columns: none !important;
+}
+
+.items-masonry .item-card {
+  break-inside: avoid;
+  margin-bottom: 14px;
+  display: inline-block;
+  width: 100%;
+}
+
+.items-masonry .item-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .items-masonry { column-count: 2; }
+}
+@media (max-width: 500px) {
+  .items-masonry { column-count: 1; }
+}
+
+/* ── Admin Voice Recorder ── */
+
+.voice-recorder {
+  background: #0f1a2e;
+}
+.voice-recorder h4 {
+  margin: 0 0 10px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+.rec-status {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 0.85rem;
+  color: #888;
+}

@@ -10,7 +10,7 @@
   <div class="container">
     <%
       var now = new Date();
-      var unlock = new Date('2026-07-05T00:00:00');
+      var unlock = person.unlockDate ? new Date(person.unlockDate) : new Date('2026-07-05T00:00:00');
       var locked = now < unlock;
       var showGeneral = person.id !== 'muaaz' && person.id !== 'moazam';
       var gu = typeof generalUrls !== 'undefined' ? generalUrls : {};
@@ -20,7 +20,14 @@
       <div class="locked-page">
         <div class="lock-icon-large">🔒</div>
         <h2>Nothing opened yet</h2>
-        <p>Come back on <strong>5th July</strong> — everything will be ready for you ✨</p>
+        <p class="locked-sub">We're putting the final touches on everything for you ✨</p>
+        <div class="countdown" id="countdown">
+          <div class="countdown-item"><span id="cd-days">0</span><span class="cd-label">Days</span></div>
+          <div class="countdown-item"><span id="cd-hours">0</span><span class="cd-label">Hours</span></div>
+          <div class="countdown-item"><span id="cd-mins">0</span><span class="cd-label">Mins</span></div>
+          <div class="countdown-item"><span id="cd-secs">0</span><span class="cd-label">Secs</span></div>
+        </div>
+        <p class="locked-cta">Come back on <strong>5th July</strong> 🎉</p>
       </div>
     <% } else { %>
 
@@ -285,6 +292,24 @@
       </div>
     <% } %>
 
+    <div class="section-box animate-fade-up" style="border-color:rgba(102,126,234,0.2)">
+      <div class="section-header">
+        <span class="section-icon">👥</span>
+        <h3>Our Class Memory Book</h3>
+        <span class="item-count">shared</span>
+      </div>
+      <div class="chat-glimpse-preview">
+        <p>A shared card for all 8 of us — together forever 💙</p>
+        <a href="/cards/group.html" target="_blank" class="btn">Open Group Card</a>
+      </div>
+    </div>
+
+    <% if (typeof hasFiles !== 'undefined' && hasFiles) { %>
+    <div style="text-align:center;margin-bottom:24px">
+      <a href="/api/person/<%= person.id %>/download" class="btn" style="background:linear-gradient(135deg,#4caf50,#2e7d32)" onclick="this.textContent='Preparing...'">📦 Download All My Files</a>
+    </div>
+    <% } %>
+
     <div class="sections">
       <% if (person.sections.length === 0 && (!person.roadmap || person.roadmap.length === 0)) { %>
         <% if (typeof hasCard === 'undefined' || !hasCard) { %>
@@ -306,21 +331,23 @@
             <p class="empty-note">No items yet</p>
           <% } %>
 
-          <div class="items-grid">
+          <div class="items-grid <%= section.type === 'images' ? 'items-masonry' : '' %>">
             <% section.items.forEach(function(item) { %>
               <% var now = new Date(); %>
               <% var release = new Date(item.releaseDate + 'T23:59:59'); %>
               <% var isUnlocked = now >= release; %>
-              <% var fileUrl = '/uploads/' + person.id + '/' + section.id + '/' + item.filename; %>
-              <% var isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(item.filename); %>
-              <% var isVideo = /\.(mp4|webm|mov)$/i.test(item.filename); %>
-              <% var isAudio = /\.(mp3|wav|ogg|m4a)$/i.test(item.filename); %>
+              <% var isExternal = item.filename.indexOf('http') === 0; %>
+              <% var fileUrl = isExternal ? item.filename : '/uploads/' + person.id + '/' + section.id + '/' + item.filename; %>
+              <% var cleanName = item.filename.split('?')[0].split('/').pop(); %>
+              <% var isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(cleanName); %>
+              <% var isVideo = /\.(mp4|webm|mov)$/i.test(cleanName); %>
+              <% var isAudio = /\.(mp3|wav|ogg|m4a)$/i.test(cleanName); %>
 
-              <div class="item-card <%= isUnlocked ? 'unlocked' : 'locked' %>">
+              <div class="item-card <%= isUnlocked ? 'unlocked' : 'locked' %> <%= isImage ? 'item-image' : '' %>">
                 <% if (isUnlocked) { %>
                   <div class="item-preview">
                     <% if (isImage) { %>
-                      <img src="<%= fileUrl %>" alt="<%= item.title %>" loading="lazy">
+                      <img src="<%= fileUrl %>" alt="<%= item.title %>" loading="lazy" style="height:auto; min-height:100px">
                     <% } else if (isVideo) { %>
                       <video controls preload="metadata">
                         <source src="<%= fileUrl %>">
@@ -366,6 +393,24 @@
   </div>
 
   <script>
+  // ─── COUNTDOWN ───
+  (function() {
+    var el = document.getElementById('countdown');
+    if (!el) return;
+    var target = new Date('2026-07-05T00:00:00').getTime();
+    function tick() {
+      var now = new Date().getTime();
+      var diff = target - now;
+      if (diff <= 0) { location.reload(); return; }
+      document.getElementById('cd-days').textContent = Math.floor(diff / (1000*60*60*24));
+      document.getElementById('cd-hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      document.getElementById('cd-mins').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+      document.getElementById('cd-secs').textContent = Math.floor((diff % (1000*60)) / 1000);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
   // ─── TAB SWITCHING ───
   document.querySelectorAll('.tab-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {

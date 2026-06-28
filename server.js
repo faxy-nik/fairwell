@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const archiver = require('archiver');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -107,7 +108,9 @@ app.get('/p/:token', (req, res) => {
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
   const hasCard = fs.existsSync(cardPath);
-  res.render('person', { person, hasCard, generalUrls: config.generalUrls });
+  const personDir = path.join(UPLOADS_ROOT, person.id);
+  const hasFiles = fs.existsSync(personDir) && fs.readdirSync(personDir).length > 0;
+  res.render('person', { person, hasCard, hasFiles, generalUrls: config.generalUrls });
 });
 
 app.get('/admin/login', (req, res) => {
@@ -274,6 +277,51 @@ app.get('/uploads/:person/:section/:file', (req, res) => {
   const filePath = path.join(UPLOADS_ROOT, req.params.person, req.params.section, req.params.file);
   if (fs.existsSync(filePath)) res.sendFile(filePath);
   else res.status(404).send('File not found');
+});
+
+// ─── ZIP DOWNLOAD ───
+app.get('/api/person/:id/download', (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (!person) return res.status(404).send('Person not found');
+
+  const personDir = path.join(UPLOADS_ROOT, person.id);
+  if (!fs.existsSync(personDir)) return res.status(404).send('No files yet');
+
+  res.setHeader('Content-Type', 'application/zip');
+  res.setHeader('Content-Disposition', 'attachment; filename=' + person.id + '-memories.zip');
+
+  const archive = new archiver.ZipArchive();
+  archive.on('error', function(err) { res.status(500).send('Archive error: ' + err.message); });
+  archive.pipe(res);
+  archive.directory(personDir, person.id);
+  archive.finalize().catch(function(err) { if (!res.headersSent) res.status(500).send('Finalize error: ' + err.message); });
+});
+
+// ─── AUDIO RECORDING UPLOAD ───
+app.post('/api/person/:id/record-voice', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (!person) return res.status(404).json({ error: 'Person not found' });
+
+  const vmSection = person.sections.find(s => s.type === 'voice');
+  if (!vmSection) return res.status(400).json({ error: 'No voice section found; create one first' });
+
+  const audioBuffer = Buffer.from(req.body.audio, 'base64');
+  const filename = 'recording-' + Date.now() + '.wav';
+  const dir = path.join(UPLOADS_ROOT, person.id, vmSection.id);
+  ensureDir(dir);
+  fs.writeFileSync(path.join(dir, filename), audioBuffer);
+
+  vmSection.items.push({
+    filename: filename,
+    originalName: filename,
+    title: req.body.title || 'Voice recording',
+    releaseDate: req.body.releaseDate || new Date().toISOString().split('T')[0],
+    uploadedAt: new Date().toISOString()
+  });
+  saveConfig(config);
+  res.json({ success: true, filename: filename });
 });
 
 app.use((err, req, res, next) => {

@@ -712,6 +712,81 @@
           ]
         }
       ]
+    },
+    {
+      "id": "nk",
+      "name": "Test User",
+      "accessToken": "nk",
+      "unlockDate": "2025-01-01T00:00:00",
+      "roadmap": [
+        { "date": "2026-06-01", "title": "Test Roadmap Item 1", "description": "This is a test milestone" },
+        { "date": "2026-06-15", "title": "Test Roadmap Item 2", "description": "Another test milestone" }
+      ],
+      "sections": [
+        {
+          "id": "test-images",
+          "title": "Test Images",
+          "type": "images",
+          "items": [
+            {
+              "filename": "https://picsum.photos/400/300?random=1",
+              "originalName": "test-img-1.jpg",
+              "title": "Random Image 1",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            },
+            {
+              "filename": "https://picsum.photos/300/400?random=2",
+              "originalName": "test-img-2.jpg",
+              "title": "Random Image 2",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            },
+            {
+              "filename": "https://picsum.photos/500/300?random=3",
+              "originalName": "test-img-3.jpg",
+              "title": "Random Image 3",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "test-vms",
+          "title": "Test Voice Messages",
+          "type": "voice",
+          "items": [
+            {
+              "filename": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+              "originalName": "test-vm-1.mp3",
+              "title": "Test Voice 1",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            },
+            {
+              "filename": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+              "originalName": "test-vm-2.mp3",
+              "title": "Test Voice 2",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "id": "test-videos",
+          "title": "Test Videos",
+          "type": "videos",
+          "items": [
+            {
+              "filename": "https://www.w3schools.com/html/mov_bbb.mp4",
+              "originalName": "test-video-1.mp4",
+              "title": "Test Video 1",
+              "releaseDate": "2025-01-01",
+              "uploadedAt": "2025-01-01T00:00:00.000Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
