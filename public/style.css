@@ -1401,3 +1401,90 @@ html {
   font-size: 0.85rem;
   color: #888;
 }
+
+/* ── Profile Avatar ── */
+
+.profile-avatar {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 8px;
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* ── Reactions ── */
+
+.reaction-btn {
+  background: transparent;
+  border: 1px solid #3a3a5e;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.reaction-btn:hover {
+  border-color: #e74c3c;
+  background: rgba(231,76,60,0.1);
+}
+.reaction-btn.reacted {
+  border-color: #e74c3c;
+  background: rgba(231,76,60,0.15);
+  color: #e74c3c;
+}
+.reaction-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Progress Checkboxes ── */
+
+.roadmap-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.roadmap-heading-row .progress-check {
+  width: 16px;
+  height: 16px;
+  accent-color: #4caf50;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.roadmap-heading-row .progress-check:checked + .roadmap-heading {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.ai-skill-card .progress-check {
+  width: 14px;
+  height: 14px;
+  accent-color: #4caf50;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Visit Counter ── */
+
+.visit-counter {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* ── Tab Transitions ── */
+
+.tab-content {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.tab-content.active {
+  opacity: 1;
+  transform: translateY(0);
+}

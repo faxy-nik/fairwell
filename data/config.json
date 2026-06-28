@@ -22,6 +22,7 @@
       "id": "maham",
       "name": "maham",
       "accessToken": "e702fee7adb630168a7ce27f46e6cd6c",
+      "avatar": "🌺",
       "roadmap": [
         {
           "date": "",
@@ -108,6 +109,7 @@
       "id": "muaaz",
       "name": "muaaz",
       "accessToken": "b385b46e7d88ce1e5646b234b5d048ff",
+      "avatar": "⚡",
       "roadmap": [
         {
           "date": "",
@@ -195,6 +197,7 @@
       "id": "fahad",
       "name": "fahad",
       "accessToken": "c70285dbe96086842dee1b3097f7f77d",
+      "avatar": "🔥",
       "roadmap": [
         {
           "date": "",
@@ -282,6 +285,7 @@
       "id": "aimal",
       "name": "aimal",
       "accessToken": "0041b01074470c6b7a9bc68c085180d3",
+      "avatar": "💫",
       "roadmap": [
         {
           "date": "",
@@ -369,6 +373,7 @@
       "id": "muneeba",
       "name": "muneeba",
       "accessToken": "e4b795e5076c9c0b604494746c314333",
+      "avatar": "🌸",
       "roadmap": [
         {
           "date": "",
@@ -456,6 +461,7 @@
       "id": "eeshah",
       "name": "eeshah",
       "accessToken": "1eb8b4802a43dad9ddc56151777d6e20",
+      "avatar": "🌙",
       "roadmap": [
         {
           "date": "",
@@ -543,6 +549,7 @@
       "id": "moazam",
       "name": "moazam",
       "accessToken": "34970b7b0ed757656d6de55ec63dbd5c",
+      "avatar": "🌊",
       "roadmap": [
         {
           "date": "",
@@ -630,6 +637,7 @@
       "id": "ahsan",
       "name": "ahsan",
       "accessToken": "0614388c389b0d2e5bd18de225198984",
+      "avatar": "🌄",
       "roadmap": [
         {
           "date": "",
@@ -717,6 +725,7 @@
       "id": "nk",
       "name": "Test User",
       "accessToken": "nk",
+      "avatar": "🧪",
       "unlockDate": "2025-01-01T00:00:00",
       "roadmap": [
         { "date": "2026-06-01", "title": "Test Roadmap Item 1", "description": "This is a test milestone" },

@@ -32,8 +32,10 @@
     <% } else { %>
 
     <header class="site-header animate-fade-down">
-      <h1>Hey <%= person.name %>! 🎉</h1>
+      <div class="profile-avatar"><%= person.avatar || '🎉' %></div>
+      <h1>Hey <%= person.name %>!</h1>
       <p class="subtitle">Here are your class memories</p>
+      <span class="visit-counter">✨ Visited <strong><%= person.visits || 0 %></strong> times</span>
     </header>
 
     <% if (showGeneral) { %>
@@ -53,7 +55,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 1</span>
-                <h3 class="roadmap-heading">Python Basics Crash Course</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week1"><h3 class="roadmap-heading">Python Basics Crash Course</h3></div>
                 <p class="roadmap-desc">Variables, loops, functions, and file I/O. Code along with a short YouTube playlist. <% if (gu.week1) { %><a href="<%= gu.week1 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -61,7 +63,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 2</span>
-                <h3 class="roadmap-heading">How AI APIs Work</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week2"><h3 class="roadmap-heading">How AI APIs Work</h3></div>
                 <p class="roadmap-desc">OpenAI, Claude, Gemini APIs. Make your first API call. <% if (gu.week2) { %><a href="<%= gu.week2 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -69,7 +71,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 3</span>
-                <h3 class="roadmap-heading">Vibe Coding with Cursor &amp; Claude</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week3"><h3 class="roadmap-heading">Vibe Coding with Cursor &amp; Claude</h3></div>
                 <p class="roadmap-desc">Learn to prompt-code. Build a small app using natural language. <% if (gu.week3) { %><a href="<%= gu.week3 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -77,7 +79,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 4</span>
-                <h3 class="roadmap-heading">Build a Real Project (AI-assisted)</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week4"><h3 class="roadmap-heading">Build a Real Project (AI-assisted)</h3></div>
                 <p class="roadmap-desc">Todo app, blog, or portfolio — use AI to generate and iterate. <% if (gu.week4) { %><a href="<%= gu.week4 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -85,7 +87,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 5</span>
-                <h3 class="roadmap-heading">HTML/CSS + v0.dev UI</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week5"><h3 class="roadmap-heading">HTML/CSS + v0.dev UI</h3></div>
                 <p class="roadmap-desc">Design beautiful UIs with AI-powered tools like v0.dev. <% if (gu.week5) { %><a href="<%= gu.week5 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -93,7 +95,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 6</span>
-                <h3 class="roadmap-heading">Deploy it Live</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week6"><h3 class="roadmap-heading">Deploy it Live</h3></div>
                 <p class="roadmap-desc">Vercel, Netlify, or HuggingFace Spaces. Ship your project. <% if (gu.week6) { %><a href="<%= gu.week6 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -101,7 +103,7 @@
               <div class="roadmap-dot"></div>
               <div class="roadmap-content">
                 <span class="roadmap-date">Week 7</span>
-                <h3 class="roadmap-heading">Polish, Portfolio, Next Steps</h3>
+                <div class="roadmap-heading-row"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-week7"><h3 class="roadmap-heading">Polish, Portfolio, Next Steps</h3></div>
                 <p class="roadmap-desc">Add a README, clean up code, share it with friends. Plan what to build next. <% if (gu.week7) { %><a href="<%= gu.week7 %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></p>
               </div>
             </div>
@@ -127,7 +129,7 @@
               <div class="ai-skill-num"><%= s.n %></div>
               <h3><%= s.t %></h3>
               <p><%= s.d %></p>
-              <% if (gu[s.k]) { %><a href="<%= gu[s.k] %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:6px"><input type="checkbox" class="progress-check" data-key="progress-<%= person.id %>-<%= s.k %>"><span style="font-size:0.75rem;color:#888">done</span><% if (gu[s.k]) { %><a href="<%= gu[s.k] %>" target="_blank" class="url-link">🔗 Link</a><% } else { %><a href="#" class="url-placeholder">[Add URL in Admin]</a><% } %></div>
             </div>
             <% }); %>
           </div>
@@ -364,6 +366,7 @@
                   </div>
                   <div class="item-info">
                     <span class="item-title"><%= item.title %></span>
+                    <button class="reaction-btn" data-key="<%= person.id %>-<%= section.id %>-<%= item.filename.replace(/[^a-zA-Z0-9]/g,'') %>" onclick="toggleReaction(this)">🤍 <span class="reaction-count">0</span></button>
                   </div>
                 <% } else { %>
                   <div class="lock-overlay">
@@ -393,6 +396,42 @@
   </div>
 
   <script>
+  // ─── REACTIONS (localStorage) ───
+  (function() {
+    var reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
+    document.querySelectorAll('.reaction-btn').forEach(function(btn) {
+      var key = btn.getAttribute('data-key');
+      if (reactions[key]) { btn.innerHTML = '❤️ <span class="reaction-count">' + (reactions[key].count || 0) + '</span>'; btn.classList.add('reacted'); }
+      var c = btn.querySelector('.reaction-count');
+      if (c) c.textContent = reactions[key] ? reactions[key].count : 0;
+    });
+    window.toggleReaction = function(btn) {
+      var key = btn.getAttribute('data-key');
+      var r = JSON.parse(localStorage.getItem('reactions') || '{}');
+      if (!r[key]) r[key] = { count: 0, reacted: false };
+      r[key].reacted = !r[key].reacted;
+      r[key].count += r[key].reacted ? 1 : -1;
+      if (r[key].count < 0) r[key].count = 0;
+      btn.innerHTML = (r[key].reacted ? '❤️' : '🤍') + ' <span class="reaction-count">' + r[key].count + '</span>';
+      btn.classList.toggle('reacted', r[key].reacted);
+      localStorage.setItem('reactions', JSON.stringify(r));
+    };
+  })();
+
+  // ─── PROGRESS CHECKBOXES (localStorage) ───
+  (function() {
+    var progKey = 'progress-<%= person.id %>';
+    var saved = JSON.parse(localStorage.getItem(progKey) || '{}');
+    document.querySelectorAll('.progress-check').forEach(function(cb) {
+      var k = cb.getAttribute('data-key');
+      cb.checked = saved[k] || false;
+      cb.addEventListener('change', function() {
+        saved[k] = cb.checked;
+        localStorage.setItem(progKey, JSON.stringify(saved));
+      });
+    });
+  })();
+
   // ─── COUNTDOWN ───
   (function() {
     var el = document.getElementById('countdown');

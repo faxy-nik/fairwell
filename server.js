@@ -126,6 +126,9 @@ app.get('/p/:token', (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.accessToken === req.params.token);
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
+  if (!person.visits) person.visits = 0;
+  person.visits++;
+  saveConfig(config);
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
   const hasCard = fs.existsSync(cardPath);
   const hasFiles = person.sections.some(function(s) { return s.items.length > 0; });
