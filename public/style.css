@@ -1174,6 +1174,41 @@ html {
   display: inline-block;
 }
 
+/* ── Locked Page ── */
+
+.locked-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.locked-page .lock-icon-large {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.locked-page h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.locked-page p {
+  color: #888;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.locked-page p strong {
+  color: #667eea;
+}
+
 /* ── Namaz standalone (no tabs) ── */
 
 .namaz-section-standalone .roadmap-section {

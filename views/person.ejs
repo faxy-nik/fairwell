@@ -8,15 +8,26 @@
 </head>
 <body>
   <div class="container">
+    <%
+      var now = new Date();
+      var unlock = new Date('2026-07-05T00:00:00');
+      var locked = now < unlock;
+      var showGeneral = person.id !== 'muaaz' && person.id !== 'moazam';
+      var gu = typeof generalUrls !== 'undefined' ? generalUrls : {};
+    %>
+
+    <% if (locked) { %>
+      <div class="locked-page">
+        <div class="lock-icon-large">🔒</div>
+        <h2>Nothing opened yet</h2>
+        <p>Come back on <strong>5th July</strong> — everything will be ready for you ✨</p>
+      </div>
+    <% } else { %>
+
     <header class="site-header animate-fade-down">
       <h1>Hey <%= person.name %>! 🎉</h1>
       <p class="subtitle">Here are your class memories</p>
     </header>
-
-    <%
-      var showGeneral = person.id !== 'muaaz' && person.id !== 'moazam';
-      var gu = typeof generalUrls !== 'undefined' ? generalUrls : {};
-    %>
 
     <% if (showGeneral) { %>
     <!-- ─── TABS ─── -->
@@ -350,6 +361,8 @@
     <footer class="site-footer">
       <p>Made with love for you</p>
     </footer>
+
+    <% } /* end unlocked */ %>
   </div>
 
   <script>
