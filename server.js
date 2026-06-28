@@ -128,8 +128,7 @@ app.get('/p/:token', (req, res) => {
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
   const hasCard = fs.existsSync(cardPath);
-  const personDir = path.join(UPLOADS_ROOT, person.id);
-  const hasFiles = fs.existsSync(personDir) && fs.readdirSync(personDir).length > 0;
+  const hasFiles = person.sections.some(function(s) { return s.items.length > 0; });
   res.render('person', { person, hasCard, hasFiles, generalUrls: config.generalUrls });
 });
 
@@ -305,16 +304,32 @@ app.get('/api/person/:id/download', (req, res) => {
   const person = config.people.find(p => p.id === req.params.id);
   if (!person) return res.status(404).send('Person not found');
 
-  const personDir = path.join(UPLOADS_ROOT, person.id);
-  if (!fs.existsSync(personDir)) return res.status(404).send('No files yet');
-
   res.setHeader('Content-Type', 'application/zip');
   res.setHeader('Content-Disposition', 'attachment; filename=' + person.id + '-memories.zip');
 
   const archive = new archiver.ZipArchive();
   archive.on('error', function(err) { res.status(500).send('Archive error: ' + err.message); });
+
+  const personDir = path.join(UPLOADS_ROOT, person.id);
+  if (fs.existsSync(personDir)) {
+    archive.directory(personDir, person.id);
+  }
+
+  // Add a manifest with all items (including external URL items)
+  var manifest = 'Memories for ' + person.name + '\n';
+  manifest += 'Generated: ' + new Date().toISOString().split('T')[0] + '\n\n';
+  person.sections.forEach(function(s) {
+    if (s.items.length === 0) return;
+    manifest += '\n--- ' + s.title + ' (' + s.type + ') ---\n';
+    s.items.forEach(function(item) {
+      var isExternal = item.filename.indexOf('http') === 0;
+      manifest += '  - ' + item.title + '\n';
+      manifest += '    URL: ' + (isExternal ? item.filename : '/uploads/' + person.id + '/' + s.id + '/' + item.filename) + '\n';
+    });
+  });
+  archive.append(manifest, { name: person.id + '/MEMORIES_MANIFEST.txt' });
+
   archive.pipe(res);
-  archive.directory(personDir, person.id);
   archive.finalize().catch(function(err) { if (!res.headersSent) res.status(500).send('Finalize error: ' + err.message); });
 });
 
