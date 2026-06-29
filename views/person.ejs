@@ -6,7 +6,23 @@
   <title><%= person.name %> - Class Memories</title>
   <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="<%= person.id === 'eeshah' ? 'theme-eeshah' : '' %>">
+  <% if (person.id === 'eeshah') { %>
+  <div class="stars">
+    <span class="star"></span><span class="star"></span><span class="star"></span>
+    <span class="star"></span><span class="star"></span><span class="star"></span>
+    <span class="star"></span><span class="star"></span><span class="star"></span>
+    <span class="star"></span><span class="star"></span><span class="star"></span>
+    <span class="star"></span><span class="star"></span><span class="star"></span>
+  </div>
+  <div class="flowers-container">
+    <span class="flower">🌸</span><span class="flower">🌷</span><span class="flower">🌹</span>
+    <span class="flower">🌺</span><span class="flower">🌻</span><span class="flower">🌼</span>
+    <span class="flower">🌸</span><span class="flower">🌷</span><span class="flower">🌹</span>
+    <span class="flower">🌺</span>
+  </div>
+  <canvas class="fireworks-canvas" id="fireworks-canvas"></canvas>
+  <% } %>
   <div class="container" style="<%= person.theme ? '--accent:' + person.theme + ';--accent-glow:' + person.theme + '44' : '' %>">
     <%
       var now = new Date();
@@ -36,6 +52,33 @@
       <% if (person.badge) { %><span class="person-badge"><%= person.badge %></span><% } %>
       <h1>Hey <%= person.name %>!</h1>
       <% if (person.customMessage) { %><p class="custom-message"><%= person.customMessage %></p><% } %>
+      <% if (person.poems && person.poems.length > 0) { %>
+      <div class="section-box poetry-box">
+        <div class="section-header" style="justify-content:center"><span class="section-icon">✨</span><h3>A little verse for you</h3></div>
+        <div class="poetry-line" id="poetry-line"><%= person.poems[0] %></div>
+        <div class="poetry-dots" id="poetry-dots">
+          <% person.poems.forEach(function(p, i) { %>
+            <span class="poetry-dot <%= i === 0 ? 'active' : '' %>" data-idx="<%= i %>"></span>
+          <% }); %>
+        </div>
+      </div>
+      <% } %>
+
+      <% if (person.paradoxes && person.paradoxes.length > 0) { %>
+      <div class="section-box paradox-box">
+        <div class="section-header" style="justify-content:center"><span class="section-icon">♾️</span><h3>Paradox</h3></div>
+        <div class="paradox-text" id="paradox-text"></div>
+        <p style="font-size:0.75rem;color:#7c6a9a;margin-top:10px">↻ refresh to generate a new paradox</p>
+      </div>
+      <% } %>
+
+      <% if (person.id === 'eeshah') { %>
+      <div class="miss-button-wrapper">
+        <button class="miss-btn" id="miss-btn" onclick="openMissModal()">Press Only When You Miss Me 💌</button>
+      </div>
+      <span class="mind-counter" id="mind-counter" onclick="incrementMind()" title="click to count">84,321</span>
+      <% } %>
+
       <p class="subtitle">Here are your class memories</p>
       <span class="visit-counter">✨ Visited <strong><%= person.visits || 0 %></strong> times</span>
     </header>
@@ -255,6 +298,11 @@
     <% } %>
 
     <% if (person.id === 'eeshah') { %>
+    <div class="sky-section" id="sky-section">
+      <div class="sky-canvas" id="sky-canvas"></div>
+      <div class="sky-message"><span class="sky-label" id="sky-label"></span> Wherever you are, I hope you looked at this sky today too.</div>
+    </div>
+
       <div class="section-box chat-glimpse-box animate-fade-up">
         <div class="section-header">
           <span class="section-icon">💬</span>
@@ -409,6 +457,18 @@
       <% }); %>
     </div>
 
+    <% if (person.id === 'eeshah') { %>
+    <div class="before-after-card-box">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">🕊️</span><h3>Before You. After You.</h3></div>
+      <p style="text-align:center;color:#999;font-size:0.9rem;margin:6px 0 14px;font-style:italic">Some people don't leave memories. They leave a different version of you.</p>
+      <a href="/cards/before-after.html" target="_blank" class="btn">Open Before & After</a>
+    </div>
+    <div class="letter-subtle" onclick="openLetterModal()">
+      <span class="letter-subtle-dots">⁝</span>
+      <span class="letter-subtle-text">If You're Here...</span>
+    </div>
+    <% } %>
+
     <footer class="site-footer">
       <p>Made with love for you</p>
     </footer>
@@ -416,7 +476,360 @@
     <% } /* end unlocked */ %>
   </div>
 
+  <% if (person.id === 'eeshah') { %>
+  <!-- Overlay shared -->
+  <div class="heart-overlay" id="heart-overlay" onclick="closeAllModals(event)"></div>
+
+  <!-- Modal 1: Press Only When You Miss Me (simple) -->
+  <div class="heart-modal" id="miss-modal">
+    <button class="heart-close" onclick="closeAllModals()">✕</button>
+    <div class="miss-modal-content">
+      <p>If You're Here...</p>
+      <p>Then maybe today was heavier than usual.</p>
+      <p>Maybe something reminded you of us.</p>
+      <p>Maybe you heard a song we once loved.</p>
+      <p>Maybe you saw a place we've been.</p>
+      <p>Or maybe... you don't even know why you're here.</p>
+      <p>Hearts are strange like that.</p>
+      <p>They remember things our minds try to forget.</p>
+      <p>So before you leave... I need you to know something.</p>
+      <p>You were never just another person in my life.</p>
+      <p>You became the quiet after every storm.</p>
+      <p>The voice I searched for at the end of every day.</p>
+      <p>The reason ordinary moments suddenly felt worth remembering.</p>
+      <p>You changed me in ways you'll probably never understand.</p>
+      <p>There is a version of me that only existed because you existed.</p>
+      <p>A kinder one. A softer one. A happier one.</p>
+      <p>You built that person without ever realizing you were doing it.</p>
+      <p>If life has ever made you question your worth... Don't.</p>
+      <p>Because somewhere in this world, there is a heart that still carries your fingerprints.</p>
+      <p>Mine.</p>
+      <p>You are woven into my favorite memories.</p>
+      <p>Into sunsets. Into late nights. Into songs I can no longer hear without smiling first and hurting a little after.</p>
+      <p>If time ever convinces you that you were easy to replace... It is lying.</p>
+      <p>People replace conversations. They replace routines. Sometimes they even replace people.</p>
+      <p>But they never replace the soul that changed them.</p>
+      <p>You changed mine. And no amount of passing years will rewrite that truth.</p>
+      <p>So if you're reading this because you miss me... Don't remember me for the words I wrote.</p>
+      <p>Remember the way I looked at you. The way I listened. The way I noticed the smallest things about you.</p>
+      <p>Remember that there was once someone who thanked God simply because you existed in the same lifetime.</p>
+      <p>And if one day this website is all that's left of us... Then let these words become the hug I can no longer give you.</p>
+      <p>Wherever you are... I hope someone reminds you to eat. I hope someone tells you to sleep on time. I hope someone notices when you're pretending to be okay.</p>
+      <p>I hope someone loves every version of you... Especially the ones you try to hide from the world.</p>
+      <p>And if no one says it today... Let me be the one.</p>
+      <p>I'm proud of you. I'm grateful for you. I forgive you. I hope you've forgiven me too.</p>
+      <p>And in another life... If fate ever gives me another chance... I would still choose the girl who unknowingly became my favorite chapter.</p>
+      <p>Again. Every single time. Always.</p>
+    </div>
+  </div>
+
+  <!-- Modal 2: If You're Here... (typewriter + piano) -->
+  <div class="heart-modal" id="letter-modal">
+    <button class="heart-close" onclick="closeAllModals()">✕</button>
+    <div class="heart-content" id="heart-content">
+      <span class="type-cursor" id="type-cursor">|</span>
+    </div>
+    <p class="heart-final-line" id="heart-final-line" style="display:none">If you ever wonder whether I still remember... <br> the existence of this page is your answer.</p>
+  </div>
+  <% } %>
+
   <script>
+  // ─── PARADOX ───
+  (function() {
+    var el = document.getElementById('paradox-text');
+    if (!el) return;
+    var paradoxes = <%- JSON.stringify(person.paradoxes || []) %>;
+    if (paradoxes.length === 0) return;
+    var idx = Math.floor(Math.random() * paradoxes.length);
+    el.textContent = '"' + paradoxes[idx] + '"';
+  })();
+
+  // ─── POETRY CAROUSEL ───
+  (function() {
+    var line = document.getElementById('poetry-line');
+    if (!line) return;
+    var poems = <%- JSON.stringify(person.poems || []) %>;
+    var idx = 0;
+    function show(i) {
+      idx = i;
+      line.classList.add('fading');
+      setTimeout(function() {
+        line.textContent = poems[idx];
+        line.classList.remove('fading');
+      }, 300);
+      document.querySelectorAll('.poetry-dot').forEach(function(d, j) {
+        d.classList.toggle('active', j === idx);
+      });
+    }
+    document.querySelectorAll('.poetry-dot').forEach(function(dot) {
+      dot.addEventListener('click', function() { show(parseInt(this.getAttribute('data-idx'))); });
+    });
+    setInterval(function() { show((idx + 1) % poems.length); }, 4500);
+  })();
+
+  // ─── HEART MESSAGE (typewriter + piano) ───
+  var heartLines = [
+    "I don\u2019t know what brought you here today.",
+    "Maybe you missed me.",
+    "Maybe you were simply curious.",
+    "Maybe today felt heavier than the others, and your heart quietly walked back to a place it once called home.",
+    "Or maybe...",
+    "You just wanted to know if I still remembered.",
+    "I do.",
+    "I always will.",
+    "",
+    "There are days when the world keeps moving exactly as it should...",
+    "People laugh.",
+    "Cars pass by.",
+    "The sun still rises.",
+    "The sky still changes colors.",
+    "Everything looks normal.",
+    "Yet somehow...",
+    "Everything feels a little incomplete.",
+    "Not because something is missing from the world.",
+    "Because someone is missing from mine.",
+    "And that someone has always been you.",
+    "",
+    "I still catch myself collecting stories I\u2019d tell you.",
+    "A funny moment.",
+    "A beautiful sunset.",
+    "A song with lyrics you\u2019d probably overanalyze.",
+    "A random cat sleeping in the middle of the road.",
+    "My first instinct is still...",
+    "\u201CEeshah would love this.\u201D",
+    "Then I remember...",
+    "Life doesn\u2019t always let us share every little thing anymore.",
+    "But my heart hasn\u2019t learned that lesson yet.",
+    "It still looks for you in ordinary moments.",
+    "",
+    "You know what\u2019s funny?",
+    "I used to think the biggest memories would be the ones I\u2019d miss the most.",
+    "The first hug.",
+    "The rooftop.",
+    "The places we visited.",
+    "The photographs.",
+    "I was wrong.",
+    "The things I miss the most were so ordinary that nobody else would have noticed them.",
+    "Waiting for your notification.",
+    "Hearing your sleepy voice.",
+    "Wondering if you\u2019d eaten.",
+    "Telling you to drink water.",
+    "Waiting for your \u201CI\u2019m home.\u201D",
+    "Watching those three little typing dots appear on my screen.",
+    "Back then...",
+    "They felt insignificant.",
+    "Today...",
+    "They feel priceless.",
+    "",
+    "If I could keep only one thing from our story...",
+    "It wouldn\u2019t be every message.",
+    "It wouldn\u2019t be every photograph.",
+    "It wouldn\u2019t even be every memory.",
+    "I\u2019d keep the version of myself that existed when you were around.",
+    "Because you made me softer.",
+    "Kinder.",
+    "More patient.",
+    "You taught me that love isn\u2019t measured by how loudly someone says \u201CI love you.\u201D",
+    "It\u2019s measured by how carefully they remember the little things.",
+    "And somehow...",
+    "You made me remember everything.",
+    "",
+    "I wonder if you know this.",
+    "There are people who enter our lives.",
+    "And then there are people who quietly rearrange them.",
+    "You never asked to become important.",
+    "You never tried to change me.",
+    "You simply existed.",
+    "And somehow...",
+    "My entire world shifted around your presence.",
+    "There is a version of me that belongs only to the days when you were part of my everyday life.",
+    "He still smiles whenever he hears your name.",
+    "",
+    "If life has ever convinced you that you weren\u2019t enough...",
+    "Don\u2019t believe it.",
+    "Because somewhere in this universe...",
+    "There is a heart that still thanks God for letting it meet yours.",
+    "You were never difficult to love.",
+    "You were never too much.",
+    "You were never a burden.",
+    "You were simply human.",
+    "Beautifully, imperfectly, wonderfully human.",
+    "And to me...",
+    "That was always enough.",
+    "",
+    "I hope someone notices when your smile isn\u2019t real.",
+    "I hope someone reminds you to eat when you\u2019re too busy to remember.",
+    "I hope someone listens to your stories, even when they don\u2019t understand them.",
+    "I hope someone protects your heart as gently as I once wished I could.",
+    "And if nobody tells you today...",
+    "Then let these words do it instead.",
+    "You matter.",
+    "More than you\u2019ll probably ever realize.",
+    "",
+    "Sometimes I wonder...",
+    "If every version of me from every possible lifetime stood together in one room...",
+    "Would they all fall in love with you?",
+    "I think they would.",
+    "Not because you were perfect.",
+    "But because you had this quiet way of making ordinary life feel extraordinary.",
+    "You turned random Tuesdays into memories.",
+    "Late night conversations into therapy.",
+    "Silence into comfort.",
+    "Home into a person.",
+    "",
+    "If this website is all that remains one day...",
+    "If years have passed...",
+    "If our lives have become stories we\u2019ve told other people...",
+    "Then let this page be my final hug.",
+    "Not the kind that lasts a few seconds.",
+    "The kind that stays with you long after you\u2019ve walked away.",
+    "",
+    "So whenever the world feels too loud...",
+    "Whenever life convinces you that you\u2019ve been forgotten...",
+    "Whenever your heart feels heavier than your hands can carry...",
+    "Come back here.",
+    "Read these words again.",
+    "And remember this one truth that time will never be strong enough to erase:",
+    "You were loved with a kind of care that noticed the smallest things.",
+    "You were remembered on ordinary days, not just special ones.",
+    "You changed a soul without ever asking to.",
+    "And somewhere, in every version of my story...",
+    "You will always be my favorite chapter."
+  ];
+
+  var heartTyping = false;
+  var heartIndex = 0;
+
+  function playPianoNote() {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      var freqs = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5];
+      var f = freqs[Math.floor(Math.random() * freqs.length)];
+      osc.frequency.setValueAtTime(f, ctx.currentTime);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 1.2);
+    } catch(e) {}
+  }
+
+  function typeNextLine() {
+    if (!heartTyping) return;
+    var content = document.getElementById('heart-content');
+    var cursor = document.getElementById('type-cursor');
+    var finalLine = document.getElementById('heart-final-line');
+    if (!content || !cursor) return;
+    if (heartIndex >= heartLines.length) {
+      cursor.style.display = 'none';
+      heartTyping = false;
+      setTimeout(function() {
+        if (finalLine) {
+          content.style.display = 'none';
+          finalLine.style.display = 'block';
+          finalLine.style.opacity = '0';
+          setTimeout(function() { finalLine.style.opacity = '1'; }, 50);
+        }
+      }, 5000);
+      return;
+    }
+    var line = heartLines[heartIndex];
+    heartIndex++;
+    if (line === '') {
+      cursor.remove();
+      content.appendChild(document.createElement('br'));
+      content.appendChild(cursor);
+      setTimeout(typeNextLine, 400);
+      return;
+    }
+    var p = document.createElement('p');
+    p.textContent = line;
+    p.style.opacity = '0';
+    p.style.transform = 'translateY(8px)';
+    p.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    cursor.remove();
+    content.appendChild(p);
+    content.appendChild(cursor);
+    content.scrollTop = content.scrollHeight;
+    playPianoNote();
+    requestAnimationFrame(function() {
+      p.style.opacity = '1';
+      p.style.transform = 'translateY(0)';
+    });
+    var delay = 800 + Math.random() * 1200;
+    setTimeout(typeNextLine, delay);
+  }
+
+  function openMissModal() {
+    var modal = document.getElementById('miss-modal');
+    var overlay = document.getElementById('heart-overlay');
+    if (!modal) return;
+    modal.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // animate paragraphs in
+    var ps = modal.querySelectorAll('.miss-modal-content p');
+    ps.forEach(function(p, i) {
+      p.style.opacity = '0';
+      p.style.transform = 'translateY(10px)';
+      p.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      p.style.transitionDelay = (i * 0.08) + 's';
+      requestAnimationFrame(function() {
+        p.style.opacity = '1';
+        p.style.transform = 'translateY(0)';
+      });
+    });
+  }
+  function openLetterModal() {
+    var modal = document.getElementById('letter-modal');
+    var overlay = document.getElementById('heart-overlay');
+    if (!modal) return;
+    modal.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!heartTyping) {
+      var content = document.getElementById('heart-content');
+      var finalLine = document.getElementById('heart-final-line');
+      if (content) { content.innerHTML = ''; content.style.display = 'block'; }
+      if (finalLine) { finalLine.style.display = 'none'; finalLine.style.opacity = '0'; }
+      var cursor = document.getElementById('type-cursor');
+      if (!cursor) { cursor = document.createElement('span'); cursor.id = 'type-cursor'; cursor.className = 'type-cursor'; cursor.textContent = '|'; }
+      if (content) content.appendChild(cursor);
+      heartIndex = 0;
+      heartTyping = true;
+      setTimeout(typeNextLine, 600);
+    }
+  }
+  function closeAllModals(e) {
+    if (e && e.target !== e.currentTarget) return;
+    heartTyping = false;
+    document.querySelectorAll('.heart-modal').forEach(function(m) { m.classList.remove('open'); });
+    var overlay = document.getElementById('heart-overlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── MIND COUNTER (eeshah) ───
+  function incrementMind() {
+    var el = document.getElementById('mind-counter');
+    if (!el) return;
+    var raw = localStorage.getItem('mindCount') || '84321';
+    var n = parseInt(raw, 10);
+    n++;
+    localStorage.setItem('mindCount', String(n));
+    el.textContent = n.toLocaleString();
+  }
+  (function() {
+    var el = document.getElementById('mind-counter');
+    if (!el) return;
+    var raw = localStorage.getItem('mindCount') || '84321';
+    el.textContent = parseInt(raw, 10).toLocaleString();
+  })();
+
   // ─── REACTIONS (localStorage) ───
   (function() {
     var reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
@@ -451,6 +864,154 @@
         localStorage.setItem(progKey, JSON.stringify(saved));
       });
     });
+  })();
+
+  // ─── FIREWORKS (Eeshah) ───
+  (function() {
+    var canvas = document.getElementById('fireworks-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, particles = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    var colors = ['#a855f7','#c084fc','#e9d5ff','#818cf8','#6366f1','#f0abfc','#d8b4fe'];
+
+    function burst(x, y) {
+      var count = 40 + Math.floor(Math.random() * 30);
+      for (var i = 0; i < count; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 2 + Math.random() * 4;
+        var c = colors[Math.floor(Math.random() * colors.length)];
+        particles.push({
+          x: x, y: y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+          life: 1, decay: 0.01 + Math.random() * 0.015, size: 2 + Math.random() * 3, color: c
+        });
+      }
+    }
+
+    function launch() {
+      burst(Math.random() * W, Math.random() * H * 0.6);
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.04;
+        p.life -= p.decay;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+
+    // Launch bursts periodically
+    setInterval(launch, 1800);
+    // Initial burst
+    setTimeout(function() { launch(); setTimeout(launch, 300); setTimeout(launch, 600); }, 500);
+    animate();
+  })();
+
+  // ─── SKY GENERATOR (eeshah) ───
+  (function() {
+    var canvas = document.getElementById('sky-canvas');
+    if (!canvas) return;
+    var types = ['morning','rain','night','sunset','storm'];
+    var sky = types[Math.floor(Math.random() * types.length)];
+    canvas.className = 'sky-canvas sky-' + sky;
+    var label = document.getElementById('sky-label');
+    if (label) label.textContent = '☁️ ' + sky.charAt(0).toUpperCase() + sky.slice(1) + '. ';
+
+    function el(tag, cls, parent) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+
+    if (sky === 'morning') {
+      canvas.style.background = 'linear-gradient(180deg, #fdd89b 0%, #f9a825 40%, #ff8f00 70%, #ff6f00 100%)';
+      var sun = el('div','sky-sun',canvas);
+      sun.style.cssText = 'position:absolute;top:18%;right:22%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff9c4,#ffd54f);box-shadow:0 0 60px rgba(255,213,79,0.6);animation:skyPulse 3s ease-in-out infinite';
+      for (var i=0;i<4;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 40 + Math.random()*60;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*25)+'%;left:'+(-10+Math.random()*80)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(255,255,255,'+(0.3+Math.random()*0.2)+');animation:skyDrift '+(12+Math.random()*10)+'s linear infinite;opacity:0.6';
+      }
+    }
+    else if (sky === 'rain') {
+      canvas.style.background = 'linear-gradient(180deg, #4a5568 0%, #2d3748 40%, #1a202c 100%)';
+      for (var i=0;i<60;i++) {
+        var d = el('div','sky-drop',canvas);
+        var left = Math.random()*100;
+        var delay = Math.random()*2;
+        var dur = 0.5 + Math.random()*0.4;
+        d.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:1.5px;height:'+(12+Math.random()*18)+'px;background:rgba(180,200,255,'+(0.2+Math.random()*0.3)+');animation:skyRain ' + dur + 's linear ' + delay + 's infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 80 + Math.random()*100;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*12)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.45)+'px;border-radius:50px;background:rgba(60,70,90,0.7);animation:skyDrift '+(18+Math.random()*12)+'s linear infinite;opacity:0.8';
+      }
+    }
+    else if (sky === 'night') {
+      canvas.style.background = 'linear-gradient(180deg, #0b0e1a 0%, #141b33 40%, #1a2456 100%)';
+      for (var i=0;i<50;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2.5;
+        var delay = Math.random()*4;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*60)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+delay+'s infinite;opacity:'+(0.3+Math.random()*0.5);
+      }
+      var moon = el('div','sky-moon',canvas);
+      moon.style.cssText = 'position:absolute;top:14%;left:65%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffde7,#fff9c4);box-shadow:0 0 80px rgba(255,249,196,0.25);opacity:0.85';
+      var moonC = el('div','sky-moon-crater',moon);
+      moonC.style.cssText = 'position:absolute;top:25%;left:55%;width:14px;height:14px;border-radius:50%;background:rgba(200,190,160,0.2)';
+      var moonC2 = el('div','sky-moon-crater',moon);
+      moonC2.style.cssText = 'position:absolute;top:55%;left:25%;width:8px;height:8px;border-radius:50%;background:rgba(200,190,160,0.15)';
+    }
+    else if (sky === 'sunset') {
+      canvas.style.background = 'linear-gradient(180deg, #1a0533 0%, #4a1942 20%, #c0392b 45%, #e67e22 65%, #f39c12 80%, #f1c40f 100%)';
+      var sun = el('div','sky-sunset-sun',canvas);
+      sun.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ffe082,#ff8f00);box-shadow:0 0 100px rgba(255,143,0,0.5);opacity:0.9';
+      var horizon = el('div','sky-horizon',canvas);
+      horizon.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:18%;background:#1a0a12;border-radius:50% 50% 0 0 / 100% 100% 0 0;opacity:0.6';
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-sunset-cloud',canvas);
+        var s = 50 + Math.random()*70;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*18)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.4)+'px;border-radius:50px;background:rgba(200,100,60,'+(0.15+Math.random()*0.15)+');animation:skyDrift '+(15+Math.random()*10)+'s linear infinite';
+      }
+    }
+    else if (sky === 'storm') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+      for (var i=0;i<80;i++) {
+        var d = el('div','sky-storm-rain',canvas);
+        d.style.cssText = 'position:absolute;top:-10px;left:'+(Math.random()*100)+'%;width:1.5px;height:'+(15+Math.random()*25)+'px;background:rgba(150,180,220,'+(0.15+Math.random()*0.2)+');animation:skyRain '+(0.3+Math.random()*0.3)+'s linear '+(Math.random()*2)+'s infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-storm-cloud',canvas);
+        var s = 100 + Math.random()*120;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*10)+'%;left:'+(-10+Math.random()*60)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(30,35,50,0.8);animation:skyDrift '+(20+Math.random()*15)+'s linear infinite;opacity:0.9';
+      }
+      // lightning flashes
+      setInterval(function() {
+        if (Math.random() > 0.6) {
+          canvas.style.transition = 'background 0.1s';
+          canvas.style.background = 'linear-gradient(180deg, #2a2a4e 0%, #263158 30%, #1f4070 60%, #2a2a4e 100%)';
+          setTimeout(function() {
+            canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+          }, 100);
+        }
+      }, 3000);
+    }
   })();
 
   // ─── COUNTDOWN ───

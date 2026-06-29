@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For Eeshah 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter',sans-serif;
+  background: #0a0804;
+  color: #f0e6d3;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(234,179,8,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 60%, rgba(180,120,40,0.06) 0%, transparent 50%);
+}
+.card {
+  max-width: 540px;
+  width: 100%;
+  background: linear-gradient(145deg, #1a1208 0%, #0f0a04 100%);
+  border: 1px solid rgba(180,140,60,0.25);
+  border-radius: 24px;
+  padding: 44px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(234,179,8,0.04);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(234,179,8,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(234,179,8,0.3), rgba(180,120,40,0.5), rgba(234,179,8,0.3), transparent);
+  border-radius: 2px;
+}
+
+.deco-top {
+  font-size: 2.5rem;
+  letter-spacing: 8px;
+  color: rgba(234,179,8,0.15);
+  margin-bottom: 8px;
+}
+
+.avatar {
+  font-size: 4rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 20px rgba(234,179,8,0.2));
+}
+
+h1 {
+  font-family: 'Playfair Display',serif;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 40%, #f59e0b 70%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #d4a54a;
+  background: rgba(234,179,8,0.08);
+  border: 1px solid rgba(234,179,8,0.15);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234,179,8,0.3), transparent);
+  margin: 16px auto;
+}
+
+.message {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #d4c5a8;
+  margin: 20px 0;
+}
+
+.message .urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 1.2rem;
+  color: #e8d5a8;
+  display: block;
+  margin: 16px 0;
+  line-height: 2;
+}
+
+.message em {
+  color: #fbbf24;
+  font-style: italic;
+}
+
+.gold-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: rgba(234,179,8,0.2);
+  font-size: 0.7rem;
+}
+.gold-line::before,
+.gold-line::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234,179,8,0.2), transparent);
+}
+
+.signature {
+  font-family: 'Playfair Display',serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d4a54a;
+  margin-top: 8px;
+}
+
+.footer-deco {
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  color: rgba(234,179,8,0.15);
+  margin-top: 20px;
+}
+
+/* floating particles */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1rem;
+  opacity: 0.15;
+  animation: floatUp var(--d, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.particle:nth-child(1) { bottom: 10%; left: 10%; --d: 10s; --delay: 0s; }
+.particle:nth-child(2) { bottom: 20%; right: 15%; --d: 12s; --delay: 2s; }
+.particle:nth-child(3) { bottom: 5%; left: 50%; --d: 9s; --delay: 4s; }
+.particle:nth-child(4) { bottom: 30%; left: 5%; --d: 11s; --delay: 1s; }
+.particle:nth-child(5) { bottom: 15%; right: 8%; --d: 8s; --delay: 3s; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+@media (max-width:500px) {
+  .card { padding: 28px 18px; }
+  h1 { font-size: 1.5rem; }
+  .message { font-size: 0.9rem; line-height: 1.8; }
+  .message .urdu { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+<span class="particle">✦</span>
+<span class="particle">✧</span>
+<span class="particle">✦</span>
+<span class="particle">✧</span>
+<span class="particle">✦</span>
+
+<div class="card">
+  <div class="deco-top">✦ ✦ ✦</div>
+  <div class="avatar">🌙</div>
+  <h1>For Eeshah</h1>
+  <div class="badge">The Poet</div>
+  <div class="divider"></div>
+  <div class="message">
+    Some people arrive like sunrise —<br>
+    soft, golden, impossible to ignore.<br><br>
+    You are that kind of dawn.<br><br>
+    <span class="urdu">تم خود کو نہیں جانتے<br>
+    پر میں جانتا ہوں</span><br><br>
+    Keep finding magic in the ordinary.<br>
+    Keep writing the words only <em>you</em> can write.<br><br>
+    And when the world feels heavy,<br>
+    remember —<br>
+    <em>you carry moonlight in your voice.</em>
+  </div>
+  <div class="gold-line">✦ ✦ ✦</div>
+  <div class="signature">— Always, with love</div>
+  <div class="footer-deco">✦ ✧ ✦ ✧ ✦</div>
+</div>
+</body>
+</html>

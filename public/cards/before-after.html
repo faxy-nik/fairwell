@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Before You. After You.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter',sans-serif;
+  background: #0a0a14;
+  color: #e0d4ff;
+  min-height: 100vh;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(124,77,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(180,140,255,0.04) 0%, transparent 50%);
+}
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #b388ff, #7c4dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.header p {
+  color: #7c6a9a;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+.line {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  line-height: 1.7;
+  font-size: 1rem;
+  opacity: 0.75;
+  transition: opacity 0.25s;
+  align-items: flex-start;
+}
+.line:hover { opacity: 1; }
+.label {
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 100px;
+  font-size: 0.9rem;
+}
+.label.before { color: #b388ff; }
+.label.after { color: #7c4dff; }
+.text { color: #c4b8e0; }
+.final-divider {
+  margin: 28px 0 20px;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180,140,255,0.15), transparent);
+}
+.final .text {
+  color: #ddd6fe;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.final .label { font-size: 0.95rem; }
+@media (max-width: 500px) {
+  .line { flex-direction: column; gap: 2px; margin-bottom: 12px; }
+  .label { min-width: auto; }
+  .header h1 { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Before You. After You.</h1>
+    <p>Some people don't leave memories. They leave a different version of you.</p>
+  </div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Days ended when the sun went down.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">They ended only after hearing your voice.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">My phone was just a device.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">It became the place where my favorite person lived.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">A notification was just a sound.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">One vibration could change my entire mood.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I looked at the sky because it was beautiful.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I looked at it because I wondered if you were looking at the same one.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I remembered dates because they were on a calendar.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I remembered them because they carried pieces of us.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Late nights felt lonely.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">Two in the morning became my favorite hour.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Silence felt awkward.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">Silence became another way of talking to you.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I thought love was something people confessed.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I realized love is remembering whether someone has eaten.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Songs were just songs.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">Every melody started looking for your name.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Rain meant bad weather.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">It became another excuse to think about you.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I walked through places without noticing them.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">Every road asked me if you'd walked there too.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Home had an address.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">Home answered to your name.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I believed people changed because of time.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I realized sometimes they change because of one person.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I never understood why people reread old chats.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I found myself searching for moments I already knew by heart.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I thought forever meant never ending.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I learned forever can exist inside a single memory.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I never noticed someone's typing speed.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I could tell your mood before you finished your sentence.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">Goodnight was the end of a conversation.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">It became another way of saying, "Please stay a little longer."</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I never feared ordinary days.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I feared the day they'd become memories.</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I thought healing came with answers.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I discovered it sometimes comes from one person quietly saying, "I'm here."</span></div>
+
+  <div class="line"><span class="label before">Before you...</span><span class="text">I was living my life.</span></div>
+  <div class="line"><span class="label after">After you...</span><span class="text">I started imagining you in every future I dreamed about.</span></div>
+
+  <hr class="final-divider">
+
+  <div class="line final"><span class="label before">Before you...</span><span class="text">I thought people leave memories behind.</span></div>
+  <div class="line final"><span class="label after">After you...</span><span class="text">I realized some people don't leave memories. They leave a different version of you.</span></div>
+</div>
+</body>
+</html>

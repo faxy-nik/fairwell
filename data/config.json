@@ -373,6 +373,7 @@
       "id": "muneeba",
       "name": "muneeba",
       "accessToken": "e4b795e5076c9c0b604494746c314333",
+      "unlockDate": "2025-01-01T00:00:00",
       "avatar": "🌸",
       "theme": "#ec4899",
       "badge": "The Gentle Soul 🌸",
@@ -458,16 +459,48 @@
             }
           ]
         }
-      ]
+      ],
+      "visits": 6
     },
     {
       "id": "eeshah",
       "name": "eeshah",
       "accessToken": "1eb8b4802a43dad9ddc56151777d6e20",
+      "unlockDate": "2025-01-01T00:00:00",
       "avatar": "🌙",
-      "theme": "#a855f7",
+      "theme": "#7c3aed",
       "badge": "The Poet 🌙",
       "customMessage": "You see the world in verses nobody else can read. Stay magic.",
+      "poems": [
+        "you carry moonlight in your voice — even when you're silent, the night listens.",
+        "not everyone who wanders is lost. some are just looking for verses the world forgot to write.",
+        "you speak in riddles wrapped in silk — and i sit here, unraveling beauty i never knew existed.",
+        "some souls are born old, wise beyond their years. you're one of them — a quiet storm in a world of noise.",
+        "the stars don't compete. neither should you. just glow."
+      ],
+      "paradoxes": [
+        "Since Paradox is your symbol. Every refresh generates a paradox. You became my peace during the noisiest chapter of my life.",
+        "You were both my safest place and my greatest fear.",
+        "I found home in someone who was never a place.",
+        "I am most myself when I am with you — which means I lose myself to find myself.",
+        "The closer I get, the more I realise you were always already inside me.",
+        "You are the silence I run to when words become too loud.",
+        "In a world that demands answers, you taught me to love the question.",
+        "You are the calm after every storm I never knew I was surviving.",
+        "You became my favorite person before I realized I was waiting for your messages.",
+        "I spent hours talking to you, yet my favorite part was always the silence between us.",
+        "The safest place I ever found was a person who couldn't stay forever.",
+        "I never searched for love. I searched for peace, and somehow you arrived instead.",
+        "You made distance feel smaller than a hug, yet one day your absence felt larger than the world.",
+        "We spoke every day, but the words I remember most were the ones neither of us said.",
+        "You were the chapter that taught me endings don't erase beginnings.",
+        "I feared losing you long before I ever had the chance to.",
+        "You made ordinary days unforgettable, and unforgettable days feel ordinary because you were there.",
+        "We built forever out of moments that were only supposed to last a day.",
+        "The more I understood you, the more I realized I'd never completely understand you.",
+        "You became my peace during the noisiest season of my life.",
+        "We were never perfect for each other. We were simply real enough to leave marks on each other's souls."
+      ],
       "roadmap": [
         {
           "date": "",
@@ -551,11 +584,24 @@
         }
       ],
       "playlist": [
-        {"title": "Tere Bina — A.R. Rahman", "url": "https://www.youtube.com/watch?v=2j4QgR-oWX4"},
-        {"title": "Kun Faya Kun — A.R. Rahman", "url": "https://www.youtube.com/watch?v=itpdQVB9M2E"},
-        {"title": "Bulleya — Amit Mishra", "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"},
-        {"title": "Channa Mereya — Arijit Singh", "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"}
-      ]
+        {
+          "title": "Tere Bina — A.R. Rahman",
+          "url": "https://www.youtube.com/watch?v=2j4QgR-oWX4"
+        },
+        {
+          "title": "Kun Faya Kun — A.R. Rahman",
+          "url": "https://www.youtube.com/watch?v=itpdQVB9M2E"
+        },
+        {
+          "title": "Bulleya — Amit Mishra",
+          "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"
+        },
+        {
+          "title": "Channa Mereya — Arijit Singh",
+          "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"
+        }
+      ],
+      "visits": 98
     },
     {
       "id": "moazam",
@@ -740,8 +786,16 @@
       "avatar": "🧪",
       "unlockDate": "2025-01-01T00:00:00",
       "roadmap": [
-        { "date": "2026-06-01", "title": "Test Roadmap Item 1", "description": "This is a test milestone" },
-        { "date": "2026-06-15", "title": "Test Roadmap Item 2", "description": "Another test milestone" }
+        {
+          "date": "2026-06-01",
+          "title": "Test Roadmap Item 1",
+          "description": "This is a test milestone"
+        },
+        {
+          "date": "2026-06-15",
+          "title": "Test Roadmap Item 2",
+          "description": "Another test milestone"
+        }
       ],
       "sections": [
         {
@@ -807,7 +861,8 @@
             }
           ]
         }
-      ]
+      ],
+      "visits": 1
     }
   ]
 }
