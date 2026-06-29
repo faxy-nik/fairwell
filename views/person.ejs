@@ -375,12 +375,6 @@
     </div>
     <% } %>
 
-    <% if (typeof hasFiles !== 'undefined' && hasFiles) { %>
-    <div style="margin:24px 0 8px">
-      <a href="/api/person/<%= person.id %>/download" class="btn" style="background:linear-gradient(135deg,#4caf50,#2e7d32)" onclick="this.textContent='Preparing...'">📦 Download All My Files</a>
-    </div>
-    <% } %>
-
     <div class="sections">
       <% if (person.sections.length === 0 && (!person.roadmap || person.roadmap.length === 0)) { %>
         <% if (typeof hasCard === 'undefined' || !hasCard) { %>
@@ -456,6 +450,12 @@
         </div>
       <% }); %>
     </div>
+
+    <% if (typeof hasFiles !== 'undefined' && hasFiles) { %>
+    <div style="margin:24px 0 8px">
+      <a href="/api/person/<%= person.id %>/download" class="btn" style="background:linear-gradient(135deg,#4caf50,#2e7d32)" onclick="this.textContent='Preparing...'">📦 Download All My Files</a>
+    </div>
+    <% } %>
 
     <% if (person.id === 'eeshah') { %>
     <div class="before-after-card-box">
