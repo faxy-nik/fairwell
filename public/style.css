@@ -1299,6 +1299,42 @@ html {
   .sky-canvas { height: 200px; }
   .sky-message { font-size: 0.8rem; padding: 14px 16px; }
   .sky-section { margin: 16px auto 24px; }
+
+  /* ── Admin mobile ── */
+  .admin-section, .admin-person { padding: 14px; }
+  .admin-section h2 { font-size: 1rem; }
+  .person-head { flex-direction: column; align-items: flex-start; }
+  .person-head h2 { font-size: 1.1rem; }
+  .person-actions { width: 100%; }
+  .person-actions form { flex: 1; }
+  .person-actions .inline-form input { min-width: 0; width: 100%; }
+  .add-section .inline-form { flex-direction: column; gap: 6px; }
+  .add-section .inline-form input,
+  .add-section .inline-form select { width: 100%; box-sizing: border-box; }
+  .upload-form-inner { flex-direction: column; gap: 6px; }
+  .upload-form-inner input,
+  .upload-form-inner select { width: 100%; box-sizing: border-box; }
+  .upload-form-inner label { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .upload-form-inner label input { width: 100%; }
+  .items-list { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .items-list table { font-size: 0.75rem; min-width: 400px; }
+  .items-list th, .items-list td { padding: 4px 6px; white-space: nowrap; }
+  .voice-recorder { padding: 10px !important; }
+  .voice-recorder h4 { font-size: 0.85rem; }
+  .voice-recorder input { font-size: 0.8rem; }
+  .theme-form form { flex-direction: column; gap: 6px; }
+  .theme-form form input { width: 100% !important; box-sizing: border-box; }
+  .theme-form form input[type="color"] { width: 48px !important; height: 40px !important; }
+  .access-link { display: flex; flex-direction: column; gap: 6px; }
+  .access-link .link-input { width: 100%; box-sizing: border-box; font-size: 0.75rem; }
+  .urls-form .btn { width: 100%; }
+  .url-group label { font-size: 0.8rem; }
+  .url-group input { font-size: 0.8rem; padding: 8px; }
+  .inline-form input[type="password"] { width: 100%; box-sizing: border-box; }
+  .roadmap-box .items-list table { min-width: 350px; }
+  .admin-section-box { padding: 10px; }
+  .admin-section-box h3 { font-size: 0.9rem; }
+  .admin-section-box h4 { font-size: 0.85rem; }
 }
 
 /* ── Mind Counter (eeshah) ── */
