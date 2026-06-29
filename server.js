@@ -289,6 +289,19 @@ app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {
   res.redirect('/admin');
 });
 
+app.post('/api/person/:id/theme', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person) {
+    if (req.body.theme) person.theme = req.body.theme;
+    else delete person.theme;
+    person.badge = req.body.badge || '';
+    person.customMessage = req.body.customMessage || '';
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
 app.post('/admin/change-password', requireAuth, (req, res) => {
   if (req.body.currentPassword === getAdminPassword() && req.body.newPassword) {
     persist.savePassword(req.body.newPassword);

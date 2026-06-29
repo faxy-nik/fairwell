@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="<%= person.theme ? '--accent:' + person.theme + ';--accent-glow:' + person.theme + '44' : '' %>">
     <%
       var now = new Date();
       var unlock = person.unlockDate ? new Date(person.unlockDate) : new Date('2026-07-05T00:00:00');
@@ -33,7 +33,9 @@
 
     <header class="site-header animate-fade-down">
       <div class="profile-avatar"><%= person.avatar || '🎉' %></div>
+      <% if (person.badge) { %><span class="person-badge"><%= person.badge %></span><% } %>
       <h1>Hey <%= person.name %>!</h1>
+      <% if (person.customMessage) { %><p class="custom-message"><%= person.customMessage %></p><% } %>
       <p class="subtitle">Here are your class memories</p>
       <span class="visit-counter">✨ Visited <strong><%= person.visits || 0 %></strong> times</span>
     </header>

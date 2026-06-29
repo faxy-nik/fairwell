@@ -1402,6 +1402,10 @@ html {
   color: #888;
 }
 
+/* ── Theme Colors ── */
+
+:root { --accent: #667eea; --accent-glow: #667eea44; }
+
 /* ── Profile Avatar ── */
 
 .profile-avatar {
@@ -1409,6 +1413,39 @@ html {
   line-height: 1;
   margin-bottom: 8px;
   animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.person-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(102, 126, 234, 0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.custom-message {
+  font-size: 0.95rem;
+  color: #ccc;
+  font-style: italic;
+  max-width: 450px;
+  margin: 10px auto;
+  line-height: 1.5;
+  padding: 10px 16px;
+  background: rgba(102, 126, 234, 0.06);
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Override gradient accents with theme color */
+.site-header h1 {
+  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 60%, #764ba2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── Reactions ── */

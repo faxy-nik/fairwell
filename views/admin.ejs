@@ -84,6 +84,15 @@
           <button class="btn small" onclick="navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
         </div>
 
+        <div class="theme-form" style="margin:10px 0;padding:10px;background:#0f1a2e;border-radius:8px">
+          <form method="POST" action="/api/person/<%= person.id %>/theme" class="inline-form" style="flex-wrap:wrap">
+            <input type="color" name="theme" value="<%= person.theme || '#667eea' %>" style="width:40px;height:36px;padding:2px;border:1px solid #2a3a5e;border-radius:6px;background:transparent;cursor:pointer">
+            <input type="text" name="badge" placeholder="Badge (e.g. The Poet 🌙)" value="<%= person.badge || '' %>" style="flex:1;min-width:120px">
+            <input type="text" name="customMessage" placeholder="Private message for them" value="<%= person.customMessage || '' %>" style="flex:2;min-width:180px">
+            <button type="submit" class="btn small">Save</button>
+          </form>
+        </div>
+
         <div class="add-section">
           <h3>Add Section to <%= person.name %></h3>
           <form method="POST" action="/api/person/<%= person.id %>/section" class="inline-form">
