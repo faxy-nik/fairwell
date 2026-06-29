@@ -267,6 +267,28 @@ app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
   res.redirect('/admin');
 });
 
+// ─── PLAYLIST ───
+app.post('/api/person/:id/playlist/add', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && req.body.title && req.body.url) {
+    if (!person.playlist) person.playlist = [];
+    person.playlist.push({ title: req.body.title, url: req.body.url });
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
+app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.playlist) {
+    person.playlist.splice(parseInt(req.body.index), 1);
+    saveConfig(config);
+  }
+  res.redirect('/admin');
+});
+
 app.post('/admin/change-password', requireAuth, (req, res) => {
   if (req.body.currentPassword === getAdminPassword() && req.body.newPassword) {
     persist.savePassword(req.body.newPassword);

@@ -543,6 +543,12 @@
             }
           ]
         }
+      ],
+      "playlist": [
+        {"title": "Tere Bina — A.R. Rahman", "url": "https://www.youtube.com/watch?v=2j4QgR-oWX4"},
+        {"title": "Kun Faya Kun — A.R. Rahman", "url": "https://www.youtube.com/watch?v=itpdQVB9M2E"},
+        {"title": "Bulleya — Amit Mishra", "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"},
+        {"title": "Channa Mereya — Arijit Singh", "url": "https://www.youtube.com/watch?v=3v7sh2hxVj0"}
       ]
     },
     {

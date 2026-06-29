@@ -1488,3 +1488,53 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ── Playlist ── */
+
+.playlist-box {
+  border-color: rgba(102, 126, 234, 0.15) !important;
+}
+.playlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #1a2744;
+  border-radius: 10px;
+  border: 1px solid #2a3a5e;
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+.playlist-item:hover {
+  border-color: #667eea;
+  background: #1f2f52;
+  transform: translateX(4px);
+}
+.playlist-play {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.playlist-title {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.playlist-link {
+  font-size: 0.8rem;
+  color: #667eea;
+  font-weight: 600;
+  white-space: nowrap;
+}

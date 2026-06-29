@@ -306,6 +306,25 @@
       </div>
     </div>
 
+    <% if (person.playlist && person.playlist.length > 0) { %>
+    <div class="section-box playlist-box animate-fade-up">
+      <div class="section-header">
+        <span class="section-icon">🎵</span>
+        <h3>A playlist specially for you</h3>
+        <span class="item-count"><%= person.playlist.length %></span>
+      </div>
+      <div class="playlist-items">
+        <% person.playlist.forEach(function(song) { %>
+          <a href="<%= song.url %>" target="_blank" class="playlist-item">
+            <span class="playlist-play">▶</span>
+            <span class="playlist-title"><%= song.title %></span>
+            <span class="playlist-link">Listen →</span>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+
     <% if (typeof hasFiles !== 'undefined' && hasFiles) { %>
     <div style="text-align:center;margin-bottom:24px">
       <a href="/api/person/<%= person.id %>/download" class="btn" style="background:linear-gradient(135deg,#4caf50,#2e7d32)" onclick="this.textContent='Preparing...'">📦 Download All My Files</a>
