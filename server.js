@@ -281,6 +281,22 @@ app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, re
   res.redirect('/admin');
 });
 
+app.post('/api/person/:id/section/:sectionId/item/date', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person) {
+    const section = person.sections.find(s => s.id === req.params.sectionId);
+    if (section) {
+      const item = section.items.find(i => i.filename === req.body.filename);
+      if (item && req.body.releaseDate) {
+        item.releaseDate = req.body.releaseDate;
+        saveConfig(config);
+      }
+    }
+  }
+  res.redirect('/admin');
+});
+
 app.post('/api/person/:id/roadmap/add', requireAuth, (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);

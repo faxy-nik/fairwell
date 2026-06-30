@@ -242,7 +242,13 @@
                       <tr>
                         <td><%= item.title %></td>
                         <td><%= item.originalName %></td>
-                        <td><%= new Date(item.releaseDate).toLocaleDateString() %></td>
+                        <td>
+                          <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/date" class="inline-form" style="gap:4px;flex-wrap:nowrap" onsubmit="return confirm('Update release date?')">
+                            <input type="hidden" name="filename" value="<%= item.filename %>">
+                            <input type="date" name="releaseDate" value="<%= new Date(item.releaseDate).toISOString().split('T')[0] %>" style="padding:4px 6px;font-size:0.75rem;width:130px">
+                            <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                          </form>
+                        </td>
                         <td>
                           <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" onsubmit="return confirm('Delete this item?')">
                             <input type="hidden" name="filename" value="<%= item.filename %>">
