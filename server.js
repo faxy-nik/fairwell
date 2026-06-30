@@ -44,7 +44,30 @@ if (!fs.existsSync(CONFIG_PATH)) {
   if (fs.existsSync(defaultConfig)) {
     fs.copyFileSync(defaultConfig, CONFIG_PATH);
   } else {
-    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [] }, null, 2));
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [], generalUrls: {} }, null, 2));
+  }
+}
+
+// Restore any person deleted from /data/config.json but present in git-tracked data/
+if (DATA_ROOT !== APP_DATA && fs.existsSync(CONFIG_PATH) && fs.existsSync(path.join(APP_DATA, 'config.json'))) {
+  try {
+    var liveConfig = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+    var gitConfig = JSON.parse(fs.readFileSync(path.join(APP_DATA, 'config.json'), 'utf8'));
+    var restored = false;
+    gitConfig.people.forEach(function(gp) {
+      var found = liveConfig.people.some(function(lp) { return lp.id === gp.id; });
+      if (!found) {
+        console.log('Restoring missing person:', gp.id, gp.name);
+        liveConfig.people.push(gp);
+        restored = true;
+      }
+    });
+    if (restored) {
+      fs.writeFileSync(CONFIG_PATH, JSON.stringify(liveConfig, null, 2));
+      console.log('Restored missing people to persistent config');
+    }
+  } catch (e) {
+    console.log('Restore check error:', e.message);
   }
 }
 
