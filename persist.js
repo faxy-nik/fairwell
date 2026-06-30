@@ -32,17 +32,28 @@ function commitAndPush(message) {
     console.log('No HF_TOKEN set, data will not persist across restarts');
     return;
   }
-  try {
-    execSync('git add -A', { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
-    const status = execSync('git status --porcelain', { cwd: APP_DIR, stdio: 'pipe', timeout: 5000, encoding: 'utf-8' }).trim();
-    if (!status) return;
-    execSync(`git commit -m "${message.replace(/"/g, '\'')}"`, { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
-    const remote = execSync('git remote get-url origin', { cwd: APP_DIR, encoding: 'utf-8', timeout: 5000 }).trim();
-    const authRemote = remote.replace('://', `://user:${token}@`);
-    execSync(`git pull --rebase origin main 2>/dev/null`, { cwd: APP_DIR, stdio: 'pipe', timeout: 15000 });
-    execSync(`git push ${authRemote} main`, { cwd: APP_DIR, stdio: 'pipe', timeout: 30000 });
-  } catch (e) {
-    console.log('Git persist error:', e.message);
+  var attempts = 0;
+  var maxAttempts = 3;
+  while (attempts < maxAttempts) {
+    attempts++;
+    try {
+      execSync('git add -A', { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
+      var status = execSync('git status --porcelain', { cwd: APP_DIR, stdio: 'pipe', timeout: 5000, encoding: 'utf-8' }).trim();
+      if (!status) return;
+      execSync('git commit -m "' + message.replace(/"/g, '\'') + '"', { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
+      var remote = execSync('git remote get-url origin', { cwd: APP_DIR, encoding: 'utf-8', timeout: 5000 }).trim();
+      var authRemote = remote.replace('://', '://user:' + token + '@');
+      execSync('git fetch origin main', { cwd: APP_DIR, stdio: 'pipe', timeout: 15000 });
+      execSync('git rebase origin/main 2>/dev/null || git rebase --abort 2>/dev/null; true', { cwd: APP_DIR, stdio: 'pipe', timeout: 10000 });
+      execSync('git push --force ' + authRemote + ' main', { cwd: APP_DIR, stdio: 'pipe', timeout: 30000 });
+      console.log('Git persist: pushed successfully');
+      return;
+    } catch (e) {
+      console.log('Git persist attempt ' + attempts + '/' + maxAttempts + ' failed: ' + e.message);
+      if (attempts >= maxAttempts) {
+        console.log('Git persist: all attempts failed, data saved locally');
+      }
+    }
   }
 }
 

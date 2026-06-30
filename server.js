@@ -191,17 +191,17 @@ app.get('/admin/logout', (req, res) => {
 app.get('/admin', requireAuth, (req, res) => {
   const config = loadConfig();
   const publicUrl = process.env.PUBLIC_URL || (req.headers['x-forwarded-proto'] || req.protocol) + '://' + (req.headers['x-forwarded-host'] || req.get('host'));
-  res.render('admin', { people: config.people, generalUrls: config.generalUrls, req, publicUrl, msg: req.query.msg || null, err: req.query.err || null });
+  res.render('admin', { people: config.people, generalUrls: config.generalUrls, req, publicUrl });
 });
 
 app.post('/api/person', requireAuth, (req, res) => {
   const config = loadConfig();
   const id = req.body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  if (!id) return res.status(400).send('Invalid name');
-  if (config.people.find(p => p.id === id)) return res.status(400).send('Person already exists');
+  if (!id) return res.json({ error: 'Invalid name' });
+  if (config.people.find(p => p.id === id)) return res.json({ error: 'Person already exists' });
   config.people.push({ id, name: req.body.name, accessToken: crypto.randomBytes(16).toString('hex'), roadmap: [], sections: [] });
   saveConfig(config);
-  res.redirect('/admin');
+  res.json({ success: true, person: { id, name: req.body.name } });
 });
 
 app.post('/api/person/:id/delete', requireAuth, (req, res) => {
@@ -213,7 +213,7 @@ app.post('/api/person/:id/delete', requireAuth, (req, res) => {
     config.people.splice(idx, 1);
     saveConfig(config);
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/person/:id/section', requireAuth, (req, res) => {
@@ -224,9 +224,12 @@ app.post('/api/person/:id/section', requireAuth, (req, res) => {
     if (id && !person.sections.find(s => s.id === id)) {
       person.sections.push({ id, title: req.body.title, type: req.body.type || 'other', items: [] });
       saveConfig(config);
+      return res.json({ success: true, section: { id, title: req.body.title, type: req.body.type || 'other' } });
     }
+    if (!id) return res.json({ error: 'Invalid section title' });
+    return res.json({ error: 'Section already exists' });
   }
-  res.redirect('/admin');
+  res.json({ error: 'Person not found' });
 });
 
 app.post('/api/person/:id/section/:sectionId/delete', requireAuth, (req, res) => {
@@ -241,26 +244,25 @@ app.post('/api/person/:id/section/:sectionId/delete', requireAuth, (req, res) =>
       saveConfig(config);
     }
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/upload', requireAuth, upload.single('file'), (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.body.personId);
-  if (person && req.file) {
-    const section = person.sections.find(s => s.id === req.body.sectionId);
-    if (section) {
-      section.items.push({
-        filename: req.file.filename,
-        originalName: req.file.originalname,
-        title: req.body.title || req.file.originalname.replace(/\.[^/.]+$/, ''),
-        releaseDate: req.body.releaseDate || new Date().toISOString().split('T')[0],
-        uploadedAt: new Date().toISOString()
-      });
-      saveConfig(config);
-    }
-  }
-  res.redirect('/admin');
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.file) return res.json({ error: 'No file uploaded' });
+  const section = person.sections.find(s => s.id === req.body.sectionId);
+  if (!section) return res.json({ error: 'Section not found' });
+  section.items.push({
+    filename: req.file.filename,
+    originalName: req.file.originalname,
+    title: req.body.title || req.file.originalname.replace(/\.[^/.]+$/, ''),
+    releaseDate: req.body.releaseDate || new Date().toISOString().split('T')[0],
+    uploadedAt: new Date().toISOString()
+  });
+  saveConfig(config);
+  res.json({ success: true, filename: req.file.filename });
 });
 
 app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, res) => {
@@ -278,7 +280,7 @@ app.post('/api/person/:id/section/:sectionId/item/delete', requireAuth, (req, re
       }
     }
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/person/:id/section/:sectionId/item/date', requireAuth, (req, res) => {
@@ -291,21 +293,22 @@ app.post('/api/person/:id/section/:sectionId/item/date', requireAuth, (req, res)
       if (item && req.body.releaseDate) {
         item.releaseDate = req.body.releaseDate;
         saveConfig(config);
+        return res.json({ success: true });
       }
     }
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/person/:id/roadmap/add', requireAuth, (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);
-  if (person && req.body.title) {
-    if (!person.roadmap) person.roadmap = [];
-    person.roadmap.push({ date: req.body.date || '', title: req.body.title, description: req.body.description || '' });
-    saveConfig(config);
-  }
-  res.redirect('/admin');
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.body.title) return res.json({ error: 'Title required' });
+  if (!person.roadmap) person.roadmap = [];
+  person.roadmap.push({ date: req.body.date || '', title: req.body.title, description: req.body.description || '' });
+  saveConfig(config);
+  res.json({ success: true, milestone: { title: req.body.title, date: req.body.date || '', description: req.body.description || '' } });
 });
 
 app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
@@ -315,19 +318,19 @@ app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
     person.roadmap.splice(parseInt(req.body.index), 1);
     saveConfig(config);
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 // ─── PLAYLIST ───
 app.post('/api/person/:id/playlist/add', requireAuth, (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);
-  if (person && req.body.title && req.body.url) {
-    if (!person.playlist) person.playlist = [];
-    person.playlist.push({ title: req.body.title, url: req.body.url });
-    saveConfig(config);
-  }
-  res.redirect('/admin');
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.body.title || !req.body.url) return res.json({ error: 'Title and URL required' });
+  if (!person.playlist) person.playlist = [];
+  person.playlist.push({ title: req.body.title, url: req.body.url });
+  saveConfig(config);
+  res.json({ success: true, song: { title: req.body.title, url: req.body.url } });
 });
 
 app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {
@@ -337,7 +340,7 @@ app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {
     person.playlist.splice(parseInt(req.body.index), 1);
     saveConfig(config);
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/person/:id/playlist/rename', requireAuth, (req, res) => {
@@ -350,7 +353,7 @@ app.post('/api/person/:id/playlist/rename', requireAuth, (req, res) => {
       saveConfig(config);
     }
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/api/person/:id/theme', requireAuth, (req, res) => {
@@ -363,15 +366,15 @@ app.post('/api/person/:id/theme', requireAuth, (req, res) => {
     person.customMessage = req.body.customMessage || '';
     saveConfig(config);
   }
-  res.redirect('/admin');
+  res.json({ success: true });
 });
 
 app.post('/admin/change-password', requireAuth, (req, res) => {
   if (req.body.currentPassword === getAdminPassword() && req.body.newPassword) {
     persist.savePassword(req.body.newPassword);
-    res.redirect('/admin?msg=Password+changed');
+    res.json({ success: true, msg: 'Password changed' });
   } else {
-    res.redirect('/admin?err=Wrong+current+password');
+    res.json({ error: 'Wrong current password' });
   }
 });
 
@@ -381,8 +384,9 @@ app.post('/api/person/:id/rename', requireAuth, (req, res) => {
   if (person && req.body.name) {
     person.name = req.body.name;
     saveConfig(config);
+    return res.json({ success: true, name: req.body.name });
   }
-  res.redirect('/admin');
+  res.json({ error: 'Person not found or name empty' });
 });
 
 app.post('/api/general-urls', requireAuth, (req, res) => {
@@ -391,7 +395,7 @@ app.post('/api/general-urls', requireAuth, (req, res) => {
     if (req.body[k] !== undefined) config.generalUrls[k] = req.body[k];
   });
   saveConfig(config);
-  res.redirect('/admin?msg=URLs+updated');
+  res.json({ success: true, msg: 'URLs updated' });
 });
 
 app.get('/uploads/:person/:section/:file', (req, res) => {

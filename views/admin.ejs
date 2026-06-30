@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="admin-page">
-  <div class="container">
+  <div class="container" id="admin-app">
+    <div class="toast-container" id="toast-container"></div>
+
     <header class="admin-header">
       <h1>Admin Panel</h1>
       <nav>
@@ -16,248 +18,141 @@
       </nav>
     </header>
 
-    <% if (typeof msg !== 'undefined' && msg) { %>
-      <div class="alert success"><%= msg %></div>
-    <% } %>
-    <% if (typeof err !== 'undefined' && err) { %>
-      <div class="alert error"><%= err %></div>
-    <% } %>
-
+    <!-- Settings -->
     <section class="admin-section">
-      <h2>Settings</h2>
-      <form method="POST" action="/admin/change-password" class="inline-form">
-        <input type="password" name="currentPassword" placeholder="Current password" required>
-        <input type="password" name="newPassword" placeholder="New password" required>
-        <button type="submit" class="btn small">Change Password</button>
-      </form>
+      <button class="admin-collapse-toggle" onclick="toggleCollapse(this)">
+        <h2 style="margin:0;font-size:1.1rem">&#9881; Settings</h2>
+        <span class="collapse-icon">&#9660;</span>
+      </button>
+      <div class="admin-collapse-content">
+        <form class="inline-form ajax-form" action="/admin/change-password" style="margin-top:12px">
+          <input type="password" name="currentPassword" placeholder="Current password" required>
+          <input type="password" name="newPassword" placeholder="New password" required>
+          <button type="submit" class="btn small">Change Password</button>
+        </form>
+      </div>
     </section>
 
+    <!-- General URLs -->
     <section class="admin-section">
-      <h2>General Roadmap URLs</h2>
-      <p class="empty-note">Paste resource links for the 7-week plan and 9 AI skills. Students will see these as clickable links.</p>
-      <form method="POST" action="/api/general-urls" class="urls-form">
-        <div class="urls-grid">
-          <div class="url-group">
-            <h4>7-Week Plan</h4>
-            <% var weekLabels = {week1:'Week 1 — Python Basics',week2:'Week 2 — AI APIs',week3:'Week 3 — Vibe Coding',week4:'Week 4 — Build a Project',week5:'Week 5 — HTML/CSS + v0.dev',week6:'Week 6 — Deploy Live',week7:'Week 7 — Polish & Portfolio'}; %>
-            <% Object.keys(weekLabels).forEach(function(k) { %>
-              <label><%= weekLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
-            <% }); %>
+      <button class="admin-collapse-toggle" onclick="toggleCollapse(this)">
+        <h2 style="margin:0;font-size:1.1rem">&#128279; General Roadmap URLs</h2>
+        <span class="collapse-icon">&#9660;</span>
+      </button>
+      <div class="admin-collapse-content">
+        <p class="empty-note">Paste resource links for the 7-week plan and 9 AI skills.</p>
+        <form class="ajax-form" action="/api/general-urls">
+          <div class="urls-grid">
+            <div class="url-group">
+              <h4>7-Week Plan</h4>
+              <% var weekLabels = {week1:'Week 1 — Python Basics',week2:'Week 2 — AI APIs',week3:'Week 3 — Vibe Coding',week4:'Week 4 — Build a Project',week5:'Week 5 — HTML/CSS + v0.dev',week6:'Week 6 — Deploy Live',week7:'Week 7 — Polish & Portfolio'}; %>
+              <% Object.keys(weekLabels).forEach(function(k) { %>
+                <label><%= weekLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
+              <% }); %>
+            </div>
+            <div class="url-group">
+              <h4>9 AI Skills</h4>
+              <% var skillLabels = {skill1:'Prompt Engineering',skill2:'AI Workflow Automation',skill3:'AI Agents',skill4:'RAG',skill5:'Fine-Tuning & GPTs',skill6:'Multimodal AI',skill7:'AI Video Generation',skill8:'AI Tool Stacking',skill9:'LLM Evaluation'}; %>
+              <% Object.keys(skillLabels).forEach(function(k) { %>
+                <label><%= skillLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
+              <% }); %>
+            </div>
           </div>
-          <div class="url-group">
-            <h4>9 AI Skills</h4>
-            <% var skillLabels = {skill1:'Prompt Engineering',skill2:'AI Workflow Automation',skill3:'AI Agents',skill4:'RAG',skill5:'Fine-Tuning & GPTs',skill6:'Multimodal AI',skill7:'AI Video Generation',skill8:'AI Tool Stacking',skill9:'LLM Evaluation'}; %>
-            <% Object.keys(skillLabels).forEach(function(k) { %>
-              <label><%= skillLabels[k] %><input type="url" name="<%= k %>" value="<%= generalUrls[k] || '' %>" placeholder="https://..."></label>
-            <% }); %>
-          </div>
-        </div>
-        <button type="submit" class="btn">Save URLs</button>
-      </form>
+          <button type="submit" class="btn">Save URLs</button>
+        </form>
+      </div>
     </section>
 
+    <!-- Add Person -->
     <section class="admin-section">
-      <h2>Add Person</h2>
-      <form method="POST" action="/api/person" class="inline-form">
+      <h2 style="font-size:1.1rem;margin-bottom:12px">&#10133; Add Person</h2>
+      <form class="inline-form ajax-form" action="/api/person">
         <input type="text" name="name" placeholder="Person name" required>
         <button type="submit" class="btn">Add</button>
       </form>
     </section>
 
+    <!-- People -->
     <% people.forEach(function(person) { %>
       <section class="admin-person">
-        <div class="person-head">
-          <h2><%= person.name %></h2>
-          <div class="person-actions">
-            <form method="POST" action="/api/person/<%= person.id %>/rename" class="inline-form">
-              <input type="text" name="name" placeholder="Rename" required>
-              <button type="submit" class="btn small">Rename</button>
-            </form>
-            <form method="POST" action="/api/person/<%= person.id %>/delete" onsubmit="return confirm('Delete this person and all their content?')">
-              <button type="submit" class="btn small danger">Delete</button>
+        <button class="admin-collapse-toggle" onclick="toggleCollapse(this)" style="margin-bottom:0">
+          <div class="person-head" style="margin-bottom:0;flex:1">
+            <h2 style="font-size:1.2rem"><%= person.name %></h2>
+            <div class="person-actions">
+              <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/rename" style="gap:4px">
+                <input type="text" name="name" placeholder="Rename" required>
+                <button type="submit" class="btn small">Rename</button>
+              </form>
+              <form class="ajax-form" action="/api/person/<%= person.id %>/delete" data-confirm="Delete this person and all their content?">
+                <button type="submit" class="btn small danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <span class="collapse-icon">&#9660;</span>
+        </button>
+
+        <div class="admin-collapse-content">
+          <div class="access-link" style="margin-top:12px">
+            <strong>Access Link:</strong>
+            <input type="text" value="<%= publicUrl %>/p/<%= person.accessToken %>" readonly onclick="this.select()" class="link-input">
+            <button class="btn small" onclick="var i=this.previousElementSibling;navigator.clipboard.writeText(i.value);showToast('Copied!','success')">Copy</button>
+          </div>
+
+          <div class="theme-form" style="margin:10px 0;padding:10px;background:#0f1a2e;border-radius:8px">
+            <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/theme" style="flex-wrap:wrap">
+              <input type="color" name="theme" value="<%= person.theme || '#667eea' %>" style="width:40px;height:36px;padding:2px;border:1px solid #2a3a5e;border-radius:6px;background:transparent;cursor:pointer">
+              <input type="text" name="badge" placeholder="Badge (e.g. The Poet)" value="<%= person.badge || '' %>" style="flex:1;min-width:120px">
+              <input type="text" name="customMessage" placeholder="Private message for them" value="<%= person.customMessage || '' %>" style="flex:2;min-width:180px">
+              <button type="submit" class="btn small">Save</button>
             </form>
           </div>
-        </div>
-        <div class="access-link">
-          <strong>Access Link:</strong>
-          <input type="text" value="<%= publicUrl %>/p/<%= person.accessToken %>" readonly onclick="this.select()" class="link-input">
-          <button class="btn small" onclick="navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
-        </div>
 
-        <div class="theme-form" style="margin:10px 0;padding:10px;background:#0f1a2e;border-radius:8px">
-          <form method="POST" action="/api/person/<%= person.id %>/theme" class="inline-form" style="flex-wrap:wrap">
-            <input type="color" name="theme" value="<%= person.theme || '#667eea' %>" style="width:40px;height:36px;padding:2px;border:1px solid #2a3a5e;border-radius:6px;background:transparent;cursor:pointer">
-            <input type="text" name="badge" placeholder="Badge (e.g. The Poet 🌙)" value="<%= person.badge || '' %>" style="flex:1;min-width:120px">
-            <input type="text" name="customMessage" placeholder="Private message for them" value="<%= person.customMessage || '' %>" style="flex:2;min-width:180px">
-            <button type="submit" class="btn small">Save</button>
-          </form>
-        </div>
-
-        <div class="add-section">
-          <h3>Add Section to <%= person.name %></h3>
-          <form method="POST" action="/api/person/<%= person.id %>/section" class="inline-form">
-            <input type="text" name="title" placeholder="Section title" required>
-            <select name="type">
-              <option value="images">Images</option>
-              <option value="voice">Voice</option>
-              <option value="videos">Videos</option>
-              <option value="texts">Texts</option>
-              <option value="other">Other</option>
-            </select>
-            <button type="submit" class="btn small">Add</button>
-          </form>
-        </div>
-
-        <div class="admin-section-box roadmap-box">
-          <div class="section-head">
-            <h3>Roadmap</h3>
-          </div>
-          <div class="upload-form">
-            <h4>Add Milestone</h4>
-            <form method="POST" action="/api/person/<%= person.id %>/roadmap/add" class="upload-form-inner">
-              <input type="text" name="title" placeholder="Milestone title" required>
-              <input type="date" name="date">
-              <input type="text" name="description" placeholder="Description">
+          <!-- Add Section -->
+          <div class="add-section">
+            <h3>Add Section to <%= person.name %></h3>
+            <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/section">
+              <input type="text" name="title" placeholder="Section title" required>
+              <select name="type">
+                <option value="images">Images</option>
+                <option value="voice">Voice</option>
+                <option value="videos">Videos</option>
+                <option value="texts">Texts</option>
+                <option value="other">Other</option>
+              </select>
               <button type="submit" class="btn small">Add</button>
             </form>
           </div>
-          <% if (person.roadmap && person.roadmap.length > 0) { %>
-            <div class="items-list">
-              <h4>Milestones (<%= person.roadmap.length %>)</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% person.roadmap.forEach(function(item, idx) { %>
-                    <tr>
-                      <td><%= item.date %></td>
-                      <td><%= item.title %></td>
-                      <td><%= item.description %></td>
-                      <td>
-                        <form method="POST" action="/api/person/<%= person.id %>/roadmap/delete" onsubmit="return confirm('Delete this milestone?')">
-                          <input type="hidden" name="index" value="<%= idx %>">
-                          <button type="submit" class="btn small danger">Delete</button>
-                        </form>
-                      </td>
-                    </tr>
-                  <% }); %>
-                </tbody>
-              </table>
-            </div>
-          <% } else { %>
-            <p class="empty-note">No milestones yet. Add the key moments for <%= person.name %>!</p>
-          <% } %>
-        </div>
 
-        <div class="admin-section-box">
-          <div class="section-head">
-            <h3>Playlist 🎵</h3>
-          </div>
-          <div class="upload-form">
-            <form method="POST" action="/api/person/<%= person.id %>/playlist/add" class="upload-form-inner">
-              <input type="text" name="title" placeholder="Song title" required>
-              <input type="url" name="url" placeholder="https://youtube.com/..." required>
-              <button type="submit" class="btn small">Add Song</button>
-            </form>
-          </div>
-          <% if (person.playlist && person.playlist.length > 0) { %>
-            <div class="items-list">
-              <table>
-                <thead><tr><th>Title</th><th>URL</th><th>Action</th></tr></thead>
-                <tbody>
-                  <% person.playlist.forEach(function(song, idx) { %>
-                    <tr>
-                      <td>
-                        <form method="POST" action="/api/person/<%= person.id %>/playlist/rename" class="inline-form" style="gap:4px;flex-wrap:nowrap">
-                          <input type="hidden" name="index" value="<%= idx %>">
-                          <input type="text" name="title" value="<%= song.title %>" style="padding:4px 6px;font-size:0.75rem;width:120px">
-                          <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
-                        </form>
-                      </td>
-                      <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
-                      <td>
-                        <form method="POST" action="/api/person/<%= person.id %>/playlist/delete" onsubmit="return confirm('Remove this song?')">
-                          <input type="hidden" name="index" value="<%= idx %>">
-                          <button type="submit" class="btn small danger">Delete</button>
-                        </form>
-                      </td>
-                    </tr>
-                  <% }); %>
-                </tbody>
-              </table>
-            </div>
-          <% } else { %>
-            <p class="empty-note">No songs yet. Add some for <%= person.name %>!</p>
-          <% } %>
-        </div>
-
-        <% person.sections.forEach(function(section) { %>
-          <div class="admin-section-box">
+          <!-- Roadmap -->
+          <div class="admin-section-box roadmap-box">
             <div class="section-head">
-              <h3><%= section.title %> <span class="badge"><%= section.type %></span></h3>
-              <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/delete" onsubmit="return confirm('Delete this section and all its files?')">
-                <button type="submit" class="btn small danger">Delete Section</button>
+              <h3>Roadmap</h3>
+            </div>
+            <div class="upload-form">
+              <h4>Add Milestone</h4>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/roadmap/add">
+                <input type="text" name="title" placeholder="Milestone title" required>
+                <input type="date" name="date">
+                <input type="text" name="description" placeholder="Description">
+                <button type="submit" class="btn small">Add</button>
               </form>
             </div>
-
-            <div class="upload-form">
-              <h4>Upload to <%= section.title %></h4>
-              <form method="POST" action="/api/upload" enctype="multipart/form-data" class="upload-form-inner">
-                <input type="hidden" name="personId" value="<%= person.id %>">
-                <input type="hidden" name="sectionId" value="<%= section.id %>">
-                <input type="file" name="file" required>
-                <input type="text" name="title" placeholder="Display title (optional)">
-                <label>
-                  Release Date:
-                  <input type="date" name="releaseDate" value="<%= new Date().toISOString().split('T')[0] %>">
-                </label>
-                <button type="submit" class="btn small">Upload</button>
-              </form>
-
-              <% if (section.type === 'voice') { %>
-              <div class="voice-recorder" style="margin-top:10px;padding:12px;border:1px dashed #555;border-radius:8px">
-                <h4>🎙 Record Voice Note</h4>
-                <button type="button" class="btn small" onclick="startRecording(this)" data-person="<%= person.id %>" data-section="<%= section.id %>">Start Recording</button>
-                <span class="rec-status"></span>
-                <input type="text" id="rec-title-<%= section.id %>" placeholder="Voice title" style="width:100%;margin-top:6px;box-sizing:border-box">
-                <audio id="rec-preview-<%= section.id %>" controls style="display:none;width:100%;margin-top:6px"></audio>
-                <button type="button" class="btn small" id="rec-upload-<%= section.id %>" style="display:none;margin-top:6px" onclick="uploadRecording('<%= person.id %>','<%= section.id %>')">Upload Recording</button>
-              </div>
-              <% } %>
-
-            <% if (section.items.length > 0) { %>
+            <% if (person.roadmap && person.roadmap.length > 0) { %>
               <div class="items-list">
-                <h4>Items (<%= section.items.length %>)</h4>
+                <h4>Milestones (<%= person.roadmap.length %>)</h4>
                 <table>
                   <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>File</th>
-                      <th>Release Date</th>
-                      <th>Action</th>
-                    </tr>
+                    <tr><th>Date</th><th>Title</th><th>Description</th><th>Action</th></tr>
                   </thead>
                   <tbody>
-                    <% section.items.forEach(function(item) { %>
+                    <% person.roadmap.forEach(function(item, idx) { %>
                       <tr>
+                        <td><%= item.date %></td>
                         <td><%= item.title %></td>
-                        <td><%= item.originalName %></td>
+                        <td><%= item.description %></td>
                         <td>
-                          <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/date" class="inline-form" style="gap:4px;flex-wrap:nowrap" onsubmit="return confirm('Update release date?')">
-                            <input type="hidden" name="filename" value="<%= item.filename %>">
-                            <input type="date" name="releaseDate" value="<%= new Date(item.releaseDate).toISOString().split('T')[0] %>" style="padding:4px 6px;font-size:0.75rem;width:130px">
-                            <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
-                          </form>
-                        </td>
-                        <td>
-                          <form method="POST" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" onsubmit="return confirm('Delete this item?')">
-                            <input type="hidden" name="filename" value="<%= item.filename %>">
+                          <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/roadmap/delete" data-confirm="Delete this milestone?">
+                            <input type="hidden" name="index" value="<%= idx %>">
                             <button type="submit" class="btn small danger">Delete</button>
                           </form>
                         </td>
@@ -267,10 +162,125 @@
                 </table>
               </div>
             <% } else { %>
-              <p class="empty-note">No items in this section</p>
+              <p class="empty-note">No milestones yet.</p>
             <% } %>
           </div>
-        <% }); %>
+
+          <!-- Playlist -->
+          <div class="admin-section-box">
+            <div class="section-head">
+              <h3>Playlist</h3>
+            </div>
+            <div class="upload-form">
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/playlist/add">
+                <input type="text" name="title" placeholder="Song title" required>
+                <input type="url" name="url" placeholder="https://youtube.com/..." required>
+                <button type="submit" class="btn small">Add Song</button>
+              </form>
+            </div>
+            <% if (person.playlist && person.playlist.length > 0) { %>
+              <div class="items-list">
+                <table>
+                  <thead><tr><th>Title</th><th>URL</th><th>Action</th></tr></thead>
+                  <tbody>
+                    <% person.playlist.forEach(function(song, idx) { %>
+                      <tr>
+                        <td>
+                          <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/playlist/rename" style="gap:4px;flex-wrap:nowrap">
+                            <input type="hidden" name="index" value="<%= idx %>">
+                            <input type="text" name="title" value="<%= song.title %>" style="padding:4px 6px;font-size:0.75rem;width:120px">
+                            <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                          </form>
+                        </td>
+                        <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
+                        <td>
+                          <form class="ajax-form" action="/api/person/<%= person.id %>/playlist/delete" data-confirm="Remove this song?">
+                            <input type="hidden" name="index" value="<%= idx %>">
+                            <button type="submit" class="btn small danger">Delete</button>
+                          </form>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            <% } else { %>
+              <p class="empty-note">No songs yet.</p>
+            <% } %>
+          </div>
+
+          <!-- Sections -->
+          <% person.sections.forEach(function(section) { %>
+            <div class="admin-section-box" id="section-<%= person.id %>-<%= section.id %>">
+              <div class="section-head">
+                <h3><%= section.title %> <span class="badge"><%= section.type %></span></h3>
+                <form class="ajax-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/delete" data-confirm="Delete this section and all its files?">
+                  <button type="submit" class="btn small danger">Delete Section</button>
+                </form>
+              </div>
+
+              <div class="upload-form">
+                <h4>Upload to <%= section.title %></h4>
+                <form class="upload-form-inner ajax-upload" action="/api/upload" enctype="multipart/form-data">
+                  <input type="hidden" name="personId" value="<%= person.id %>">
+                  <input type="hidden" name="sectionId" value="<%= section.id %>">
+                  <input type="file" name="file" required>
+                  <input type="text" name="title" placeholder="Display title (optional)">
+                  <label>
+                    Release Date:
+                    <input type="date" name="releaseDate" value="<%= new Date().toISOString().split('T')[0] %>">
+                  </label>
+                  <button type="submit" class="btn small">Upload</button>
+                </form>
+
+                <% if (section.type === 'voice') { %>
+                  <div class="voice-recorder" style="margin-top:10px;padding:12px;border:1px dashed #555;border-radius:8px">
+                    <h4>&#127908; Record Voice Note</h4>
+                    <button type="button" class="btn small" onclick="startRecording(this)" data-person="<%= person.id %>" data-section="<%= section.id %>">Start Recording</button>
+                    <span class="rec-status"></span>
+                    <input type="text" id="rec-title-<%= section.id %>" placeholder="Voice title" style="width:100%;margin-top:6px;box-sizing:border-box">
+                    <audio id="rec-preview-<%= section.id %>" controls style="display:none;width:100%;margin-top:6px"></audio>
+                    <button type="button" class="btn small" id="rec-upload-<%= section.id %>" style="display:none;margin-top:6px" onclick="uploadRecording('<%= person.id %>','<%= section.id %>')">Upload Recording</button>
+                  </div>
+                <% } %>
+
+                <% if (section.items.length > 0) { %>
+                  <div class="items-list">
+                    <h4>Items (<%= section.items.length %>)</h4>
+                    <table>
+                      <thead>
+                        <tr><th>Title</th><th>File</th><th>Release Date</th><th>Action</th></tr>
+                      </thead>
+                      <tbody>
+                        <% section.items.forEach(function(item) { %>
+                          <tr>
+                            <td><%= item.title %></td>
+                            <td><%= item.originalName %></td>
+                            <td>
+                              <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/date" style="gap:4px;flex-wrap:nowrap">
+                                <input type="hidden" name="filename" value="<%= item.filename %>">
+                                <input type="date" name="releaseDate" value="<%= new Date(item.releaseDate).toISOString().split('T')[0] %>" style="padding:4px 6px;font-size:0.75rem;width:130px">
+                                <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                              </form>
+                            </td>
+                            <td>
+                              <form class="ajax-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" data-confirm="Delete this item?">
+                                <input type="hidden" name="filename" value="<%= item.filename %>">
+                                <button type="submit" class="btn small danger">Delete</button>
+                              </form>
+                            </td>
+                          </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% } else { %>
+                  <p class="empty-note">No items in this section.</p>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
       </section>
     <% }); %>
   </div>
@@ -278,12 +288,84 @@
 <script>
 var mediaRecorder, audioChunks = [], recordingPersonId, recordingSectionId;
 
+function showToast(msg, type) {
+  type = type || 'success';
+  var c = document.getElementById('toast-container');
+  var t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 3000);
+}
+
+function toggleCollapse(btn) {
+  btn.classList.toggle('collapsed');
+  var content = btn.nextElementSibling;
+  if (content && content.classList) content.classList.toggle('closed');
+}
+
+function formToJSON(form) {
+  var data = {};
+  var fd = new FormData(form);
+  fd.forEach(function(v, k) { data[k] = v; });
+  return data;
+}
+
+function handleClick(btn) {
+  btn.disabled = true;
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<span class="admin-spinner"></span>';
+  return { restore: function() { btn.disabled = false; btn.innerHTML = orig; } };
+}
+
+// Restore scroll position after reload
+(function() {
+  var saved = sessionStorage.getItem('adminScrollY');
+  if (saved) { window.scrollTo(0, parseInt(saved)); sessionStorage.removeItem('adminScrollY'); }
+})();
+
+function reloadPreserve() {
+  sessionStorage.setItem('adminScrollY', window.scrollY);
+  location.reload();
+}
+
+document.addEventListener('submit', function(e) {
+  var form = e.target;
+  if (!form.classList.contains('ajax-form') && !form.classList.contains('ajax-upload')) return;
+  e.preventDefault();
+  var confirmMsg = form.getAttribute('data-confirm');
+  if (confirmMsg && !confirm(confirmMsg)) return;
+  var btn = form.querySelector('button[type="submit"]');
+  var spinner = btn ? handleClick(btn) : null;
+  var action = form.getAttribute('action');
+  var method = form.getAttribute('method') || 'POST';
+  var useUpload = form.classList.contains('ajax-upload');
+  var body = useUpload ? new FormData(form) : JSON.stringify(formToJSON(form));
+  var headers = useUpload ? {} : { 'Content-Type': 'application/json' };
+  fetch(action, { method: method, headers: headers, body: body }).then(function(r) {
+    return r.json().catch(function() { return { error: 'Invalid server response' }; });
+  }).then(function(data) {
+    if (spinner) spinner.restore();
+    if (data.error) {
+      showToast(data.error, 'error');
+    } else if (data.success) {
+      showToast(data.msg || 'Done!', 'success');
+      reloadPreserve();
+    } else {
+      showToast('Unexpected response', 'error');
+    }
+  }).catch(function(err) {
+    if (spinner) spinner.restore();
+    showToast('Network error: ' + err.message, 'error');
+  });
+});
+
 function startRecording(btn) {
   recordingPersonId = btn.getAttribute('data-person');
   recordingSectionId = btn.getAttribute('data-section');
   var status = btn.parentElement.querySelector('.rec-status');
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    status.textContent = '❌ Recording not supported in this browser';
+    status.textContent = 'Not supported in this browser';
     return;
   }
   if (mediaRecorder && mediaRecorder.state === 'recording') {
@@ -302,14 +384,14 @@ function startRecording(btn) {
       preview.src = url;
       preview.style.display = 'block';
       btn.parentElement.querySelector('#rec-upload-' + recordingSectionId).style.display = 'inline-block';
-      btn.textContent = '🔴 Record Again';
-      status.textContent = '✓ Recorded ' + (blob.size / 1024).toFixed(1) + 'KB';
+      btn.textContent = 'Record Again';
+      status.textContent = 'Recorded ' + (blob.size / 1024).toFixed(1) + 'KB';
     };
     mediaRecorder.start();
-    btn.textContent = '⏹ Stop Recording';
-    status.textContent = '🔴 Recording...';
+    btn.textContent = 'Stop Recording';
+    status.textContent = 'Recording...';
   }).catch(function(err) {
-    status.textContent = '❌ Microphone access denied: ' + err.message;
+    status.textContent = 'Microphone access denied: ' + err.message;
   });
 }
 
@@ -328,8 +410,9 @@ function uploadRecording(personId, sectionId) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: formData.toString()
     }).then(function(r) { return r.json(); }).then(function(data) {
-      if (data.success) { status.textContent = '✅ Uploaded! Refresh to see it.'; } else { status.textContent = '❌ ' + (data.error || 'Upload failed'); }
-    }).catch(function(err) { status.textContent = '❌ ' + err.message; });
+      if (data.success) { showToast('Uploaded!','success'); setTimeout(function(){location.reload()},1000); }
+      else { status.textContent = 'Error: ' + (data.error || 'Upload failed'); }
+    }).catch(function(err) { status.textContent = 'Error: ' + err.message; });
   };
   reader.readAsDataURL(blob);
 }
