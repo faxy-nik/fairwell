@@ -177,6 +177,11 @@ app.get('/p/:token', (req, res) => {
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
   if (!person.visits) person.visits = 0;
   person.visits++;
+  if (person.id === 'eeshah') {
+    if (person.gardenFlowers === undefined) person.gardenFlowers = 0;
+    if (person.gardenFlowers < 50) person.gardenFlowers++;
+  }
+  person.lastVisitDate = new Date().toISOString().split('T')[0];
   saveConfig(config);
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');
   const hasCard = fs.existsSync(cardPath);
@@ -433,6 +438,82 @@ app.post('/api/person/:id/rename', requireAuth, (req, res) => {
     return res.json({ success: true, name: req.body.name });
   }
   res.json({ error: 'Person not found or name empty' });
+});
+
+app.post('/api/person/:id/reason/add', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.body.reason) return res.json({ error: 'Reason required' });
+  if (!person.reasons) person.reasons = [];
+  person.reasons.push(req.body.reason);
+  saveConfig(config);
+  res.json({ success: true, reason: req.body.reason });
+});
+
+app.post('/api/person/:id/reason/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.reasons) {
+    person.reasons.splice(parseInt(req.body.index), 1);
+    saveConfig(config);
+  }
+  res.json({ success: true });
+});
+
+app.post('/api/person/:id/compliment/add', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.body.compliment) return res.json({ error: 'Compliment required' });
+  if (!person.compliments) person.compliments = [];
+  person.compliments.push(req.body.compliment);
+  saveConfig(config);
+  res.json({ success: true, compliment: req.body.compliment });
+});
+
+app.post('/api/person/:id/compliment/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.compliments) {
+    person.compliments.splice(parseInt(req.body.index), 1);
+    saveConfig(config);
+  }
+  res.json({ success: true });
+});
+
+// ─── MET DATE ───
+app.post('/api/person/:id/metdate', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && req.body.metDate) {
+    person.metDate = req.body.metDate;
+    saveConfig(config);
+    return res.json({ success: true, metDate: req.body.metDate });
+  }
+  res.json({ error: 'Invalid date' });
+});
+
+// ─── QUIZ ───
+app.post('/api/person/:id/quiz/add', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (!person) return res.json({ error: 'Person not found' });
+  if (!req.body.question || !req.body.options || !req.body.answer) return res.json({ error: 'Question, options, and answer required' });
+  if (!person.quiz) person.quiz = [];
+  person.quiz.push({ question: req.body.question, options: JSON.parse(req.body.options), answer: parseInt(req.body.answer) });
+  saveConfig(config);
+  res.json({ success: true, question: { question: req.body.question, options: JSON.parse(req.body.options), answer: parseInt(req.body.answer) } });
+});
+
+app.post('/api/person/:id/quiz/delete', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.quiz) {
+    person.quiz.splice(parseInt(req.body.index), 1);
+    saveConfig(config);
+  }
+  res.json({ success: true });
 });
 
 app.post('/api/general-urls', requireAuth, (req, res) => {

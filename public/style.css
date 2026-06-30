@@ -2409,3 +2409,106 @@ body.theme-eeshah .heart-final-line {
 body.theme-eeshah .type-cursor {
   color: rgba(180,140,255,0.4);
 }
+
+/* ── Reasons Flip Cards ── */
+.reasons-box { border-color: rgba(236,72,153,0.2) !important; }
+body.theme-eeshah .reasons-box { border-color: rgba(168,85,247,0.25) !important; background: rgba(30,10,50,0.3) !important; }
+.reasons-stack { display: flex; flex-direction: column; gap: 10px; padding: 8px 0; }
+.reason-flip-card { perspective: 800px; cursor: pointer; }
+.reason-flip-inner { position: relative; width: 100%; min-height: 56px; transition: transform 0.5s ease; transform-style: preserve-3d; }
+.reason-flip-card.flipped .reason-flip-inner { transform: rotateX(180deg); }
+.reason-flip-front, .reason-flip-back { position: absolute; top: 0; left: 0; width: 100%; min-height: 56px; backface-visibility: hidden; display: flex; align-items: center; padding: 12px 16px; border-radius: 10px; box-sizing: border-box; }
+.reason-flip-front { background: rgba(236,72,153,0.1); border: 1px solid rgba(236,72,153,0.2); justify-content: space-between; color: #f0abfc; font-weight: 600; }
+body.theme-eeshah .reason-flip-front { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.2); color: #d8b4fe; }
+.reason-hint { font-size: 0.7rem; color: #666; font-weight: 400; }
+.reason-flip-back { background: rgba(236,72,153,0.08); border: 1px solid rgba(236,72,153,0.15); transform: rotateX(180deg); color: #e2e8f0; font-size: 0.9rem; line-height: 1.4; }
+body.theme-eeshah .reason-flip-back { background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.18); color: #eaddff; }
+
+/* ── Compliment Generator ── */
+.compliment-box { text-align: center; border-color: rgba(251,191,36,0.15) !important; }
+body.theme-eeshah .compliment-box { border-color: rgba(234,179,8,0.15) !important; background: rgba(30,20,8,0.3) !important; }
+.compliment-display { font-size: 1.15rem; color: #fbbf24; padding: 20px 16px; line-height: 1.6; font-style: italic; font-family: 'Georgia', serif; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+body.theme-eeshah .compliment-display { color: #fcd34d; }
+.compliment-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; border: none; padding: 10px 24px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; transition: all 0.2s; }
+.compliment-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(245,158,11,0.4); }
+@keyframes complimentPop { 0% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.05); } 100% { transform: scale(1); opacity: 1; } }
+
+/* ── Jukebox ── */
+.jukebox-box { border-color: rgba(34,211,238,0.15) !important; }
+body.theme-eeshah .jukebox-box { border-color: rgba(192,132,252,0.2) !important; background: rgba(20,10,40,0.35) !important; }
+.jukebox-player { display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 12px; }
+.jukebox-disc { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #1e293b, #334155); border: 3px solid rgba(34,211,238,0.3); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #22d3ee; transition: transform 0.3s; flex-shrink: 0; }
+body.theme-eeshah .jukebox-disc { border-color: rgba(192,132,252,0.4); color: #c084fc; }
+.jukebox-disc.spinning { animation: jukeboxSpin 2s linear infinite; }
+@keyframes jukeboxSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.jukebox-info { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+.jukebox-song-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; text-align: center; }
+body.theme-eeshah .jukebox-song-title { color: #eaddff; }
+.jukebox-controls { display: flex; gap: 12px; align-items: center; }
+.jukebox-btn { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); color: #22d3ee; width: 40px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+body.theme-eeshah .jukebox-btn { border-color: rgba(192,132,252,0.25); color: #c084fc; background: rgba(192,132,252,0.08); }
+.jukebox-btn:hover { background: rgba(34,211,238,0.2); transform: scale(1.1); }
+body.theme-eeshah .jukebox-btn:hover { background: rgba(192,132,252,0.18); }
+.jukebox-play-btn { width: 48px; height: 42px; font-size: 1.1rem; }
+.jukebox-tracklist { width: 100%; display: flex; flex-direction: column; gap: 4px; padding: 8px 0; }
+.jukebox-track { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: #94a3b8; transition: all 0.2s; cursor: pointer; }
+.jukebox-track:hover { background: rgba(34,211,238,0.06); color: #e2e8f0; }
+body.theme-eeshah .jukebox-track:hover { background: rgba(192,132,252,0.06); color: #eaddff; }
+.jukebox-track.active { background: rgba(34,211,238,0.1); color: #22d3ee; }
+body.theme-eeshah .jukebox-track.active { background: rgba(192,132,252,0.12); color: #c084fc; }
+.track-num { width: 20px; text-align: center; font-size: 0.75rem; opacity: 0.6; }
+.track-title { flex: 1; font-size: 0.85rem; }
+.track-play-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.2s; }
+.jukebox-track:hover .track-play-icon, .jukebox-track.active .track-play-icon { opacity: 0.7; }
+
+/* ── Virtual Garden ── */
+.garden-box { border-color: rgba(74,222,128,0.15) !important; }
+body.theme-eeshah .garden-box { border-color: rgba(134,239,172,0.15) !important; background: rgba(5,25,15,0.3) !important; }
+.garden-plot { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 12px; min-height: 80px; justify-content: center; align-items: center; }
+.garden-flower { font-size: 1.6rem; display: inline-block; animation: gardenBloom 0.5s ease both; }
+.garden-empty { color: #666; font-style: italic; font-size: 0.9rem; text-align: center; }
+.garden-note { text-align: center; font-size: 0.8rem; color: #6ee7b7; margin: 4px 0 12px; }
+@keyframes gardenBloom { 0% { transform: scale(0) rotate(-20deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+
+/* ── Time Since We Met ── */
+.timer-box { border-color: rgba(251,146,60,0.15) !important; }
+body.theme-eeshah .timer-box { border-color: rgba(251,146,60,0.15) !important; background: rgba(30,15,5,0.3) !important; }
+.timer-display { display: flex; justify-content: center; gap: 16px; padding: 16px 0; }
+.timer-unit { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+.timer-val { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #fb923c, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2; }
+body.theme-eeshah .timer-val { background: linear-gradient(135deg, #c084fc, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.timer-lbl { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+/* ── Quiz ── */
+.quiz-box { border-color: rgba(34,211,238,0.12) !important; }
+body.theme-eeshah .quiz-box { border-color: rgba(192,132,252,0.15) !important; background: rgba(15,10,30,0.3) !important; }
+.quiz-container { padding: 8px 0; }
+.quiz-question { padding: 8px 0; }
+.quiz-q-text { font-size: 1rem; color: #e2e8f0; margin-bottom: 12px; text-align: center; font-weight: 500; }
+body.theme-eeshah .quiz-q-text { color: #eaddff; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.quiz-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34,211,238,0.05); border: 1px solid rgba(34,211,238,0.1); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+body.theme-eeshah .quiz-option { background: rgba(192,132,252,0.06); border-color: rgba(192,132,252,0.12); }
+.quiz-option:hover { background: rgba(34,211,238,0.1); border-color: rgba(34,211,238,0.2); }
+body.theme-eeshah .quiz-option:hover { background: rgba(192,132,252,0.12); border-color: rgba(192,132,252,0.2); }
+.quiz-option input[type="radio"] { accent-color: #22d3ee; }
+body.theme-eeshah .quiz-option input[type="radio"] { accent-color: #c084fc; }
+.quiz-option span { font-size: 0.9rem; color: #cbd5e1; }
+body.theme-eeshah .quiz-option span { color: #ddd6fe; }
+.quiz-submit-btn { display: block; margin: 0 auto; background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; border: none; padding: 8px 24px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+body.theme-eeshah .quiz-submit-btn { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+.quiz-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(6,182,212,0.3); }
+body.theme-eeshah .quiz-submit-btn:hover { box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
+.quiz-submit-btn:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+.quiz-feedback { text-align: center; font-size: 0.85rem; margin-top: 8px; min-height: 20px; font-style: italic; }
+.quiz-result { text-align: center; padding: 16px; font-size: 1.1rem; color: #4ade80; }
+
+/* ── Candle for Missed Days ── */
+.candle-box { text-align: center; padding: 24px; cursor: pointer; animation: candleFadeIn 0.8s ease; }
+@keyframes candleFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.candle-body { display: inline-flex; flex-direction: column; align-items: center; }
+.candle-flame { font-size: 2rem; animation: candleFlicker 0.5s ease infinite alternate; cursor: pointer; transition: all 0.3s; }
+@keyframes candleFlicker { from { transform: scale(1) rotate(-2deg); } to { transform: scale(1.1) rotate(2deg); } }
+.candle-wax { width: 4px; height: 30px; background: linear-gradient(to top, #fbbf24, #f59e0b); border-radius: 2px; margin-top: -4px; }
+.candle-text { font-size: 0.85rem; color: #fbbf24; margin-top: 12px; font-style: italic; }
+.candle-message { text-align: center; padding: 20px; color: #d4c5a8; font-style: italic; font-size: 0.95rem; }

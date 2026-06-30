@@ -330,6 +330,259 @@
       </div>
     <% } %>
 
+    <% if (person.id === 'eeshah') { %>
+
+    <!-- ── Reasons Why You're Special ── -->
+    <% if (person.reasons && person.reasons.length > 0) { %>
+    <div class="section-box reasons-box animate-fade-up">
+      <div class="section-header"><span class="section-icon">💌</span><h3>Reasons Why You're Special</h3><span class="item-count"><%= person.reasons.length %></span></div>
+      <div class="reasons-stack">
+        <% person.reasons.forEach(function(r, i) { %>
+          <div class="reason-flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="reason-flip-inner">
+              <div class="reason-flip-front"><span>Reason #<%= i+1 %></span><span class="reason-hint">tap to reveal 💫</span></div>
+              <div class="reason-flip-back"><%= r %></div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- ── Compliment Generator ── -->
+    <% if (person.compliments && person.compliments.length > 0) { %>
+    <div class="section-box compliment-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">💎</span><h3>For When You Need a Smile</h3></div>
+      <div class="compliment-display" id="compliment-display">✨ <span id="compliment-text"><%= person.compliments[0] %></span> ✨</div>
+      <button class="compliment-btn" onclick="showNewCompliment()">Another One 💫</button>
+    </div>
+    <script>
+    var compliments = <%- JSON.stringify(person.compliments) %>;
+    var lastComplimentIdx = -1;
+    function showNewCompliment() {
+      var el = document.getElementById('compliment-text');
+      if (!el || compliments.length === 0) return;
+      var idx;
+      do { idx = Math.floor(Math.random() * compliments.length); } while (idx === lastComplimentIdx && compliments.length > 1);
+      lastComplimentIdx = idx;
+      el.textContent = compliments[idx];
+      el.parentElement.style.animation = 'none';
+      setTimeout(function() { el.parentElement.style.animation = 'complimentPop 0.4s ease'; }, 10);
+    }
+    </script>
+    <% } %>
+
+    <!-- ── Time Since We Met ── -->
+    <% if (person.metDate) { %>
+    <div class="section-box timer-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">⏳</span><h3>Time Since We Met</h3></div>
+      <div class="timer-display" id="timer-display">
+        <div class="timer-unit"><span class="timer-val" id="timer-days">0</span><span class="timer-lbl">Days</span></div>
+        <div class="timer-unit"><span class="timer-val" id="timer-hours">0</span><span class="timer-lbl">Hours</span></div>
+        <div class="timer-unit"><span class="timer-val" id="timer-mins">0</span><span class="timer-lbl">Mins</span></div>
+        <div class="timer-unit"><span class="timer-val" id="timer-secs">0</span><span class="timer-lbl">Secs</span></div>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var metDate = new Date('<%= person.metDate %>T00:00:00');
+      function updateTimer() {
+        var now = new Date();
+        var diff = Math.max(0, now - metDate);
+        var days = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins = Math.floor((diff % 3600000) / 60000);
+        var secs = Math.floor((diff % 60000) / 1000);
+        var de = document.getElementById('timer-days'); if (de) de.textContent = days;
+        var he = document.getElementById('timer-hours'); if (he) he.textContent = String(hours).padStart(2, '0');
+        var me = document.getElementById('timer-mins'); if (me) me.textContent = String(mins).padStart(2, '0');
+        var se = document.getElementById('timer-secs'); if (se) se.textContent = String(secs).padStart(2, '0');
+      }
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    })();
+    </script>
+    <% } %>
+
+    <!-- ── Jukebox ── -->
+    <% if (person.playlist && person.playlist.length > 0) { %>
+    <div class="section-box jukebox-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:10px"><span class="section-icon">🎧</span><h3>Our Songs</h3></div>
+      <div class="jukebox-player">
+        <div class="jukebox-disc" id="jukebox-disc">&#9835;</div>
+        <div class="jukebox-info">
+          <span class="jukebox-song-title" id="jukebox-title"><%= person.playlist[0].title %></span>
+          <div class="jukebox-controls">
+            <button class="jukebox-btn" onclick="jukeboxPrev()">⏮</button>
+            <button class="jukebox-btn jukebox-play-btn" id="jukebox-play-btn" onclick="jukeboxToggle()">▶</button>
+            <button class="jukebox-btn" onclick="jukeboxNext()">⏭</button>
+          </div>
+        </div>
+        <div class="jukebox-tracklist">
+          <% person.playlist.forEach(function(song, i) { %>
+            <a href="<%= song.url %>" target="_blank" class="jukebox-track <%= i === 0 ? 'active' : '' %>" data-idx="<%= i %>" onclick="event.stopPropagation();"><span class="track-num"><%= i+1 %></span><span class="track-title"><%= song.title %></span><span class="track-play-icon">&#9654;</span></a>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var tracks = document.querySelectorAll('.jukebox-track');
+      var titleEl = document.getElementById('jukebox-title');
+      var disc = document.getElementById('jukebox-disc');
+      var playBtn = document.getElementById('jukebox-play-btn');
+      var currentIdx = 0;
+      var spinning = false;
+
+      window.jukeboxPlay = function(idx) {
+        tracks.forEach(function(t) { t.classList.remove('active'); });
+        if (tracks[idx]) tracks[idx].classList.add('active');
+        currentIdx = idx;
+        if (titleEl) titleEl.textContent = tracks[idx] ? tracks[idx].querySelector('.track-title').textContent : '';
+        spinning = true;
+        if (disc) disc.classList.add('spinning');
+        if (playBtn) playBtn.textContent = '⏸';
+      };
+
+      window.jukeboxToggle = function() {
+        if (spinning) {
+          spinning = false;
+          if (disc) disc.classList.remove('spinning');
+          if (playBtn) playBtn.textContent = '▶';
+        } else {
+          jukeboxPlay(currentIdx);
+        }
+      };
+
+      window.jukeboxNext = function() {
+        var next = (currentIdx + 1) % tracks.length;
+        jukeboxPlay(next);
+        var link = tracks[next].getAttribute('href');
+        if (link && link !== '#') window.open(link, '_blank');
+      };
+
+      window.jukeboxPrev = function() {
+        var prev = (currentIdx - 1 + tracks.length) % tracks.length;
+        jukeboxPlay(prev);
+      };
+
+      // Initialize first track
+      if (tracks.length > 0) jukeboxPlay(0);
+    })();
+    </script>
+    <% } %>
+
+    <!-- ── You Know Me Quiz ── -->
+    <% if (person.quiz && person.quiz.length > 0) { %>
+    <div class="section-box quiz-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">🧩</span><h3>You Know Me?</h3><span class="item-count"><%= person.quiz.length %></span></div>
+      <div class="quiz-container" id="quiz-container">
+        <% var qIdx = 0; %>
+        <% person.quiz.forEach(function(q) { %>
+          <div class="quiz-question" data-idx="<%= qIdx %>" style="<%= qIdx > 0 ? 'display:none' : '' %>">
+            <p class="quiz-q-text"><%= q.question %></p>
+            <div class="quiz-options">
+              <% q.options.forEach(function(opt, oi) { %>
+                <label class="quiz-option">
+                  <input type="radio" name="q<%= qIdx %>" value="<%= oi %>">
+                  <span><%= opt %></span>
+                </label>
+              <% }); %>
+            </div>
+            <button class="quiz-submit-btn" onclick="checkQuizAnswer(this, <%= qIdx %>, <%= q.answer %>)">Submit</button>
+            <p class="quiz-feedback" id="quiz-feedback-<%= qIdx %>"></p>
+          </div>
+          <% qIdx++; %>
+        <% }); %>
+        <div class="quiz-result" id="quiz-result" style="display:none">
+          <p>You got <span id="quiz-score">0</span>/<%= person.quiz.length %> correct! 🎯</p>
+        </div>
+      </div>
+    </div>
+    <script>
+    var quizCorrect = 0, quizTotal = <%= person.quiz.length %>, quizCurrent = 0;
+    function checkQuizAnswer(btn, idx, answer) {
+      var qDiv = btn.closest ? btn.closest('.quiz-question') : btn.parentElement;
+      if (!qDiv) return;
+      var selected = qDiv.querySelector('input[type="radio"]:checked');
+      var fb = document.getElementById('quiz-feedback-' + idx);
+      if (!selected) { if (fb) fb.textContent = 'Pick an option first!'; if (fb) fb.style.color = '#f87171'; return; }
+      var val = parseInt(selected.value);
+      if (val === answer) {
+        quizCorrect++;
+        if (fb) { fb.textContent = 'Correct! 🎉'; fb.style.color = '#4ade80'; }
+      } else {
+        if (fb) { fb.textContent = 'Nope! The answer was option ' + (answer + 1) + ' 💫'; fb.style.color = '#fbbf24'; }
+      }
+      qDiv.querySelectorAll('input[type="radio"]').forEach(function(r) { r.disabled = true; });
+      btn.disabled = true;
+      btn.textContent = val === answer ? '✓ Correct' : '✗';
+      setTimeout(function() {
+        qDiv.style.display = 'none';
+        var next = document.querySelector('.quiz-question[data-idx="' + (idx + 1) + '"]');
+        if (next) { next.style.display = 'block'; quizCurrent++; }
+        else {
+          document.getElementById('quiz-score').textContent = quizCorrect;
+          document.getElementById('quiz-result').style.display = 'block';
+        }
+      }, 1000);
+    }
+    </script>
+    <% } %>
+
+    <!-- ── Virtual Garden ── -->
+    <div class="section-box garden-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">🌱</span><h3>Our Growing Garden</h3><span class="item-count"><%= Math.min(person.gardenFlowers || 0, 50) %></span></div>
+      <div class="garden-plot" id="garden-plot">
+        <% var flowerCount = Math.min(person.gardenFlowers || 0, 50); %>
+        <% if (flowerCount === 0) { %>
+          <p class="garden-empty">Every visit grows a flower. Come back to see it bloom 🌷</p>
+        <% } %>
+        <% for (var i = 0; i < flowerCount; i++) { %>
+          <span class="garden-flower"><%= ['🌸','🌷','🌹','🌺','🌻','🌼','💐','🌿','🌸','🌷','🌹','🌺'][i % 12] %></span>
+        <% } %>
+      </div>
+      <p class="garden-note"><%= flowerCount %> flower<%= flowerCount !== 1 ? 's' : '' %> bloomed from your visits ✨</p>
+    </div>
+
+    <!-- ── Candle for Missed Days ── -->
+    <div class="candle-box" id="candle-box" style="display:none" onclick="blowCandle()">
+      <div class="candle-body">
+        <div class="candle-flame" id="candle-flame">🔥</div>
+        <div class="candle-wax"></div>
+      </div>
+      <p class="candle-text">It's been a while... Light a candle? 🕯️</p>
+    </div>
+    <div class="candle-message" id="candle-message" style="display:none">
+      <p>Even when you're away, this little light stays on for you 🤍</p>
+      <p style="font-size:0.8rem;color:#888;margin-top:6px">Come back soon, the candle misses you.</p>
+    </div>
+    <script>
+    (function() {
+      var lastVisit = '<%= person.lastVisitDate || "" %>';
+      if (lastVisit) {
+        var last = new Date(lastVisit + 'T00:00:00');
+        var now = new Date();
+        var diffDays = Math.floor((now - last) / 86400000);
+        if (diffDays >= 2) {
+          document.getElementById('candle-box').style.display = 'block';
+        }
+      }
+    })();
+    function blowCandle() {
+      var flame = document.getElementById('candle-flame');
+      var box = document.getElementById('candle-box');
+      var msg = document.getElementById('candle-message');
+      if (flame) flame.textContent = '💨';
+      setTimeout(function() {
+        if (box) box.style.display = 'none';
+        if (msg) msg.style.display = 'block';
+      }, 400);
+    }
+    </script>
+
+    <% } %>
+
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
       <div class="section-box farewell-card-box animate-fade-up">
         <div class="section-header">
