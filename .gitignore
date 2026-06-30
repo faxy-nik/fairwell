@@ -2,3 +2,5 @@
 *.zip
 node_modules
 chat-story/
+uploads/
+data/uploads/

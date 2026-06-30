@@ -173,7 +173,13 @@
                 <tbody>
                   <% person.playlist.forEach(function(song, idx) { %>
                     <tr>
-                      <td><%= song.title %></td>
+                      <td>
+                        <form method="POST" action="/api/person/<%= person.id %>/playlist/rename" class="inline-form" style="gap:4px;flex-wrap:nowrap">
+                          <input type="hidden" name="index" value="<%= idx %>">
+                          <input type="text" name="title" value="<%= song.title %>" style="padding:4px 6px;font-size:0.75rem;width:120px">
+                          <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                        </form>
+                      </td>
                       <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
                       <td>
                         <form method="POST" action="/api/person/<%= person.id %>/playlist/delete" onsubmit="return confirm('Remove this song?')">

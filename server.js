@@ -340,6 +340,19 @@ app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {
   res.redirect('/admin');
 });
 
+app.post('/api/person/:id/playlist/rename', requireAuth, (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.id === req.params.id);
+  if (person && person.playlist && req.body.title) {
+    var idx = parseInt(req.body.index);
+    if (idx >= 0 && idx < person.playlist.length) {
+      person.playlist[idx].title = req.body.title;
+      saveConfig(config);
+    }
+  }
+  res.redirect('/admin');
+});
+
 app.post('/api/person/:id/theme', requireAuth, (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);
