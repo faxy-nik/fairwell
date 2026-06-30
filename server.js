@@ -202,6 +202,38 @@ app.get('/admin/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/admin/login'));
 });
 
+// ─── Config Backup Download ───
+app.get('/admin/download-config', requireAuth, (req, res) => {
+  const config = loadConfig();
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', 'attachment; filename=class-memories-backup-' + new Date().toISOString().split('T')[0] + '.json');
+  res.send(JSON.stringify(config, null, 2));
+});
+
+// ─── Config Backup Upload ───
+app.post('/admin/upload-config', requireAuth, (req, res) => {
+  try {
+    var data = req.body.config;
+    if (!data) return res.json({ error: 'No config data received' });
+    var config = JSON.parse(data);
+    if (!config.people || !Array.isArray(config.people)) return res.json({ error: 'Invalid config format' });
+    // Ensure all people have accessToken
+    config.people.forEach(function(p) {
+      if (!p.accessToken) p.accessToken = crypto.randomBytes(16).toString('hex');
+      if (!p.roadmap) p.roadmap = [];
+      if (!p.sections) p.sections = [];
+    });
+    if (!config.generalUrls) config.generalUrls = {};
+    Object.keys(DEFAULT_URLS).forEach(function(k) {
+      if (config.generalUrls[k] === undefined) config.generalUrls[k] = '';
+    });
+    saveConfig(config);
+    res.json({ success: true, msg: 'Config restored with ' + config.people.length + ' people' });
+  } catch (e) {
+    res.json({ error: 'Failed to restore config: ' + e.message });
+  }
+});
+
 app.get('/admin', requireAuth, (req, res) => {
   const config = loadConfig();
   const publicUrl = process.env.PUBLIC_URL || (req.headers['x-forwarded-proto'] || req.protocol) + '://' + (req.headers['x-forwarded-host'] || req.get('host'));

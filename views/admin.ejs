@@ -29,6 +29,23 @@
           <input type="password" name="newPassword" placeholder="New password" required>
           <button type="submit" class="btn small">Change Password</button>
         </form>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <a href="/admin/download-config" class="btn small" style="text-decoration:none" download>&#128190; Download Backup</a>
+          <form class="ajax-form inline-form" action="/admin/upload-config" style="gap:4px" id="restore-form">
+            <input type="file" accept=".json" style="font-size:0.8rem;color:#ccc" id="restore-file-input" required>
+            <input type="hidden" name="config" id="restore-config-input">
+            <button type="submit" class="btn small">&#128194; Restore Backup</button>
+          </form>
+          <script>
+            document.getElementById('restore-file-input').addEventListener('change', function() {
+              if (this.files[0]) {
+                var r = new FileReader();
+                r.onload = function() { document.getElementById('restore-config-input').value = r.result; };
+                r.readAsText(this.files[0]);
+              }
+            });
+          </script>
+        </div>
       </div>
     </section>
 
