@@ -113,6 +113,13 @@ var DEFAULT_URLS = {
 };
 
 function loadConfig() {
+  if (!fs.existsSync(CONFIG_PATH)) {
+    var backupPath = path.join(APP_DATA, 'config.json');
+    if (DATA_ROOT !== APP_DATA && fs.existsSync(backupPath)) {
+      console.log('DATA_ROOT config missing — restoring from git-tracked backup');
+      fs.copyFileSync(backupPath, CONFIG_PATH);
+    }
+  }
   const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
   let changed = false;
   if (!config.generalUrls) { config.generalUrls = {}; changed = true; }
@@ -127,6 +134,11 @@ function loadConfig() {
   return config;
 }
 function saveConfig(config) {
+  // Always write to both DATA_ROOT (live / HF persistent) and APP_DATA (git-tracked)
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+  if (DATA_ROOT !== APP_DATA) {
+    fs.writeFileSync(path.join(APP_DATA, 'config.json'), JSON.stringify(config, null, 2));
+  }
   persist.saveConfig(config);
 }
 
