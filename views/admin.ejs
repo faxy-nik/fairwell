@@ -71,21 +71,21 @@
 
     <% people.forEach(function(person) { %>
       <section class="admin-person" data-person-id="<%= person.id %>">
-        <button class="admin-collapse-toggle" onclick="toggleCollapse(this)" style="margin-bottom:0">
-          <div class="person-head" style="margin-bottom:0;flex:1">
-            <h2 class="person-name" style="font-size:1.2rem"><%= person.name %></h2>
-            <div class="person-actions">
-              <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/rename" style="gap:4px">
-                <input type="text" name="name" placeholder="Rename" required>
-                <button type="submit" class="btn small">Rename</button>
-              </form>
-              <form class="ajax-form" action="/api/person/<%= person.id %>/delete" data-confirm="Delete this person and all their content?">
-                <button type="submit" class="btn small danger">Delete</button>
-              </form>
-            </div>
+        <div class="person-head" style="margin-bottom:0">
+          <button class="admin-collapse-toggle" onclick="toggleCollapse(this)">
+            <h2 class="person-name" style="font-size:1.2rem;margin:0"><%= person.name %></h2>
+            <span class="collapse-icon">&#9660;</span>
+          </button>
+          <div class="person-actions">
+            <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/rename" style="gap:4px">
+              <input type="text" name="name" placeholder="Rename" required>
+              <button type="submit" class="btn small">Rename</button>
+            </form>
+            <form class="ajax-form" action="/api/person/<%= person.id %>/delete" data-confirm="Delete this person and all their content?">
+              <button type="submit" class="btn small danger">Delete</button>
+            </form>
           </div>
-          <span class="collapse-icon">&#9660;</span>
-        </button>
+        </div>
 
         <div class="admin-collapse-content">
           <div class="access-link" style="margin-top:12px">
@@ -300,8 +300,9 @@ function showToast(msg, type) {
 
 function toggleCollapse(btn) {
   btn.classList.toggle('collapsed');
-  var content = btn.nextElementSibling;
-  if (content && content.classList) content.classList.toggle('closed');
+  var section = closest(btn, '.admin-person, .admin-section');
+  var content = section ? section.querySelector('.admin-collapse-content') : null;
+  if (content) content.classList.toggle('closed');
 }
 
 function esc(str) {
@@ -598,14 +599,17 @@ document.addEventListener('submit', function(e) {
     // ── Add person ──
     else if (action === '/api/person') {
       var p = data.person;
-      var html = '<section class="admin-person" data-person-id="' + esc(p.id) + '"><button class="admin-collapse-toggle" onclick="toggleCollapse(this)" style="margin-bottom:0">' +
-        '<div class="person-head" style="margin-bottom:0;flex:1"><h2 class="person-name" style="font-size:1.2rem">' + esc(p.name) + '</h2>' +
-        '<div class="person-actions">' +
-          '<form class="inline-form ajax-form" action="/api/person/' + esc(p.id) + '/rename" style="gap:4px">' +
-            '<input type="text" name="name" placeholder="Rename" required><button type="submit" class="btn small">Rename</button></form>' +
-          '<form class="ajax-form" action="/api/person/' + esc(p.id) + '/delete" data-confirm="Delete this person and all their content?">' +
-            '<button type="submit" class="btn small danger">Delete</button></form></div></div>' +
-        '<span class="collapse-icon">&#9660;</span></button>' +
+      var html = '<section class="admin-person" data-person-id="' + esc(p.id) + '">' +
+        '<div class="person-head" style="margin-bottom:0">' +
+          '<button class="admin-collapse-toggle" onclick="toggleCollapse(this)">' +
+            '<h2 class="person-name" style="font-size:1.2rem;margin:0">' + esc(p.name) + '</h2>' +
+            '<span class="collapse-icon">&#9660;</span>' +
+          '</button>' +
+          '<div class="person-actions">' +
+            '<form class="inline-form ajax-form" action="/api/person/' + esc(p.id) + '/rename" style="gap:4px">' +
+              '<input type="text" name="name" placeholder="Rename" required><button type="submit" class="btn small">Rename</button></form>' +
+            '<form class="ajax-form" action="/api/person/' + esc(p.id) + '/delete" data-confirm="Delete this person and all their content?">' +
+              '<button type="submit" class="btn small danger">Delete</button></form></div></div>' +
         '<div class="admin-collapse-content">' +
           '<div class="access-link" style="margin-top:12px"><strong>Access Link:</strong> <input type="text" readonly class="link-input" value="..."></div>' +
           '<div class="add-section"><h3>Add Section to ' + esc(p.name) + '</h3>' +

@@ -1377,6 +1377,10 @@ html {
   padding: 0;
   text-align: left;
 }
+.person-head .admin-collapse-toggle {
+  width: auto;
+  gap: 8px;
+}
 .admin-collapse-toggle .collapse-icon {
   transition: transform 0.3s ease;
   font-size: 0.8rem;
