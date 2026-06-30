@@ -1,6 +1,4 @@
-node_modules/
-uploads/*
-!uploads/.gitkeep
-data/uploads/*
-!data/uploads/.gitkeep
-.env
+*.backup
+*.zip
+node_modules
+chat-story/
