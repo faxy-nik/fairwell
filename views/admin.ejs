@@ -18,7 +18,6 @@
       </nav>
     </header>
 
-    <!-- Settings -->
     <section class="admin-section">
       <button class="admin-collapse-toggle" onclick="toggleCollapse(this)">
         <h2 style="margin:0;font-size:1.1rem">&#9881; Settings</h2>
@@ -33,7 +32,6 @@
       </div>
     </section>
 
-    <!-- General URLs -->
     <section class="admin-section">
       <button class="admin-collapse-toggle" onclick="toggleCollapse(this)">
         <h2 style="margin:0;font-size:1.1rem">&#128279; General Roadmap URLs</h2>
@@ -63,8 +61,7 @@
       </div>
     </section>
 
-    <!-- Add Person -->
-    <section class="admin-section">
+    <section class="admin-section" id="add-person-form">
       <h2 style="font-size:1.1rem;margin-bottom:12px">&#10133; Add Person</h2>
       <form class="inline-form ajax-form" action="/api/person">
         <input type="text" name="name" placeholder="Person name" required>
@@ -72,12 +69,11 @@
       </form>
     </section>
 
-    <!-- People -->
     <% people.forEach(function(person) { %>
-      <section class="admin-person">
+      <section class="admin-person" data-person-id="<%= person.id %>">
         <button class="admin-collapse-toggle" onclick="toggleCollapse(this)" style="margin-bottom:0">
           <div class="person-head" style="margin-bottom:0;flex:1">
-            <h2 style="font-size:1.2rem"><%= person.name %></h2>
+            <h2 class="person-name" style="font-size:1.2rem"><%= person.name %></h2>
             <div class="person-actions">
               <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/rename" style="gap:4px">
                 <input type="text" name="name" placeholder="Rename" required>
@@ -107,7 +103,6 @@
             </form>
           </div>
 
-          <!-- Add Section -->
           <div class="add-section">
             <h3>Add Section to <%= person.name %></h3>
             <form class="inline-form ajax-form" action="/api/person/<%= person.id %>/section">
@@ -123,7 +118,6 @@
             </form>
           </div>
 
-          <!-- Roadmap -->
           <div class="admin-section-box roadmap-box">
             <div class="section-head">
               <h3>Roadmap</h3>
@@ -137,37 +131,38 @@
                 <button type="submit" class="btn small">Add</button>
               </form>
             </div>
-            <% if (person.roadmap && person.roadmap.length > 0) { %>
-              <div class="items-list">
-                <h4>Milestones (<%= person.roadmap.length %>)</h4>
-                <table>
-                  <thead>
-                    <tr><th>Date</th><th>Title</th><th>Description</th><th>Action</th></tr>
-                  </thead>
-                  <tbody>
-                    <% person.roadmap.forEach(function(item, idx) { %>
-                      <tr>
-                        <td><%= item.date %></td>
-                        <td><%= item.title %></td>
-                        <td><%= item.description %></td>
-                        <td>
-                          <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/roadmap/delete" data-confirm="Delete this milestone?">
-                            <input type="hidden" name="index" value="<%= idx %>">
-                            <button type="submit" class="btn small danger">Delete</button>
-                          </form>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  </tbody>
-                </table>
-              </div>
-            <% } else { %>
-              <p class="empty-note">No milestones yet.</p>
-            <% } %>
+            <div class="roadmap-items">
+              <% if (person.roadmap && person.roadmap.length > 0) { %>
+                <div class="items-list">
+                  <h4>Milestones (<%= person.roadmap.length %>)</h4>
+                  <table>
+                    <thead>
+                      <tr><th>Date</th><th>Title</th><th>Description</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                      <% person.roadmap.forEach(function(item, idx) { %>
+                        <tr data-idx="<%= idx %>">
+                          <td><%= item.date %></td>
+                          <td><%= item.title %></td>
+                          <td><%= item.description %></td>
+                          <td>
+                            <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/roadmap/delete" data-confirm="Delete this milestone?">
+                              <input type="hidden" name="index" value="<%= idx %>">
+                              <button type="submit" class="btn small danger">Delete</button>
+                            </form>
+                          </td>
+                        </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              <% } else { %>
+                <p class="empty-note">No milestones yet.</p>
+              <% } %>
+            </div>
           </div>
 
-          <!-- Playlist -->
-          <div class="admin-section-box">
+          <div class="admin-section-box playlist-box">
             <div class="section-head">
               <h3>Playlist</h3>
             </div>
@@ -178,40 +173,41 @@
                 <button type="submit" class="btn small">Add Song</button>
               </form>
             </div>
-            <% if (person.playlist && person.playlist.length > 0) { %>
-              <div class="items-list">
-                <table>
-                  <thead><tr><th>Title</th><th>URL</th><th>Action</th></tr></thead>
-                  <tbody>
-                    <% person.playlist.forEach(function(song, idx) { %>
-                      <tr>
-                        <td>
-                          <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/playlist/rename" style="gap:4px;flex-wrap:nowrap">
-                            <input type="hidden" name="index" value="<%= idx %>">
-                            <input type="text" name="title" value="<%= song.title %>" style="padding:4px 6px;font-size:0.75rem;width:120px">
-                            <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
-                          </form>
-                        </td>
-                        <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
-                        <td>
-                          <form class="ajax-form" action="/api/person/<%= person.id %>/playlist/delete" data-confirm="Remove this song?">
-                            <input type="hidden" name="index" value="<%= idx %>">
-                            <button type="submit" class="btn small danger">Delete</button>
-                          </form>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  </tbody>
-                </table>
-              </div>
-            <% } else { %>
-              <p class="empty-note">No songs yet.</p>
-            <% } %>
+            <div class="playlist-items">
+              <% if (person.playlist && person.playlist.length > 0) { %>
+                <div class="items-list">
+                  <table>
+                    <thead><tr><th>Title</th><th>URL</th><th>Action</th></tr></thead>
+                    <tbody>
+                      <% person.playlist.forEach(function(song, idx) { %>
+                        <tr data-idx="<%= idx %>">
+                          <td>
+                            <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/playlist/rename" style="gap:4px;flex-wrap:nowrap">
+                              <input type="hidden" name="index" value="<%= idx %>">
+                              <input type="text" name="title" value="<%= song.title %>" style="padding:4px 6px;font-size:0.75rem;width:120px">
+                              <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                            </form>
+                          </td>
+                          <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
+                          <td>
+                            <form class="ajax-form" action="/api/person/<%= person.id %>/playlist/delete" data-confirm="Remove this song?">
+                              <input type="hidden" name="index" value="<%= idx %>">
+                              <button type="submit" class="btn small danger">Delete</button>
+                            </form>
+                          </td>
+                        </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              <% } else { %>
+                <p class="empty-note">No songs yet.</p>
+              <% } %>
+            </div>
           </div>
 
-          <!-- Sections -->
           <% person.sections.forEach(function(section) { %>
-            <div class="admin-section-box" id="section-<%= person.id %>-<%= section.id %>">
+            <div class="admin-section-box" id="section-<%= person.id %>-<%= section.id %>" data-section-id="<%= section.id %>">
               <div class="section-head">
                 <h3><%= section.title %> <span class="badge"><%= section.type %></span></h3>
                 <form class="ajax-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/delete" data-confirm="Delete this section and all its files?">
@@ -244,39 +240,41 @@
                   </div>
                 <% } %>
 
-                <% if (section.items.length > 0) { %>
-                  <div class="items-list">
-                    <h4>Items (<%= section.items.length %>)</h4>
-                    <table>
-                      <thead>
-                        <tr><th>Title</th><th>File</th><th>Release Date</th><th>Action</th></tr>
-                      </thead>
-                      <tbody>
-                        <% section.items.forEach(function(item) { %>
-                          <tr>
-                            <td><%= item.title %></td>
-                            <td><%= item.originalName %></td>
-                            <td>
-                              <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/date" style="gap:4px;flex-wrap:nowrap">
-                                <input type="hidden" name="filename" value="<%= item.filename %>">
-                                <input type="date" name="releaseDate" value="<%= new Date(item.releaseDate).toISOString().split('T')[0] %>" style="padding:4px 6px;font-size:0.75rem;width:130px">
-                                <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
-                              </form>
-                            </td>
-                            <td>
-                              <form class="ajax-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" data-confirm="Delete this item?">
-                                <input type="hidden" name="filename" value="<%= item.filename %>">
-                                <button type="submit" class="btn small danger">Delete</button>
-                              </form>
-                            </td>
-                          </tr>
-                        <% }); %>
-                      </tbody>
-                    </table>
-                  </div>
-                <% } else { %>
-                  <p class="empty-note">No items in this section.</p>
-                <% } %>
+                <div class="section-items">
+                  <% if (section.items.length > 0) { %>
+                    <div class="items-list">
+                      <h4 class="items-count">Items (<%= section.items.length %>)</h4>
+                      <table>
+                        <thead>
+                          <tr><th>Title</th><th>File</th><th>Release Date</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>
+                          <% section.items.forEach(function(item) { %>
+                            <tr data-filename="<%= item.filename %>">
+                              <td class="item-title"><%= item.title %></td>
+                              <td class="item-name"><%= item.originalName %></td>
+                              <td>
+                                <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/date" style="gap:4px;flex-wrap:nowrap">
+                                  <input type="hidden" name="filename" value="<%= item.filename %>">
+                                  <input type="date" name="releaseDate" value="<%= new Date(item.releaseDate).toISOString().split('T')[0] %>" style="padding:4px 6px;font-size:0.75rem;width:130px">
+                                  <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                                </form>
+                              </td>
+                              <td>
+                                <form class="ajax-form" action="/api/person/<%= person.id %>/section/<%= section.id %>/item/delete" data-confirm="Delete this item?">
+                                  <input type="hidden" name="filename" value="<%= item.filename %>">
+                                  <button type="submit" class="btn small danger">Delete</button>
+                                </form>
+                              </td>
+                            </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  <% } else { %>
+                    <p class="empty-note">No items in this section.</p>
+                  <% } %>
+                </div>
               </div>
             </div>
           <% }); %>
@@ -287,6 +285,8 @@
 
 <script>
 var mediaRecorder, audioChunks = [], recordingPersonId, recordingSectionId;
+
+// ── Helpers ──
 
 function showToast(msg, type) {
   type = type || 'success';
@@ -304,30 +304,114 @@ function toggleCollapse(btn) {
   if (content && content.classList) content.classList.toggle('closed');
 }
 
-function formToJSON(form) {
-  var data = {};
-  var fd = new FormData(form);
-  fd.forEach(function(v, k) { data[k] = v; });
-  return data;
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function handleClick(btn) {
+function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
+function qsa(sel, ctx) { return (ctx || document).querySelectorAll(sel); }
+
+function closest(el, sel) {
+  while (el) { if (el.matches && el.matches(sel)) return el; el = el.parentElement; }
+  return null;
+}
+
+function spinner(btn) {
   btn.disabled = true;
   var orig = btn.innerHTML;
   btn.innerHTML = '<span class="admin-spinner"></span>';
   return { restore: function() { btn.disabled = false; btn.innerHTML = orig; } };
 }
 
-// Restore scroll position after reload
-(function() {
-  var saved = sessionStorage.getItem('adminScrollY');
-  if (saved) { window.scrollTo(0, parseInt(saved)); sessionStorage.removeItem('adminScrollY'); }
-})();
+// ── DOM Builders ──
 
-function reloadPreserve() {
-  sessionStorage.setItem('adminScrollY', window.scrollY);
-  location.reload();
+function itemRow(personId, sectionId, filename, originalName, title, releaseDate) {
+  var d = releaseDate ? releaseDate.split('T')[0] : new Date().toISOString().split('T')[0];
+  return '<tr data-filename="' + esc(filename) + '">' +
+    '<td class="item-title">' + esc(title) + '</td>' +
+    '<td class="item-name">' + esc(originalName) + '</td>' +
+    '<td>' +
+      '<form class="ajax-form inline-form" action="/api/person/' + esc(personId) + '/section/' + esc(sectionId) + '/item/date" style="gap:4px;flex-wrap:nowrap">' +
+        '<input type="hidden" name="filename" value="' + esc(filename) + '">' +
+        '<input type="date" name="releaseDate" value="' + d + '" style="padding:4px 6px;font-size:0.75rem;width:130px">' +
+        '<button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>' +
+      '</form>' +
+    '</td>' +
+    '<td>' +
+      '<form class="ajax-form" action="/api/person/' + esc(personId) + '/section/' + esc(sectionId) + '/item/delete" data-confirm="Delete this item?">' +
+        '<input type="hidden" name="filename" value="' + esc(filename) + '">' +
+        '<button type="submit" class="btn small danger">Delete</button>' +
+      '</form>' +
+    '</td></tr>';
 }
+
+function milestoneRow(personId, title, date, desc, idx) {
+  return '<tr data-idx="' + idx + '">' +
+    '<td>' + esc(date) + '</td>' +
+    '<td>' + esc(title) + '</td>' +
+    '<td>' + esc(desc) + '</td>' +
+    '<td>' +
+      '<form class="ajax-form inline-form" action="/api/person/' + esc(personId) + '/roadmap/delete" data-confirm="Delete this milestone?">' +
+        '<input type="hidden" name="index" value="' + idx + '">' +
+        '<button type="submit" class="btn small danger">Delete</button>' +
+      '</form>' +
+    '</td></tr>';
+}
+
+function songRow(personId, title, url, idx) {
+  return '<tr data-idx="' + idx + '">' +
+    '<td>' +
+      '<form class="ajax-form inline-form" action="/api/person/' + esc(personId) + '/playlist/rename" style="gap:4px;flex-wrap:nowrap">' +
+        '<input type="hidden" name="index" value="' + idx + '">' +
+        '<input type="text" name="title" value="' + esc(title) + '" style="padding:4px 6px;font-size:0.75rem;width:120px">' +
+        '<button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>' +
+      '</form>' +
+    '</td>' +
+    '<td><a href="' + esc(url) + '" target="_blank" style="color:#667eea;font-size:0.8rem">' + (url.length > 40 ? esc(url.substring(0,40)) + '...' : esc(url)) + '</a></td>' +
+    '<td>' +
+      '<form class="ajax-form" action="/api/person/' + esc(personId) + '/playlist/delete" data-confirm="Remove this song?">' +
+        '<input type="hidden" name="index" value="' + idx + '">' +
+        '<button type="submit" class="btn small danger">Delete</button>' +
+      '</form>' +
+    '</td></tr>';
+}
+
+function sectionBoxHtml(personId, sectionId, title, type) {
+  var uploadFormHtml =
+    '<div class="upload-form">' +
+      '<h4>Upload to ' + esc(title) + '</h4>' +
+      '<form class="upload-form-inner ajax-upload" action="/api/upload" enctype="multipart/form-data">' +
+        '<input type="hidden" name="personId" value="' + esc(personId) + '">' +
+        '<input type="hidden" name="sectionId" value="' + esc(sectionId) + '">' +
+        '<input type="file" name="file" required>' +
+        '<input type="text" name="title" placeholder="Display title (optional)">' +
+        '<label>Release Date: <input type="date" name="releaseDate" value="' + new Date().toISOString().split('T')[0] + '"></label>' +
+        '<button type="submit" class="btn small">Upload</button>' +
+      '</form>';
+  var voiceHtml = type === 'voice' ?
+    '<div class="voice-recorder" style="margin-top:10px;padding:12px;border:1px dashed #555;border-radius:8px">' +
+      '<h4>&#127908; Record Voice Note</h4>' +
+      '<button type="button" class="btn small" onclick="startRecording(this)" data-person="' + esc(personId) + '" data-section="' + esc(sectionId) + '">Start Recording</button>' +
+      '<span class="rec-status"></span>' +
+      '<input type="text" id="rec-title-' + sectionId + '" placeholder="Voice title" style="width:100%;margin-top:6px;box-sizing:border-box">' +
+      '<audio id="rec-preview-' + sectionId + '" controls style="display:none;width:100%;margin-top:6px"></audio>' +
+      '<button type="button" class="btn small" id="rec-upload-' + sectionId + '" style="display:none;margin-top:6px" onclick="uploadRecording(\'' + esc(personId) + '\',\'' + sectionId + '\')">Upload Recording</button>' +
+    '</div>' : '';
+  var itemsHtml = '<div class="section-items"><p class="empty-note">No items in this section.</p></div>';
+  return '<div class="admin-section-box" id="section-' + personId + '-' + sectionId + '" data-section-id="' + sectionId + '">' +
+    '<div class="section-head">' +
+      '<h3>' + esc(title) + ' <span class="badge">' + esc(type) + '</span></h3>' +
+      '<form class="ajax-form" action="/api/person/' + esc(personId) + '/section/' + esc(sectionId) + '/delete" data-confirm="Delete this section and all its files?">' +
+        '<button type="submit" class="btn small danger">Delete Section</button>' +
+      '</form>' +
+    '</div>' +
+    uploadFormHtml +
+    voiceHtml +
+    itemsHtml +
+    '</div>';
+}
+
+// ── Submit Handler ──
 
 document.addEventListener('submit', function(e) {
   var form = e.target;
@@ -336,29 +420,219 @@ document.addEventListener('submit', function(e) {
   var confirmMsg = form.getAttribute('data-confirm');
   if (confirmMsg && !confirm(confirmMsg)) return;
   var btn = form.querySelector('button[type="submit"]');
-  var spinner = btn ? handleClick(btn) : null;
+  var sp = btn ? spinner(btn) : null;
   var action = form.getAttribute('action');
   var method = form.getAttribute('method') || 'POST';
   var useUpload = form.classList.contains('ajax-upload');
-  var body = useUpload ? new FormData(form) : JSON.stringify(formToJSON(form));
+  var body = useUpload ? new FormData(form) : JSON.stringify(function(f) {
+    var data = {}, fd = new FormData(f);
+    fd.forEach(function(v, k) { data[k] = v; });
+    return data;
+  }(form));
   var headers = useUpload ? {} : { 'Content-Type': 'application/json' };
   fetch(action, { method: method, headers: headers, body: body }).then(function(r) {
-    return r.json().catch(function() { return { error: 'Invalid server response' }; });
+    return r.json().catch(function() { return {}; });
   }).then(function(data) {
-    if (spinner) spinner.restore();
-    if (data.error) {
-      showToast(data.error, 'error');
-    } else if (data.success) {
-      showToast(data.msg || 'Done!', 'success');
-      reloadPreserve();
-    } else {
-      showToast('Unexpected response', 'error');
+    if (sp) sp.restore();
+    if (data.error) { return showToast(data.error, 'error'); }
+    if (!data.success) { return showToast(data.msg || 'Done!', 'success'); }
+    showToast(data.msg || 'Done!', 'success');
+    // ── Route responses ──
+    // ── Person rename ──
+    if (action.indexOf('/rename') > 0 && action.indexOf('/playlist/rename') < 0) {
+      var personId = action.match(/\/person\/([^/]+)\/rename/)[1];
+      var section = closest(form, '[data-person-id]');
+      if (section) qs('.person-name', section).textContent = data.name;
+    }
+    // ── Delete person ──
+    else if (action.match(/\/person\/[^/]+\/delete$/)) {
+      var section = closest(form, '.admin-person');
+      if (section) section.remove();
+    }
+    // ── Delete item ──
+    else if (action.indexOf('/item/delete') > 0) {
+      var row = closest(form, '[data-filename]');
+      if (row) {
+        var tbody = closest(row, 'tbody');
+        row.remove();
+        var itemsBox = closest(form, '.section-items');
+        if (itemsBox) {
+          var rows = qsa('tr[data-filename]', itemsBox);
+          var countH = qs('.items-count', itemsBox);
+          if (countH) countH.textContent = 'Items (' + rows.length + ')';
+          if (rows.length === 0) {
+            var list = qs('.items-list', itemsBox);
+            if (list) list.remove();
+            itemsBox.innerHTML = '<p class="empty-note">No items in this section.</p>';
+          }
+        }
+      }
+    }
+    // ── Delete milestone ──
+    else if (action.indexOf('/roadmap/delete') > 0) {
+      var row = closest(form, '[data-idx]');
+      if (row) {
+        var tbody = closest(row, 'tbody');
+        row.remove();
+        var rmItems = closest(form, '.roadmap-items');
+        var rows = qsa('tr', tbody);
+        qsa('tr', tbody).forEach(function(r, i) {
+          r.setAttribute('data-idx', i);
+          var input = qs('input[name="index"]', r);
+          if (input) input.value = i;
+        });
+        var h4 = qs('.items-list h4', rmItems);
+        if (h4) h4.textContent = 'Milestones (' + rows.length + ')';
+        if (rows.length === 0) {
+          var list = qs('.items-list', rmItems);
+          if (list) list.remove();
+          rmItems.innerHTML = '<p class="empty-note">No milestones yet.</p>';
+        }
+      }
+    }
+    // ── Delete song ──
+    else if (action.indexOf('/playlist/delete') > 0) {
+      var row = closest(form, '[data-idx]');
+      if (row) {
+        var tbody = closest(row, 'tbody');
+        row.remove();
+        qsa('tr', tbody).forEach(function(r, i) {
+          r.setAttribute('data-idx', i);
+          var input = qs('input[name="index"]', r);
+          if (input) input.value = i;
+        });
+        var plItems = closest(form, '.playlist-items');
+        var rows = qsa('tr', tbody);
+        if (rows.length === 0) {
+          var list = qs('.items-list', plItems);
+          if (list) list.remove();
+          plItems.innerHTML = '<p class="empty-note">No songs yet.</p>';
+        }
+      }
+    }
+    // ── Add milestone ──
+    else if (action.indexOf('/roadmap/add') > 0) {
+      var personId = action.match(/\/person\/([^/]+)\/roadmap/)[1];
+      var milestone = data.milestone;
+      var rmItems = qs('.roadmap-items');
+      if (rmItems) {
+        var tbody = qs('tbody', rmItems);
+        if (!tbody) {
+          rmItems.innerHTML = '<div class="items-list"><h4>Milestones (1)</h4><table><thead><tr><th>Date</th><th>Title</th><th>Description</th><th>Action</th></tr></thead><tbody></tbody></table></div>';
+          tbody = qs('tbody', rmItems);
+        }
+        var currentRows = qsa('tr', tbody);
+        tbody.insertAdjacentHTML('beforeend', milestoneRow(personId, milestone.title, milestone.date, milestone.description, currentRows.length));
+        var h4 = qs('.items-list h4', rmItems);
+        if (h4) h4.textContent = 'Milestones (' + (currentRows.length + 1) + ')';
+      }
+    }
+    // ── Add song ──
+    else if (action.indexOf('/playlist/add') > 0) {
+      var personId = action.match(/\/person\/([^/]+)\/playlist/)[1];
+      var song = data.song;
+      var plItems = closest(form, '.playlist-items');
+      if (plItems) {
+        var tbody = qs('tbody', plItems);
+        if (!tbody) {
+          plItems.innerHTML = '<div class="items-list"><table><thead><tr><th>Title</th><th>URL</th><th>Action</th></tr></thead><tbody></tbody></table></div>';
+          tbody = qs('tbody', plItems);
+        }
+        var currentRows = qsa('tr', tbody);
+        tbody.insertAdjacentHTML('beforeend', songRow(personId, song.title, song.url, currentRows.length));
+      }
+    }
+    // ── Song rename ──
+    else if (action.indexOf('/playlist/rename') > 0) {
+      // already updated visually
+    }
+    // ── Delete section ──
+    else if (action.match(/\/section\/[^/]+\/delete$/)) {
+      var box = closest(form, '[data-section-id]');
+      if (box) box.remove();
+    }
+    // ── Add section ──
+    else if (action.indexOf('/section') > 0 && action.indexOf('/delete') < 0 && action.indexOf('/item') < 0) {
+      var personId = action.match(/\/person\/([^/]+)\/section/)[1];
+      var secData = data.section;
+      var personSec = qs('[data-person-id="' + personId + '"]');
+      if (personSec) {
+        var content = qs('.admin-collapse-content', personSec);
+        content.insertAdjacentHTML('beforeend', sectionBoxHtml(personId, secData.id, secData.title, secData.type));
+      }
+    }
+    // ── Upload ──
+    else if (action.indexOf('/upload') > 0) {
+      var personId = form.querySelector('input[name="personId"]').value;
+      var sectionId = form.querySelector('input[name="sectionId"]').value;
+      var title = form.querySelector('input[name="title"]').value || form.querySelector('input[type="file"]').files[0].name.replace(/\.[^/.]+$/, '');
+      var filename = data.filename;
+      var releaseDate = form.querySelector('input[name="releaseDate"]').value;
+      var originalName = form.querySelector('input[type="file"]').files[0].name;
+      var secBox = document.getElementById('section-' + personId + '-' + sectionId);
+      if (secBox) {
+        var si = qs('.section-items', secBox);
+        if (si) {
+          var tbody = qs('tbody', si);
+          if (!tbody) {
+            si.innerHTML = '<div class="items-list"><h4 class="items-count">Items (1)</h4><table><thead><tr><th>Title</th><th>File</th><th>Release Date</th><th>Action</th></tr></thead><tbody></tbody></table></div>';
+            tbody = qs('tbody', si);
+          }
+          tbody.insertAdjacentHTML('beforeend', itemRow(personId, sectionId, filename, originalName, title, releaseDate));
+          var countH = qs('.items-count', si);
+          var rows = qsa('tr[data-filename]', tbody);
+          if (countH) countH.textContent = 'Items (' + rows.length + ')';
+        }
+      }
+      form.querySelector('input[type="file"]').value = '';
+      form.querySelector('input[name="title"]').value = '';
+    }
+    // ── Item date ──
+    else if (action.indexOf('/item/date') > 0) {
+      // already updated visually
+    }
+    // ── Theme ──
+    else if (action.indexOf('/theme') > 0) {
+      // already in inputs
+    }
+    // ── Add person ──
+    else if (action === '/api/person') {
+      var p = data.person;
+      var html = '<section class="admin-person" data-person-id="' + esc(p.id) + '"><button class="admin-collapse-toggle" onclick="toggleCollapse(this)" style="margin-bottom:0">' +
+        '<div class="person-head" style="margin-bottom:0;flex:1"><h2 class="person-name" style="font-size:1.2rem">' + esc(p.name) + '</h2>' +
+        '<div class="person-actions">' +
+          '<form class="inline-form ajax-form" action="/api/person/' + esc(p.id) + '/rename" style="gap:4px">' +
+            '<input type="text" name="name" placeholder="Rename" required><button type="submit" class="btn small">Rename</button></form>' +
+          '<form class="ajax-form" action="/api/person/' + esc(p.id) + '/delete" data-confirm="Delete this person and all their content?">' +
+            '<button type="submit" class="btn small danger">Delete</button></form></div></div>' +
+        '<span class="collapse-icon">&#9660;</span></button>' +
+        '<div class="admin-collapse-content">' +
+          '<div class="access-link" style="margin-top:12px"><strong>Access Link:</strong> <input type="text" readonly class="link-input" value="..."></div>' +
+          '<div class="add-section"><h3>Add Section to ' + esc(p.name) + '</h3>' +
+            '<form class="inline-form ajax-form" action="/api/person/' + esc(p.id) + '/section">' +
+              '<input type="text" name="title" placeholder="Section title" required>' +
+              '<select name="type"><option value="images">Images</option><option value="voice">Voice</option><option value="videos">Videos</option><option value="texts">Texts</option><option value="other">Other</option></select>' +
+              '<button type="submit" class="btn small">Add</button></form></div>' +
+          '<div class="admin-section-box roadmap-box"><div class="section-head"><h3>Roadmap</h3></div>' +
+            '<div class="upload-form"><h4>Add Milestone</h4>' +
+              '<form class="ajax-form upload-form-inner" action="/api/person/' + esc(p.id) + '/roadmap/add">' +
+                '<input type="text" name="title" placeholder="Milestone title" required><input type="date" name="date"><input type="text" name="description" placeholder="Description">' +
+                '<button type="submit" class="btn small">Add</button></form></div>' +
+            '<div class="roadmap-items"><p class="empty-note">No milestones yet.</p></div></div>' +
+          '<div class="admin-section-box playlist-box"><div class="section-head"><h3>Playlist</h3></div>' +
+            '<div class="upload-form"><form class="ajax-form upload-form-inner" action="/api/person/' + esc(p.id) + '/playlist/add">' +
+              '<input type="text" name="title" placeholder="Song title" required><input type="url" name="url" placeholder="https://youtube.com/..." required>' +
+              '<button type="submit" class="btn small">Add Song</button></form></div>' +
+            '<div class="playlist-items"><p class="empty-note">No songs yet.</p></div></div></div></section>';
+      document.getElementById('add-person-form').insertAdjacentHTML('afterend', html);
     }
   }).catch(function(err) {
-    if (spinner) spinner.restore();
+    if (sp) sp.restore();
     showToast('Network error: ' + err.message, 'error');
   });
 });
+
+// ── Recording ──
 
 function startRecording(btn) {
   recordingPersonId = btn.getAttribute('data-person');
@@ -410,8 +684,28 @@ function uploadRecording(personId, sectionId) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: formData.toString()
     }).then(function(r) { return r.json(); }).then(function(data) {
-      if (data.success) { showToast('Uploaded!','success'); setTimeout(function(){location.reload()},1000); }
-      else { status.textContent = 'Error: ' + (data.error || 'Upload failed'); }
+      if (data.success) {
+        showToast('Uploaded!', 'success');
+        // add item row
+        var secBox = document.getElementById('section-' + personId + '-' + sectionId);
+        if (secBox) {
+          var si = qs('.section-items', secBox);
+          if (si) {
+            var tbody = qs('tbody', si);
+            if (!tbody) {
+              si.innerHTML = '<div class="items-list"><h4 class="items-count">Items (1)</h4><table><thead><tr><th>Title</th><th>File</th><th>Release Date</th><th>Action</th></tr></thead><tbody></tbody></table></div>';
+              tbody = qs('tbody', si);
+            }
+            tbody.insertAdjacentHTML('beforeend', itemRow(personId, sectionId, data.filename, data.filename, title, new Date().toISOString()));
+            var countH = qs('.items-count', si);
+            var rows = qsa('tr[data-filename]', tbody);
+            if (countH) countH.textContent = 'Items (' + rows.length + ')';
+          }
+        }
+        status.textContent = '';
+      } else {
+        status.textContent = 'Error: ' + (data.error || 'Upload failed');
+      }
     }).catch(function(err) { status.textContent = 'Error: ' + err.message; });
   };
   reader.readAsDataURL(blob);
