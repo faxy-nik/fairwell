@@ -13,6 +13,7 @@ const APP_DATA = path.join(__dirname, 'data');
 // Use /data on HF Spaces (persistent storage), fall back to __dirname/data locally
 const DATA_ROOT = (fs.existsSync('/data') ? '/data' : APP_DATA);
 const CONFIG_PATH = path.join(DATA_ROOT, 'config.json');
+const URLS_PATH = path.join(DATA_ROOT, 'urls.json');
 const PASSWORD_FILE = path.join(DATA_ROOT, 'admin-password.txt');
 const UPLOADS_ROOT = path.join(DATA_ROOT, 'uploads');
 const SESSION_SECRET = process.env.SESSION_SECRET || 'class-memories-secret-key-change-in-production';
@@ -122,6 +123,15 @@ function loadConfig() {
   }
   const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
   let changed = false;
+  // Restore URLs from persistent /data/urls.json (survives rebuilds, no git needed)
+  if (DATA_ROOT !== APP_DATA && fs.existsSync(URLS_PATH)) {
+    try {
+      var savedUrls = JSON.parse(fs.readFileSync(URLS_PATH, 'utf-8'));
+      if (savedUrls && typeof savedUrls === 'object') {
+        config.generalUrls = savedUrls;
+      }
+    } catch (e) { /* ignore */ }
+  }
   if (!config.generalUrls) { config.generalUrls = {}; changed = true; }
   Object.keys(DEFAULT_URLS).forEach(function(k) {
     if (config.generalUrls[k] === undefined) { config.generalUrls[k] = ''; changed = true; }
@@ -138,6 +148,10 @@ function saveConfig(config) {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
   if (DATA_ROOT !== APP_DATA) {
     fs.writeFileSync(path.join(APP_DATA, 'config.json'), JSON.stringify(config, null, 2));
+    // Also backup URLs to persistent storage (survives rebuilds without git)
+    if (config.generalUrls) {
+      try { fs.writeFileSync(URLS_PATH, JSON.stringify(config.generalUrls, null, 2)); } catch (e) {}
+    }
   }
   persist.saveConfig(config);
 }
@@ -394,6 +408,8 @@ app.post('/api/general-urls', requireAuth, (req, res) => {
   Object.keys(DEFAULT_URLS).forEach(function(k) {
     if (req.body[k] !== undefined) config.generalUrls[k] = req.body[k];
   });
+  // Also save to persistent /data/urls.json (no git dependency)
+  try { fs.writeFileSync(URLS_PATH, JSON.stringify(config.generalUrls, null, 2)); } catch (e) {}
   saveConfig(config);
   res.json({ success: true, msg: 'URLs updated' });
 });
