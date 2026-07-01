@@ -139,6 +139,7 @@ function loadConfig() {
   config.people.forEach(p => {
     if (!p.accessToken) { p.accessToken = crypto.randomBytes(16).toString('hex'); changed = true; }
     if (!p.roadmap) { p.roadmap = []; changed = true; }
+    if (!p.sections) { p.sections = []; changed = true; }
   });
   if (changed) saveConfig(config);
   return config;
@@ -252,7 +253,9 @@ app.post('/api/person', requireAuth, (req, res) => {
   if (config.people.find(p => p.id === id)) return res.json({ error: 'Person already exists' });
   config.people.push({ id, name: req.body.name, accessToken: crypto.randomBytes(16).toString('hex'), roadmap: [], sections: [] });
   saveConfig(config);
-  res.json({ success: true, person: { id, name: req.body.name } });
+  var saved = loadConfig();
+  var p = saved.people.find(function(p) { return p.id === id; });
+  res.json({ success: true, person: { id, name: req.body.name, accessToken: p ? p.accessToken : '' } });
 });
 
 app.post('/api/person/:id/delete', requireAuth, (req, res) => {
@@ -534,7 +537,7 @@ app.get('/uploads/:person/:section/:file', (req, res) => {
 });
 
 // ─── ZIP DOWNLOAD ───
-app.get('/api/person/:id/download', (req, res) => {
+app.get('/api/person/:id/download', requireAuth, (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);
   if (!person) return res.status(404).send('Person not found');
@@ -543,7 +546,7 @@ app.get('/api/person/:id/download', (req, res) => {
   res.setHeader('Content-Disposition', 'attachment; filename=' + person.id + '-memories.zip');
 
   const archive = new archiver.ZipArchive();
-  archive.on('error', function(err) { res.status(500).send('Archive error: ' + err.message); });
+  archive.on('error', function(err) { if (!res.headersSent) res.status(500).send('Archive error: ' + err.message); });
 
   const personDir = path.join(UPLOADS_ROOT, person.id);
   if (fs.existsSync(personDir)) {

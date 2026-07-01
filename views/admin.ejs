@@ -45,7 +45,6 @@
               }
             });
           </script>
-          </div>
         </div>
       </div>
     </section>
@@ -549,7 +548,7 @@ document.addEventListener('submit', function(e) {
   }).then(function(data) {
     if (sp) sp.restore();
     if (data.error) { return showToast(data.error, 'error'); }
-    if (!data.success) { return showToast(data.msg || 'Done!', 'success'); }
+    if (!data.success) { return showToast(data.msg || 'Failed', 'error'); }
     showToast(data.msg || 'Done!', 'success');
     // ── Route responses ──
     // ── Person rename ──
@@ -640,6 +639,7 @@ document.addEventListener('submit', function(e) {
         var h4 = qs('.items-list h4', rmItems);
         if (h4) h4.textContent = 'Milestones (' + (currentRows.length + 1) + ')';
       }
+      form.querySelectorAll('input[type="text"], input[type="date"]').forEach(function(i) { i.value = ''; });
     }
     // ── Add reason ──
     else if (action.indexOf('/reason/add') > 0) {
@@ -658,6 +658,7 @@ document.addEventListener('submit', function(e) {
         var h4 = qs('.items-list h4', rmItems);
         if (h4) h4.textContent = 'Reasons (' + (currentRows.length + 1) + ')';
       }
+      form.querySelector('input[type="text"]').value = '';
     }
     // ── Add compliment ──
     else if (action.indexOf('/compliment/add') > 0) {
@@ -676,6 +677,7 @@ document.addEventListener('submit', function(e) {
         var h4 = qs('.items-list h4', compItems);
         if (h4) h4.textContent = 'Compliments (' + (currentRows.length + 1) + ')';
       }
+      form.querySelector('input[type="text"]').value = '';
     }
     // ── Add song ──
     else if (action.indexOf('/playlist/add') > 0) {
@@ -691,6 +693,7 @@ document.addEventListener('submit', function(e) {
         var currentRows = qsa('tr', tbody);
         tbody.insertAdjacentHTML('beforeend', songRow(personId, song.title, song.url, currentRows.length));
       }
+      form.querySelectorAll('input[type="text"]').forEach(function(i) { i.value = ''; });
     }
     // ── Delete reason ──
     else if (action.indexOf('/reason/delete') > 0) {
@@ -749,10 +752,11 @@ document.addEventListener('submit', function(e) {
           tbody = qs('tbody', quizItems);
         }
         var currentRows = qsa('tr', tbody);
-        tbody.insertAdjacentHTML('beforeend', '<tr data-quiz-idx="' + currentRows.length + '"><td style="font-size:0.8rem">' + esc(q.question) + '</td><td style="font-size:0.75rem;color:#94a3b8">' + esc(JSON.stringify(q.options)) + '</td><td style="font-size:0.8rem">' + q.answer + '</td><td><form class="ajax-form" action="/api/person/' + esc(personId) + '/quiz/delete" data-confirm="Delete this question?"><input type="hidden" name="index" value="' + currentRows.length + '"><button type="submit" class="btn small danger">Delete</button></form></td></tr>');
+        tbody.insertAdjacentHTML('beforeend', '<tr data-quiz-idx="' + currentRows.length + '"><td style="font-size:0.8rem">' + esc(q.question) + '</td><td style="font-size:0.75rem;color:#94a3b8">' + esc(JSON.stringify(q.options)) + '</td><td style="font-size:0.8rem">' + esc(String(q.answer)) + '</td><td><form class="ajax-form" action="/api/person/' + esc(personId) + '/quiz/delete" data-confirm="Delete this question?"><input type="hidden" name="index" value="' + currentRows.length + '"><button type="submit" class="btn small danger">Delete</button></form></td></tr>');
         var h4 = qs('.items-list h4', quizItems);
         if (h4) h4.textContent = 'Questions (' + (currentRows.length + 1) + ')';
       }
+      form.querySelectorAll('input[type="text"]').forEach(function(i) { i.value = ''; });
     }
     // ── Delete quiz question ──
     else if (action.indexOf('/quiz/delete') > 0) {
@@ -924,7 +928,9 @@ function startRecording(btn) {
 }
 
 function uploadRecording(personId, sectionId) {
-  var status = document.querySelector('#rec-upload-' + sectionId).parentElement.querySelector('.rec-status');
+  var recEl = document.querySelector('#rec-upload-' + sectionId);
+  if (!recEl) { showToast('Recording element not found', 'error'); return; }
+  var status = recEl.parentElement.querySelector('.rec-status');
   var title = document.getElementById('rec-title-' + sectionId).value || 'Voice recording';
   var blob = new Blob(audioChunks, { type: 'audio/wav' });
   var reader = new FileReader();
