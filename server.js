@@ -86,6 +86,24 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + '-' + Math.random().toString(36).slice(2, 8) + ext);
   }
 });
+const musicStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(UPLOADS_ROOT, req.params.id, 'music');
+    ensureDir(dir);
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + Math.random().toString(36).slice(2, 8) + path.extname(file.originalname));
+  }
+});
+const uploadMusic = multer({
+  storage: musicStorage,
+  limits: { fileSize: 50 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /\.(mp3|wav|ogg|m4a|flac)$/i;
+    cb(null, allowed.test(path.extname(file.originalname)));
+  }
+});
 const upload = multer({
   storage,
   limits: { fileSize: 100 * 1024 * 1024 },
@@ -376,15 +394,23 @@ app.post('/api/person/:id/roadmap/delete', requireAuth, (req, res) => {
 });
 
 // ─── PLAYLIST ───
-app.post('/api/person/:id/playlist/add', requireAuth, (req, res) => {
+app.post('/api/person/:id/playlist/add', requireAuth, uploadMusic.single('file'), (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.id === req.params.id);
   if (!person) return res.json({ error: 'Person not found' });
-  if (!req.body.title || !req.body.url) return res.json({ error: 'Title and URL required' });
   if (!person.playlist) person.playlist = [];
-  person.playlist.push({ title: req.body.title, url: req.body.url });
-  saveConfig(config);
-  res.json({ success: true, song: { title: req.body.title, url: req.body.url } });
+  if (!req.body.title) return res.json({ error: 'Title required' });
+  if (req.file) {
+    person.playlist.push({ title: req.body.title, filename: req.file.filename });
+    saveConfig(config);
+    res.json({ success: true, song: { title: req.body.title, filename: req.file.filename } });
+  } else if (req.body.url) {
+    person.playlist.push({ title: req.body.title, url: req.body.url });
+    saveConfig(config);
+    res.json({ success: true, song: { title: req.body.title, url: req.body.url } });
+  } else {
+    res.json({ error: 'Upload a file or provide a URL' });
+  }
 });
 
 app.post('/api/person/:id/playlist/delete', requireAuth, (req, res) => {

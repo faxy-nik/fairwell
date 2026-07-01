@@ -2469,6 +2469,12 @@ body.theme-eeshah .jukebox-track.active { background: rgba(192,132,252,0.12); co
 .track-play-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.2s; }
 .jukebox-track:hover .track-play-icon, .jukebox-track.active .track-play-icon { opacity: 0.7; }
 
+.jukebox-progress { width: 100%; padding: 0 12px 8px; }
+.jukebox-progress input[type="range"] { -webkit-appearance: none; height: 4px; background: rgba(34,211,238,0.15); border-radius: 4px; outline: none; cursor: pointer; }
+.jukebox-progress input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #22d3ee; border: none; cursor: pointer; }
+body.theme-eeshah .jukebox-progress input[type="range"] { background: rgba(192,132,252,0.2); }
+body.theme-eeshah .jukebox-progress input[type="range"]::-webkit-slider-thumb { background: #c084fc; }
+
 /* ── Virtual Garden ── */
 .garden-box { border-color: rgba(74,222,128,0.15) !important; }
 body.theme-eeshah .garden-box { border-color: rgba(134,239,172,0.15) !important; background: rgba(5,25,15,0.3) !important; }

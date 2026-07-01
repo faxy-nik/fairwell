@@ -418,37 +418,70 @@
             <button class="jukebox-btn" onclick="jukeboxNext()">⏭</button>
           </div>
         </div>
-        <div class="jukebox-tracklist">
+        <div class="jukebox-progress" id="jukebox-progress" style="display:none">
+          <input type="range" min="0" max="100" value="0" id="jukebox-seek" style="width:100%">
+        </div>
+        <div class="jukebox-tracklist" id="jukebox-tracklist">
           <% person.playlist.forEach(function(song, i) { %>
-            <a href="<%= song.url %>" target="_blank" class="jukebox-track <%= i === 0 ? 'active' : '' %>" data-idx="<%= i %>" onclick="event.stopPropagation();"><span class="track-num"><%= i+1 %></span><span class="track-title"><%= song.title %></span><span class="track-play-icon">&#9654;</span></a>
+            <div class="jukebox-track <%= i === 0 ? 'active' : '' %>" data-idx="<%= i %>" data-title="<%= song.title %>" data-url="<%= song.url || '' %>" data-filename="<%= song.filename || '' %>"><span class="track-num"><%= i+1 %></span><span class="track-title"><%= song.title %></span><span class="track-play-icon">▶</span></div>
           <% }); %>
         </div>
       </div>
     </div>
+    <audio id="jukebox-audio" style="display:none"></audio>
     <script>
     (function() {
       var tracks = document.querySelectorAll('.jukebox-track');
       var titleEl = document.getElementById('jukebox-title');
       var disc = document.getElementById('jukebox-disc');
       var playBtn = document.getElementById('jukebox-play-btn');
+      var audio = document.getElementById('jukebox-audio');
+      var seek = document.getElementById('jukebox-seek');
+      var progress = document.getElementById('jukebox-progress');
       var currentIdx = 0;
       var spinning = false;
 
-      window.jukeboxPlay = function(idx) {
+      function getSongUrl(idx) {
+        var t = tracks[idx];
+        if (!t) return '';
+        var filename = t.getAttribute('data-filename');
+        if (filename) return '/uploads/<%= person.id %>/music/' + filename;
+        return t.getAttribute('data-url') || '';
+      }
+
+      function jukeboxPlay(idx) {
         tracks.forEach(function(t) { t.classList.remove('active'); });
         if (tracks[idx]) tracks[idx].classList.add('active');
         currentIdx = idx;
-        if (titleEl) titleEl.textContent = tracks[idx] ? tracks[idx].querySelector('.track-title').textContent : '';
-        spinning = true;
-        if (disc) disc.classList.add('spinning');
-        if (playBtn) playBtn.textContent = '⏸';
-      };
+        var title = tracks[idx] ? tracks[idx].getAttribute('data-title') : '';
+        if (titleEl) titleEl.textContent = title;
+        var url = getSongUrl(idx);
+        if (url && !url.startsWith('http')) {
+          audio.src = url;
+          audio.currentTime = 0;
+          audio.play().then(function() {
+            spinning = true;
+            if (disc) disc.classList.add('spinning');
+            if (playBtn) playBtn.textContent = '⏸';
+            if (progress) progress.style.display = 'block';
+          }).catch(function() {});
+        } else if (url) {
+          window.open(url, '_blank');
+        }
+      }
 
       window.jukeboxToggle = function() {
-        if (spinning) {
+        if (audio.src && !audio.paused) {
+          audio.pause();
           spinning = false;
           if (disc) disc.classList.remove('spinning');
           if (playBtn) playBtn.textContent = '▶';
+        } else if (audio.src) {
+          audio.play().then(function() {
+            spinning = true;
+            if (disc) disc.classList.add('spinning');
+            if (playBtn) playBtn.textContent = '⏸';
+          }).catch(function() {});
         } else {
           jukeboxPlay(currentIdx);
         }
@@ -457,8 +490,6 @@
       window.jukeboxNext = function() {
         var next = (currentIdx + 1) % tracks.length;
         jukeboxPlay(next);
-        var link = tracks[next].getAttribute('href');
-        if (link && link !== '#') window.open(link, '_blank');
       };
 
       window.jukeboxPrev = function() {
@@ -466,7 +497,30 @@
         jukeboxPlay(prev);
       };
 
-      // Initialize first track
+      audio.addEventListener('ended', function() {
+        jukeboxNext();
+      });
+
+      audio.addEventListener('timeupdate', function() {
+        if (seek && audio.duration) {
+          seek.value = (audio.currentTime / audio.duration) * 100;
+        }
+      });
+
+      if (seek) {
+        seek.addEventListener('input', function() {
+          if (audio.duration) audio.currentTime = (seek.value / 100) * audio.duration;
+        });
+      }
+
+      // Click track to play
+      tracks.forEach(function(t) {
+        t.addEventListener('click', function() {
+          var idx = parseInt(t.getAttribute('data-idx'));
+          jukeboxPlay(idx);
+        });
+      });
+
       if (tracks.length > 0) jukeboxPlay(0);
     })();
     </script>

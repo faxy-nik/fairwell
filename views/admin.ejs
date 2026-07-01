@@ -190,9 +190,11 @@
               <h3>Playlist</h3>
             </div>
             <div class="upload-form">
-              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/playlist/add">
+              <form class="ajax-upload upload-form-inner" action="/api/person/<%= person.id %>/playlist/add">
                 <input type="text" name="title" placeholder="Song title" required>
-                <input type="url" name="url" placeholder="https://youtube.com/..." required>
+                <input type="file" name="file" accept="audio/*" style="font-size:0.75rem">
+                <span style="color:#666;font-size:0.7rem">or URL</span>
+                <input type="url" name="url" placeholder="https://... (optional)" style="width:180px">
                 <button type="submit" class="btn small">Add Song</button>
               </form>
             </div>
@@ -211,7 +213,7 @@
                               <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
                             </form>
                           </td>
-                          <td><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a></td>
+                          <td><% if (song.filename) { %><span style="font-size:0.75rem;color:#4ade80">🎵 uploaded</span><% } else { %><a href="<%= song.url %>" target="_blank" style="color:#667eea;font-size:0.8rem"><%= song.url.length > 40 ? song.url.substring(0,40)+'...' : song.url %></a><% } %></td>
                           <td>
                             <form class="ajax-form" action="/api/person/<%= person.id %>/playlist/delete" data-confirm="Remove this song?">
                               <input type="hidden" name="index" value="<%= idx %>">
@@ -464,7 +466,10 @@ function milestoneRow(personId, title, date, desc, idx) {
     '</td></tr>';
 }
 
-function songRow(personId, title, url, idx) {
+function songRow(personId, title, url, idx, filename) {
+  var linkHtml = filename
+    ? '<span style="font-size:0.75rem;color:#4ade80">🎵 uploaded</span>'
+    : '<a href="' + esc(url) + '" target="_blank" style="color:#667eea;font-size:0.8rem">' + (url && url.length > 40 ? esc(url.substring(0,40)) + '...' : esc(url || '')) + '</a>';
   return '<tr data-idx="' + idx + '">' +
     '<td>' +
       '<form class="ajax-form inline-form" action="/api/person/' + esc(personId) + '/playlist/rename" style="gap:4px;flex-wrap:nowrap">' +
@@ -473,7 +478,7 @@ function songRow(personId, title, url, idx) {
         '<button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>' +
       '</form>' +
     '</td>' +
-    '<td><a href="' + esc(url) + '" target="_blank" style="color:#667eea;font-size:0.8rem">' + (url.length > 40 ? esc(url.substring(0,40)) + '...' : esc(url)) + '</a></td>' +
+    '<td>' + linkHtml + '</td>' +
     '<td>' +
       '<form class="ajax-form" action="/api/person/' + esc(personId) + '/playlist/delete" data-confirm="Remove this song?">' +
         '<input type="hidden" name="index" value="' + idx + '">' +
@@ -691,7 +696,7 @@ document.addEventListener('submit', function(e) {
           tbody = qs('tbody', plItems);
         }
         var currentRows = qsa('tr', tbody);
-        tbody.insertAdjacentHTML('beforeend', songRow(personId, song.title, song.url, currentRows.length));
+        tbody.insertAdjacentHTML('beforeend', songRow(personId, song.title, song.url, currentRows.length, song.filename));
       }
       form.querySelectorAll('input[type="text"]').forEach(function(i) { i.value = ''; });
     }
@@ -861,8 +866,8 @@ document.addEventListener('submit', function(e) {
                 '<button type="submit" class="btn small">Add</button></form></div>' +
             '<div class="roadmap-items"><p class="empty-note">No milestones yet.</p></div></div>' +
           '<div class="admin-section-box playlist-box"><div class="section-head"><h3>Playlist</h3></div>' +
-            '<div class="upload-form"><form class="ajax-form upload-form-inner" action="/api/person/' + esc(p.id) + '/playlist/add">' +
-              '<input type="text" name="title" placeholder="Song title" required><input type="url" name="url" placeholder="https://youtube.com/..." required>' +
+            '<div class="upload-form"><form class="ajax-upload upload-form-inner" action="/api/person/' + esc(p.id) + '/playlist/add">' +
+              '<input type="text" name="title" placeholder="Song title" required><input type="file" name="file" accept="audio/*" style="font-size:0.75rem"><span style="color:#666;font-size:0.7rem">or</span><input type="url" name="url" placeholder="https://... (optional)" style="width:140px">' +
               '<button type="submit" class="btn small">Add Song</button></form></div>' +
             '<div class="playlist-items"><p class="empty-note">No songs yet.</p></div></div>' +
           '<div class="admin-section-box" style="margin-top:10px"><div class="section-head"><h3>Reasons</h3></div>' +
