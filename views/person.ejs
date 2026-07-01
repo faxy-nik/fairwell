@@ -1064,6 +1064,7 @@
     var overlay = document.getElementById('heart-overlay');
     if (overlay) overlay.classList.remove('open');
     document.body.style.overflow = '';
+    document.body.style.overflowY = 'auto';
   }
 
   // ─── MIND COUNTER (eeshah) ───
@@ -1390,5 +1391,6 @@
     updateUI();
   })();
   </script>
+  <script>document.body.style.overflow='';document.body.style.overflowY='auto';</script>
 </body>
 </html>
