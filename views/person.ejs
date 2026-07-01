@@ -30,6 +30,16 @@
       var locked = now < unlock;
       var showGeneral = person.id !== 'muaaz' && person.id !== 'moazam';
       var gu = typeof generalUrls !== 'undefined' ? generalUrls : {};
+      var frd = person.featureReleaseDates || {};
+      function isUnlocked(fid) {
+        if (person.id !== 'eeshah') return true;
+        if (!frd[fid]) return true;
+        return now >= new Date(frd[fid] + 'T00:00:00');
+      }
+      function teaserBox(fid, extra) {
+        var d = frd[fid] || 'soon';
+        return '<div class=\"section-box teaser-box\"><div class=\"teaser-content\"><span class=\"teaser-icon\">🔒</span><p class=\"teaser-text\">' + (extra || 'Something special is coming...') + '</p><p class=\"teaser-date\">Unlocks on <strong>' + d + '</strong></p></div></div>';
+      }
     %>
 
     <% if (locked) { %>
@@ -52,7 +62,7 @@
       <% if (person.badge) { %><span class="person-badge"><%= person.badge %></span><% } %>
       <h1>Hey <%= person.name %>!</h1>
       <% if (person.customMessage) { %><p class="custom-message"><%= person.customMessage %></p><% } %>
-      <% if (person.poems && person.poems.length > 0) { %>
+      <% if (person.poems && person.poems.length > 0 && isUnlocked('poetry')) { %>
       <div class="section-box poetry-box">
         <div class="section-header" style="justify-content:center"><span class="section-icon">✨</span><h3>A little verse for you</h3></div>
         <div class="poetry-line" id="poetry-line"><%= person.poems[0] %></div>
@@ -64,7 +74,7 @@
       </div>
       <% } %>
 
-      <% if (person.paradoxes && person.paradoxes.length > 0) { %>
+      <% if (person.paradoxes && person.paradoxes.length > 0 && isUnlocked('paradox')) { %>
       <div class="section-box paradox-box">
         <div class="section-header" style="justify-content:center"><span class="section-icon">♾️</span><h3>Paradox</h3></div>
         <div class="paradox-text" id="paradox-text"></div>
@@ -83,7 +93,7 @@
       <span class="visit-counter">✨ Visited <strong><%= person.visits || 0 %></strong> times</span>
     </header>
 
-    <% if (showGeneral) { %>
+    <% if (showGeneral && isUnlocked('general')) { %>
     <!-- ─── TABS ─── -->
     <div class="tabs-container animate-fade-up">
       <div class="tabs-nav">
@@ -297,7 +307,7 @@
     </div>
     <% } %>
 
-    <% if (person.id === 'eeshah') { %>
+    <% if (person.id === 'eeshah' && isUnlocked('sky')) { %>
     <div class="sky-section" id="sky-section">
       <div class="sky-canvas" id="sky-canvas"></div>
       <div class="sky-message"><span class="sky-label" id="sky-label"></span> Wherever you are, I hope you looked at this sky today too.</div>
@@ -333,7 +343,7 @@
     <% if (person.id === 'eeshah') { %>
 
     <!-- ── Reasons Why You're Special ── -->
-    <% if (person.reasons && person.reasons.length > 0) { %>
+    <% if (person.reasons && person.reasons.length > 0 && isUnlocked('reasons')) { %>
     <div class="section-box reasons-box animate-fade-up">
       <div class="section-header"><span class="section-icon">💌</span><h3>Reasons Why You're Special</h3><span class="item-count"><%= person.reasons.length %></span></div>
       <div class="reasons-stack">
@@ -350,7 +360,7 @@
     <% } %>
 
     <!-- ── Compliment Generator ── -->
-    <% if (person.compliments && person.compliments.length > 0) { %>
+    <% if (person.compliments && person.compliments.length > 0 && isUnlocked('compliments')) { %>
     <div class="section-box compliment-box animate-fade-up">
       <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">💎</span><h3>For When You Need a Smile</h3></div>
       <div class="compliment-display" id="compliment-display">✨ <span id="compliment-text"><%= person.compliments[0] %></span> ✨</div>
@@ -373,7 +383,7 @@
     <% } %>
 
     <!-- ── Time Since We Met ── -->
-    <% if (person.metDate) { %>
+    <% if (person.metDate && isUnlocked('timer')) { %>
     <div class="section-box timer-box animate-fade-up">
       <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">⏳</span><h3>Time Since We Met</h3></div>
       <div class="timer-display" id="timer-display">
@@ -405,7 +415,7 @@
     <% } %>
 
     <!-- ── Jukebox ── -->
-    <% if (person.playlist && person.playlist.length > 0) { %>
+    <% if (person.playlist && person.playlist.length > 0 && isUnlocked('jukebox')) { %>
     <div class="section-box jukebox-box animate-fade-up">
       <div class="section-header" style="justify-content:center;gap:10px"><span class="section-icon">🎧</span><h3>Our Songs</h3></div>
       <div class="jukebox-player">
@@ -584,6 +594,7 @@
     </script>
     <% } %>
 
+    <% if (isUnlocked('garden')) { %>
     <!-- ── Virtual Garden ── -->
     <div class="section-box garden-box animate-fade-up">
       <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">🌱</span><h3>Our Growing Garden</h3><span class="item-count"><%= Math.min(person.gardenFlowers || 0, 50) %></span></div>
@@ -598,6 +609,9 @@
       </div>
       <p class="garden-note"><%= flowerCount %> flower<%= flowerCount !== 1 ? 's' : '' %> bloomed from your visits ✨</p>
     </div>
+    <% } else { %>
+      <%- teaserBox('garden') %>
+    <% } %>
 
     <!-- ── Candle for Missed Days ── -->
     <div class="candle-box" id="candle-box" style="display:none" onclick="blowCandle()">
@@ -635,6 +649,28 @@
     }
     </script>
 
+    <% var features = [
+      {id:'checkin', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🌿</span><h3>A Little Check-In</h3></div><div class=\"checkin-content\" id=\"checkin-content\"></div><p class=\"checkin-hint\">↻ refresh to see a different message</p></div>'},
+      {id:'unreadThought', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"unread-badge\" id=\"unread-badge\" onclick=\"openUnreadThought()\"><span class=\"unread-dot\"></span><span>1 Unread Thought</span></div></div>'},
+      {id:'moodCheck', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">💭</span><h3>Mood Check</h3></div><div class=\"mood-buttons\"><button class=\"mood-btn\" onclick=\"showMoodResponse(\'Amazing\')\">Amazing</button><button class=\"mood-btn\" onclick=\"showMoodResponse(\'Okay\')\">Okay</button><button class=\"mood-btn\" onclick=\"showMoodResponse(\'Tired\')\">Tired</button><button class=\"mood-btn\" onclick=\"showMoodResponse(\'Heavy\')\">Heavy</button><button class=\"mood-btn\" onclick=\"showMoodResponse(\'Need a Hug\')\">Need a Hug</button></div><div class=\"mood-response\" id=\"mood-response\" style=\"display:none\"></div></div>'},
+      {id:'ifeel', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">📖</span><h3>If Today Feels...</h3></div><div class=\"ifeel-buttons\"><button class=\"ifeel-btn\" onclick=\"openIfeel(\'overthinking\')\">Overthinking</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'sadness\')\">Sad</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'happiness\')\">Happy</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'missing me\')\">Missing Me</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'motivation\')\">Motivation</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'anxiety\')\">Anxiety</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'loneliness\')\">Lonely</button><button class=\"ifeel-btn\" onclick=\"openIfeel(\'success\')\">Success</button></div></div>'},
+      {id:'memoryJar', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🫙</span><h3>Memory Jar</h3></div><div class=\"memory-jar\" id=\"memory-jar\" onclick=\"shakeJar()\"><span class=\"jar-emoji\">🫙</span><span class=\"jar-label\">tap to shake</span></div><div class=\"memory-reveal\" id=\"memory-reveal\" style=\"display:none\"></div></div>'},
+      {id:'observations', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">👁️</span><h3>Things I Notice About You</h3></div><div class=\"observations-stack\" id=\"observations-stack\"></div><button class=\"compliment-btn\" onclick=\"showNextObservation()\" style=\"margin-top:10px\">Show Another 👀</button></div>'},
+      {id:'openWhen', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">✉️</span><h3>Open Only When...</h3></div><div class=\"envelopes-grid\"><div class=\"envelope\" onclick=\"openEnvelope(\'sad\')\"><span class=\"env-icon\">💧</span><span class=\"env-label\">You\'re Sad</span></div><div class=\"envelope\" onclick=\"openEnvelope(\'cantSleep\')\"><span class=\"env-icon\">🌙</span><span class=\"env-label\">Can\'t Sleep</span></div><div class=\"envelope\" onclick=\"openEnvelope(\'badDay\')\"><span class=\"env-icon\">☁️</span><span class=\"env-label\">Had a Bad Day</span></div><div class=\"envelope\" onclick=\"openEnvelope(\'goodDay\')\"><span class=\"env-icon\">☀️</span><span class=\"env-label\">Had a Good Day</span></div><div class=\"envelope\" onclick=\"openEnvelope(\'missMe\')\"><span class=\"env-icon\">💌</span><span class=\"env-label\">Miss Me</span></div><div class=\"envelope\" onclick=\"openEnvelope(\'needMotivation\')\"><span class=\"env-icon\">🔥</span><span class=\"env-label\">Need Motivation</span></div></div></div>'},
+      {id:'reminders', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🌟</span><h3>Someone Wants You to Remember</h3></div><div class=\"reminder-content\" id=\"reminder-content\"></div><button class=\"compliment-btn\" onclick=\"showNewReminder()\" style=\"margin-top:10px\">Another Reminder 💫</button></div>'},
+      {id:'sleepCheck', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🌙</span><h3>Sleep Check</h3></div><div class=\"sleep-message\" id=\"sleep-message\"></div><p class=\"sleep-note\">Rest well, love 🕊️</p></div>'},
+      {id:'proudWall', html:'<div class=\"section-box\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🏆</span><h3>I\'m Proud of You Wall</h3></div><div class=\"proud-wall\" id=\"proud-wall\"></div><button class=\"compliment-btn\" onclick=\"showNextProud()\" style=\"margin-top:10px\">Show Another 🏆</button></div>'},
+      {id:'safeSpace', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🏠</span><h3>Eeshah\'s Safe Space</h3></div><p class=\"safe-question\" id=\"safe-question\"></p><p class=\"safe-gentle\" id=\"safe-gentle\"></p><div class=\"safe-buttons\" id=\"safe-buttons\"><button class=\"mood-btn\" onclick=\"openSafeResponse(\'tired\')\">Tired</button><button class=\"mood-btn\" onclick=\"openSafeResponse(\'sad\')\">Sad</button><button class=\"mood-btn\" onclick=\"openSafeResponse(\'anxious\')\">Anxious</button><button class=\"mood-btn\" onclick=\"openSafeResponse(\'okay\')\">Okay</button><button class=\"mood-btn\" onclick=\"openSafeResponse(\'lost\')\">Lost</button></div></div>'},
+      {id:'heartMeter', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">❤️</span><h3>Heart Meter</h3></div><div class=\"heart-meter-container\"><div class=\"heart-meter-fill\" id=\"heart-meter-fill\" style=\"width:0%\"></div></div><p class=\"heart-meter-label\" id=\"heart-meter-label\"></p></div>'},
+      {id:'growthTracker', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🌱</span><h3>Growth Tracker</h3></div><div class=\"growth-display\"><span class=\"growth-milestone\" id=\"growth-milestone\"></span></div><p class=\"growth-note\" id=\"growth-note\"></p></div>'}
+    ]; %>
+    <% features.forEach(function(f) { %>
+      <% if (isUnlocked(f.id)) { %>
+        <%- f.html %>
+      <% } else { %>
+        <%- teaserBox(f.id) %>
+      <% } %>
+    <% }); %>
     <% } %>
 
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
@@ -663,25 +699,9 @@
       </div>
     </div>
 
-    <% if (person.playlist && person.playlist.length > 0) { %>
-    <div class="section-box playlist-box animate-fade-up">
-      <div class="section-header">
-        <span class="section-icon">🎵</span>
-        <h3>A playlist specially for you</h3>
-        <span class="item-count"><%= person.playlist.length %></span>
-      </div>
-      <div class="playlist-items">
-        <% person.playlist.forEach(function(song) { %>
-          <a href="<%= song.url %>" target="_blank" class="playlist-item">
-            <span class="playlist-play">▶</span>
-            <span class="playlist-title"><%= song.title %></span>
-            <span class="playlist-link">Listen →</span>
-          </a>
-        <% }); %>
-      </div>
-    </div>
-    <% } %>
 
+
+    <% if (isUnlocked('media')) { %>
     <div class="sections">
       <% if (person.sections.length === 0 && (!person.roadmap || person.roadmap.length === 0)) { %>
         <% if (typeof hasCard === 'undefined' || !hasCard) { %>
@@ -757,6 +777,9 @@
         </div>
       <% }); %>
     </div>
+    <% } else { %>
+      <%- teaserBox('media', 'Photos, videos, voice notes and more — coming soon...') %>
+    <% } %>
 
     <% if (typeof hasFiles !== 'undefined' && hasFiles) { %>
     <div style="margin:24px 0 8px">
@@ -786,6 +809,32 @@
   <% if (person.id === 'eeshah') { %>
   <!-- Overlay shared -->
   <div class="heart-overlay" id="heart-overlay" onclick="closeAllModals(event)"></div>
+
+  <!-- New Eeshah Modals (unread, ifeel, envelope, safe) -->
+  <div class="heart-modal" id="unread-modal">
+    <button class="heart-close" onclick="closeAllModals()">&#x2715;</button>
+    <div class="miss-modal-content">
+      <p class="unread-thought-text" id="unread-thought-text"></p>
+    </div>
+  </div>
+  <div class="heart-modal" id="ifeel-modal">
+    <button class="heart-close" onclick="closeAllModals()">&#x2715;</button>
+    <div class="miss-modal-content">
+      <p class="modal-letter-text" id="ifeel-text"></p>
+    </div>
+  </div>
+  <div class="heart-modal" id="envelope-modal">
+    <button class="heart-close" onclick="closeAllModals()">&#x2715;</button>
+    <div class="miss-modal-content">
+      <p class="modal-letter-text" id="envelope-text"></p>
+    </div>
+  </div>
+  <div class="heart-modal" id="safe-modal">
+    <button class="heart-close" onclick="closeAllModals()">&#x2715;</button>
+    <div class="miss-modal-content">
+      <p class="modal-letter-text" id="safe-text"></p>
+    </div>
+  </div>
 
   <!-- Modal 1: Press Only When You Miss Me (simple) -->
   <div class="heart-modal" id="miss-modal">
@@ -1446,5 +1495,180 @@
   })();
   </script>
   <script>document.body.style.overflow='';document.body.style.overflowY='auto';</script>
+
+<% if (person.id === 'eeshah') { %>
+<script>
+// ─── Shared Modal Helper ───
+function openModal(id) {
+  var modal = document.getElementById(id);
+  var overlay = document.getElementById('heart-overlay');
+  if (!modal) return;
+  modal.classList.add('open');
+  if (overlay) overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ─── Eeshah Feature Data ───
+console.log('[Eeshah] Loading features...');
+var _data = <%- JSON.stringify({checkIns: person.checkIns || [], unreadThoughts: person.unreadThoughts || [], moodResponses: person.moodResponses || {}, ifTodayFeels: person.ifTodayFeels || {}, memories: person.memories || [], observations: person.observations || [], openWhen: person.openWhen || {}, reminders: person.reminders || [], proudMessages: person.proudMessages || [], safeSpace: person.safeSpace || {}}) %>;
+console.log('[Eeshah] Data loaded, ifTodayFeels:', Object.keys(_data.ifTodayFeels).join(','));
+
+// ─── 1. Random Check In ───
+(function() {
+  var el = document.getElementById('checkin-content');
+  if (!el || !_data.checkIns.length) return;
+  el.innerHTML = '<span class="checkin-icon">💫</span><span>' + _data.checkIns[Math.floor(Math.random() * _data.checkIns.length)] + '</span>';
+})();
+
+// ─── 2. Unread Thoughts ───
+function openUnreadThought() {
+  var el = document.getElementById('unread-thought-text');
+  if (!el || !_data.unreadThoughts.length) return;
+  el.textContent = _data.unreadThoughts[Math.floor(Math.random() * _data.unreadThoughts.length)];
+  openModal('unread-modal');
+}
+
+// ─── 3. Mood Check ───
+function showMoodResponse(mood) {
+  var el = document.getElementById('mood-response');
+  if (!el || !_data.moodResponses[mood]) return;
+  el.textContent = _data.moodResponses[mood];
+  el.style.display = 'block';
+  el.style.animation = 'none';
+  setTimeout(function() { el.style.animation = 'complimentPop 0.4s ease'; }, 10);
+}
+
+// ─── 4. If Today Feels... ───
+function openIfeel(mood) {
+  var el = document.getElementById('ifeel-text');
+  if (!el) return;
+  var key = mood === 'missing me' ? 'missing me' : mood;
+  el.textContent = _data.ifTodayFeels[key] || 'I\'m here for you. Always.';
+  openModal('ifeel-modal');
+}
+
+// ─── 5. Memory Jar ───
+function shakeJar() {
+  var jar = document.getElementById('memory-jar');
+  var reveal = document.getElementById('memory-reveal');
+  if (!jar || !reveal || !_data.memories.length) return;
+  jar.classList.add('jar-shake');
+  reveal.style.display = 'none';
+  setTimeout(function() {
+    jar.classList.remove('jar-shake');
+    reveal.textContent = '✨ ' + _data.memories[Math.floor(Math.random() * _data.memories.length)] + ' ✨';
+    reveal.style.display = 'block';
+    reveal.style.animation = 'none';
+    setTimeout(function() { reveal.style.animation = 'complimentPop 0.5s ease'; }, 10);
+  }, 500);
+}
+
+// ─── 6. Things I Notice ───
+var _obsIdx = -1;
+function showNextObservation() {
+  var el = document.getElementById('observations-stack');
+  if (!el || !_data.observations.length) return;
+  var idx;
+  do { idx = Math.floor(Math.random() * _data.observations.length); } while (idx === _obsIdx && _data.observations.length > 1);
+  _obsIdx = idx;
+  el.innerHTML = '<div class="observation-item">' + _data.observations[idx] + '</div>';
+}
+// show first on load
+if (document.getElementById('observations-stack') && _data.observations.length) showNextObservation();
+
+// ─── 7. Open Only When... ───
+function openEnvelope(key) {
+  var el = document.getElementById('envelope-text');
+  if (!el || !_data.openWhen[key]) return;
+  el.textContent = _data.openWhen[key];
+  openModal('envelope-modal');
+}
+
+// ─── 8. Reminders ───
+var _remIdx = -1;
+function showNewReminder() {
+  var el = document.getElementById('reminder-content');
+  if (!el || !_data.reminders.length) return;
+  var idx;
+  do { idx = Math.floor(Math.random() * _data.reminders.length); } while (idx === _remIdx && _data.reminders.length > 1);
+  _remIdx = idx;
+  el.innerHTML = '<span class="reminder-text">' + _data.reminders[idx] + '</span>';
+  el.style.animation = 'none';
+  setTimeout(function() { el.style.animation = 'complimentPop 0.4s ease'; }, 10);
+}
+if (document.getElementById('reminder-content') && _data.reminders.length) showNewReminder();
+
+// ─── 9. Sleep Check ───
+(function() {
+  var el = document.getElementById('sleep-message');
+  if (!el) return;
+  var msgs = [
+    'You need your rest. The world will still be here tomorrow.',
+    'Set the phone down. Close your eyes. Let sleep wrap around you.',
+    'Sleep is not optional. It\'s self-respect.',
+    'Rest well, love. I\'ll be here when you wake up.',
+    'Your mind and body deserve rest. Don\'t negotiate with that.'
+  ];
+  el.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+})();
+
+// ─── 10. Proud Wall ───
+var _proudIdx = -1;
+function showNextProud() {
+  var el = document.getElementById('proud-wall');
+  if (!el || !_data.proudMessages.length) return;
+  var idx;
+  do { idx = Math.floor(Math.random() * _data.proudMessages.length); } while (idx === _proudIdx && _data.proudMessages.length > 1);
+  _proudIdx = idx;
+  el.innerHTML = '<div class="proud-item">🏆 ' + _data.proudMessages[idx] + '</div>';
+  el.style.animation = 'none';
+  setTimeout(function() { el.style.animation = 'complimentPop 0.4s ease'; }, 10);
+}
+if (document.getElementById('proud-wall') && _data.proudMessages.length) showNextProud();
+
+// ─── 11. Safe Space ───
+(function() {
+  var qEl = document.getElementById('safe-question');
+  var gEl = document.getElementById('safe-gentle');
+  if (qEl && _data.safeSpace && _data.safeSpace.question) qEl.textContent = _data.safeSpace.question;
+  if (gEl && _data.safeSpace && _data.safeSpace.gentle) gEl.textContent = _data.safeSpace.gentle;
+})();
+function openSafeResponse(mood) {
+  var el = document.getElementById('safe-text');
+  if (!el || !_data.safeSpace || !_data.safeSpace.responses || !_data.safeSpace.responses[mood]) return;
+  el.textContent = _data.safeSpace.responses[mood];
+  openModal('safe-modal');
+}
+
+// ─── 12. Heart Meter ───
+(function() {
+  var fill = document.getElementById('heart-meter-fill');
+  var label = document.getElementById('heart-meter-label');
+  if (!fill) return;
+  var level = Math.floor(Math.random() * 31) + 70;
+  fill.style.width = level + '%';
+  if (label) {
+    if (level >= 95) label.textContent = 'Overflowing ❤️';
+    else if (level >= 85) label.textContent = 'So full of love ❤️';
+    else if (level >= 75) label.textContent = 'Always thinking of you 💗';
+    else label.textContent = 'You\'re on my mind 💖';
+  }
+})();
+
+// ─── 13. Growth Tracker ───
+(function() {
+  var el = document.getElementById('growth-milestone');
+  var note = document.getElementById('growth-note');
+  if (!el) return;
+  var milestones = ['Every day you grow a little more', 'You\'re becoming who you were meant to be', 'Growth isn\'t linear, but you\'re moving forward', 'Each version of you is wiser than the last', 'You\'ve come so far. Keep going.'];
+  el.textContent = '🌱 ' + milestones[Math.floor(Math.random() * milestones.length)];
+  if (note) {
+    var notes = _data.observations.length ? _data.observations.length + ' things noticed about you so far' : 'Always growing, always blooming';
+    note.textContent = notes;
+  }
+})();
+</script>
+<% } %>
+
 </body>
 </html>

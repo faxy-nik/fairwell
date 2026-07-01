@@ -313,6 +313,174 @@
             </div>
           </div>
 
+          <% if (person.id === 'eeshah') { %>
+          <!-- ═══ EESHAH FEATURES ═══ -->
+          <div class="admin-section-box" style="margin-top:10px">
+            <div class="section-head"><h3>🌟 Eeshah Features</h3></div>
+
+            <details class="admin-details">
+              <summary>Check-Ins (<%= (person.checkIns||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/checkin/add">
+                <input type="text" name="text" placeholder="Check-in message..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.checkIns && person.checkIns.length > 0) { %>
+                <div class="items-list">
+                  <% person.checkIns.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/checkin/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Unread Thoughts (<%= (person.unreadThoughts||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/unreadthought/add">
+                <input type="text" name="text" placeholder="Heartfelt thought..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.unreadThoughts && person.unreadThoughts.length > 0) { %>
+                <div class="items-list">
+                  <% person.unreadThoughts.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/unreadthought/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Mood Responses</summary>
+              <% ['Amazing','Okay','Tired','Heavy','Need a Hug'].forEach(function(k) { %>
+                <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/moodresponse/set" style="margin:4px 0;flex-wrap:nowrap">
+                  <input type="hidden" name="key" value="<%= k %>">
+                  <span style="font-size:0.78rem;color:#94a3b8;min-width:80px"><%= k %>:</span>
+                  <input type="text" name="text" value="<%= (person.moodResponses||{})[k] || '' %>" placeholder="Response..." style="flex:1;min-width:120px">
+                  <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                </form>
+              <% }); %>
+            </details>
+
+            <details class="admin-details">
+              <summary>If Today Feels...</summary>
+              <% var ifeelKeys = ['overthinking','sadness','happiness','missing me','motivation','anxiety','loneliness','success']; %>
+              <% ifeelKeys.forEach(function(k) { %>
+                <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/iftodayfeel/set" style="margin:4px 0;flex-wrap:nowrap">
+                  <input type="hidden" name="key" value="<%= k %>">
+                  <span style="font-size:0.78rem;color:#94a3b8;min-width:90px"><%= k %>:</span>
+                  <input type="text" name="text" value="<%= (person.ifTodayFeels||{})[k] || '' %>" placeholder="Letter text..." style="flex:1;min-width:120px">
+                  <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                </form>
+              <% }); %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Memories (<%= (person.memories||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/memory/add">
+                <input type="text" name="text" placeholder="A shared memory..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.memories && person.memories.length > 0) { %>
+                <div class="items-list">
+                  <% person.memories.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/memory/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Observations (<%= (person.observations||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/observation/add">
+                <input type="text" name="text" placeholder="Something you notice..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.observations && person.observations.length > 0) { %>
+                <div class="items-list">
+                  <% person.observations.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/observation/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Open Only When...</summary>
+              <% var envKeys = {sad:"You're Sad",cantSleep:"Can't Sleep",badDay:"Had a Bad Day",goodDay:"Had a Good Day",missMe:"Miss Me",needMotivation:"Need Motivation"}; %>
+              <% Object.keys(envKeys).forEach(function(k) { %>
+                <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/openwhen/set" style="margin:4px 0;flex-wrap:nowrap">
+                  <input type="hidden" name="key" value="<%= k %>">
+                  <span style="font-size:0.78rem;color:#94a3b8;min-width:100px"><%= envKeys[k] %>:</span>
+                  <input type="text" name="text" value="<%= (person.openWhen||{})[k] || '' %>" placeholder="Letter text..." style="flex:1;min-width:120px">
+                  <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                </form>
+              <% }); %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Reminders (<%= (person.reminders||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/reminder/add">
+                <input type="text" name="text" placeholder="A reminder..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.reminders && person.reminders.length > 0) { %>
+                <div class="items-list">
+                  <% person.reminders.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/reminder/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Proud Messages (<%= (person.proudMessages||[]).length %>)</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/proudmessage/add">
+                <input type="text" name="text" placeholder="I'm proud of you for..." required>
+                <button type="submit" class="btn small">Add</button>
+              </form>
+              <% if (person.proudMessages && person.proudMessages.length > 0) { %>
+                <div class="items-list">
+                  <% person.proudMessages.forEach(function(t, i) { %>
+                    <div class="inline-item"><span><%= t %></span><form class="ajax-form" action="/api/person/<%= person.id %>/proudmessage/delete" data-confirm="Delete?"><input type="hidden" name="index" value="<%= i %>"><button type="submit" class="btn small danger">✕</button></form></div>
+                  <% }); %>
+                </div>
+              <% } %>
+            </details>
+
+            <details class="admin-details">
+              <summary>Safe Space</summary>
+              <form class="ajax-form upload-form-inner" action="/api/person/<%= person.id %>/safespace/set">
+                <input type="text" name="question" value="<%= (person.safeSpace||{}).question || '' %>" placeholder="Question (e.g. How are you, really?)" style="width:100%;box-sizing:border-box;margin-bottom:4px">
+                <input type="text" name="gentle" value="<%= (person.safeSpace||{}).gentle || '' %>" placeholder="Gentle prompt" style="width:100%;box-sizing:border-box;margin-bottom:4px">
+                <button type="submit" class="btn small">Save Question</button>
+              </form>
+              <p style="font-size:0.75rem;color:#94a3b8;margin:6px 0">Response texts:</p>
+              <% ['tired','sad','anxious','okay','lost'].forEach(function(k) { %>
+                <form class="ajax-form inline-form" action="/api/person/<%= person.id %>/safespace/set" style="margin:4px 0;flex-wrap:nowrap">
+                  <input type="hidden" name="responseKey" value="<%= k %>">
+                  <span style="font-size:0.78rem;color:#94a3b8;min-width:50px"><%= k %>:</span>
+                  <input type="text" name="responseText" value="<%= ((person.safeSpace||{}).responses||{})[k] || '' %>" placeholder="Response..." style="flex:1;min-width:120px">
+                  <button type="submit" class="btn small" style="padding:4px 8px;font-size:0.7rem">Save</button>
+                </form>
+              <% }); %>
+            </details>
+
+            <details class="admin-details">
+              <summary>🔒 Feature Lock Dates</summary>
+              <p style="font-size:0.75rem;color:#94a3b8;margin-bottom:8px">Set a date to lock a feature until that date. Leave blank for always unlocked.</p>
+              <% var lockableFeatures = {general:'Courses & Namaz',poetry:'Poetry',paradox:'Paradox',sky:'Sky Generator',reasons:'Reasons',timer:'Timer',jukebox:'Jukebox',garden:'Garden',checkin:'Check-In',unreadThought:'Unread Thoughts',moodCheck:'Mood Check',ifeel:'If Today Feels...',memoryJar:'Memory Jar',observations:'Observations',openWhen:'Open Only When',reminders:'Reminders',sleepCheck:'Sleep Check',proudWall:'Proud Wall',safeSpace:'Safe Space',heartMeter:'Heart Meter',growthTracker:'Growth Tracker',compliments:'Compliments',media:'Media Sections'}; %>
+              <form class="ajax-form" action="/api/person/<%= person.id %>/feature-lock-dates">
+                <% Object.keys(lockableFeatures).forEach(function(k) { %>
+                  <div style="display:flex;align-items:center;gap:6px;margin:4px 0">
+                    <span style="font-size:0.78rem;min-width:140px;color:#cbd5e1"><%= lockableFeatures[k] %>:</span>
+                    <input type="date" name="<%= k %>" value="<%= (person.featureReleaseDates||{})[k] || '' %>" style="padding:3px 6px;font-size:0.75rem;border:1px solid #2a3a5e;border-radius:4px;background:#0a1628;color:#e2e8f0">
+                  </div>
+                <% }); %>
+                <button type="submit" class="btn small" style="margin-top:6px">Save Lock Dates</button>
+              </form>
+            </details>
+          </div>
+          <% } %>
+
           <% person.sections.forEach(function(section) { %>
             <div class="admin-section-box" id="section-<%= person.id %>-<%= section.id %>" data-section-id="<%= section.id %>">
               <div class="section-head">

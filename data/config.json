@@ -584,11 +584,11 @@
       ],
       "playlist": [
         {
-          "title": "asd",
-          "url": "https://www.youtube.com/watch?v=tvcaYU7uofY&list=RD4DVDFxiZKCg&index=9"
+          "title": "a",
+          "filename": "1782914067885-uq0f6y.mp4"
         }
       ],
-      "visits": 156,
+      "visits": 269,
       "unlockDate": "2026-05-01",
       "reasons": [
         "The way you see the world is art",
@@ -660,7 +660,139 @@
           "answer": 1
         }
       ],
-      "lastVisitDate": "2026-07-01"
+      "lastVisitDate": "2026-07-01",
+      "checkIns": [
+        "Have you eaten today? Don't skip meals, okay?",
+        "Drink some water. Your brain works better when you're hydrated.",
+        "Rest when you need to. You're not a machine.",
+        "Take a deep breath. In... and out... You're doing fine.",
+        "You've been carrying a lot. Put it down for a moment. Just breathe.",
+        "Eat something warm today. Your body will thank you.",
+        "Sleep is not optional. It's self-respect.",
+        "You don't have to be productive today. Just being is enough.",
+        "Close your eyes for 2 minutes. Just exist. No thoughts required.",
+        "You are allowed to take up space. You are allowed to rest."
+      ],
+      "unreadThoughts": [
+        "You are not too much. You are not too little. You are exactly the right amount.",
+        "The way you care about people is your superpower. Don't let anyone make you feel it's weakness.",
+        "You've survived everything life has thrown at you so far. This is no different.",
+        "I hope you know that somewhere, someone is grateful you exist.",
+        "You don't have to have it all figured out. Nobody does.",
+        "Your softness is not a flaw. It's your strength.",
+        "You are worthy of love that doesn't hurt.",
+        "The world is better with you in it. Don't ever doubt that.",
+        "Small steps are still progress. You're moving forward even when it doesn't feel like it.",
+        "It's okay to not be okay. What matters is that you keep going."
+      ],
+      "moodResponses": {
+        "Amazing": "That's wonderful! I hope this feeling stays with you all day. You deserve every bit of happiness that comes your way.",
+        "Okay": "Okay is good. You don't have to be amazing every day. Just being okay takes strength sometimes.",
+        "Tired": "Rest is not lazy. It's necessary. Give yourself permission to pause. The world can wait.",
+        "Heavy": "You're carrying so much. Put it down here. Just for a moment. I'll hold it with you.",
+        "Need a Hug": "Sending you the warmest, tightest hug through this screen. You're safe. You're loved. You're not alone."
+      },
+      "ifTodayFeels": {
+        "overthinking": "Your mind is trying to protect you by solving everything at once. But not everything needs to be solved right now. Take one thought, just one, and let the rest float. You don't have to figure it all out today.",
+        "sadness": "It's okay to be sad. Sadness is not weakness — it's proof that you care, that you feel, that you're human. Let the tears come if they need to. I'm here, sitting with you in it.",
+        "happiness": "Hold onto this feeling. Write it down. Remember what this moment feels like — the lightness, the warmth. You deserve this. Bask in it without guilt.",
+        "missing me": "Distance doesn't change what we are. Close your eyes. I'm right there with you. In the quiet moments, in the laughter, in the spaces between heartbeats. You carry me with you.",
+        "motivation": "You have everything you need inside you. Start small. One step. One word. One breath. The momentum will build. I believe in you.",
+        "anxiety": "Breathe with me. In for 4. Hold for 4. Out for 4. Again. You are safe. This feeling will pass. It always does. You've made it through every anxious moment before. You'll make it through this one too.",
+        "loneliness": "You are not alone even when it feels like you are. There are people who love you, who think of you, who would drop everything to sit with you. And I'm here too. Always.",
+        "success": "Look at you. Look at how far you've come. Every step, every stumble, every late night — it all led here. I'm so proud of you. Celebrate this. You earned it."
+      },
+      "memories": [
+        "That day on the rooftop when you first opened up — you were so nervous and so brave at the same time.",
+        "The way you laughed until you couldn't breathe during that one phone call. It's my favorite sound.",
+        "April 20 — our first meetup. You in my arms, your head on my chest. That moment was perfection.",
+        "The movie day when you fell asleep on my shoulder. I didn't move for an hour. I didn't want to wake you.",
+        "That evening at Shalimar Bagh, sitting on the bench, just talking about everything and nothing.",
+        "The first time you sent a voice note and I played it so many times I lost count.",
+        "When you said 'Paradox' and I knew — right then — that you understood me completely.",
+        "The way your eyes light up when you talk about something you're passionate about.",
+        "That late night call when we both said things we'd been holding in for months.",
+        "The kiss in the garden. Slow. Gentle. Real. Like the world stopped just for us."
+      ],
+      "observations": [
+        "You bite your lip when you're thinking deeply about something.",
+        "You say 'hmm' before you answer a serious question — like you're tasting the words first.",
+        "Your eyes get a little watery when you're moved by something, even if you don't cry.",
+        "You play with your fingers when you're nervous.",
+        "You look down and smile when someone says something that touches your heart.",
+        "Your voice gets softer when you're talking about something that matters to you.",
+        "You check your phone and then put it down without doing anything — a habit you don't notice.",
+        "You tilt your head slightly when you're genuinely listening to someone.",
+        "You take a deep breath before you say something vulnerable.",
+        "Your laugh changes when you're genuinely happy — it's lighter, freer, realer."
+      ],
+      "openWhen": {
+        "sad": "Let it out. Cry if you need to. Scream into a pillow. Write it all down. I'm not going anywhere. When you're ready, I'll be here with warm tea and gentle words. This feeling will pass. It always does.",
+        "cantSleep": "Close your eyes and imagine a place where you feel completely safe. Maybe it's the garden. Maybe it's my arms. Focus on the sounds, the warmth, the peace. You don't have to try to sleep. Just rest. I'll watch over your thoughts.",
+        "badDay": "Today didn't go as planned. And that hurts. But you're still here. You still showed up. That takes courage. Tomorrow is a new page. Let tonight be the place where you let go of today's weight. You did enough.",
+        "goodDay": "I'm so glad today was good. You deserve days like this. Don't let guilt or worry steal this joy. Let it settle into your bones. Let yourself believe that good days can keep coming. You are allowed to be happy.",
+        "missMe": "I miss you too. More than words can say. But missing someone means they matter. Missing means we shared something real. Think of your favorite memory of us. I'm there. In that moment. With you. Always.",
+        "needMotivation": "You are capable of incredible things. Not because you're special — but because you keep trying even when it's hard. That persistence? That's your superpower. One step. Just one. Start there. You've got this."
+      },
+      "reminders": [
+        "You are braver than you believe, stronger than you seem, and loved more than you know.",
+        "The sun will rise tomorrow, and so will you.",
+        "You've been through worse and you're still here. That means something.",
+        "Someone is proud of you right now. Probably more than one someone.",
+        "This moment — even if it's hard — is just one page in a very long book.",
+        "You don't have to be strong all the time. It's okay to fall apart and put yourself back together.",
+        "You are not your worst thoughts. You are the person who keeps going despite them.",
+        "Small joys matter. That cup of tea. That song. That text. They all count."
+      ],
+      "proudMessages": [
+        "For waking up and trying again. That takes strength.",
+        "For being honest about how you feel, even when it's hard.",
+        "For choosing kindness even when you weren't treated kindly.",
+        "For taking care of others while also learning to take care of yourself.",
+        "For every time you chose to keep going.",
+        "For the way you love — deeply, truly, without holding back.",
+        "For every boundary you've set. That's growth.",
+        "For every tear you let yourself cry. That's healing.",
+        "For being unapologetically yourself.",
+        "For how far you've come. Look back. You've climbed mountains."
+      ],
+      "sleepCheck": "You need your rest. The world will still be here tomorrow. But you need to recharge to face it. Set the phone down. Close your eyes. Let sleep wrap around you. I'll be here when you wake up.",
+      "safeSpace": {
+        "question": "How are you, really?",
+        "gentle": "Not the polite answer. Not the 'I'm fine.' The real answer. Whatever it is — heavy, messy, quiet, or even nothing at all — it's safe here.",
+        "responses": {
+          "tired": "You've been running on empty for a while, haven't you? It's okay to stop. Rest is not giving up. Rest is refueling. Stay here as long as you need.",
+          "sad": "Let the sadness be here. Don't fight it. Sometimes the only way through is to let it exist. I'm sitting with you in it. You don't have to carry it alone.",
+          "anxious": "Your mind is spinning. I know. Let's bring it back to now. Look around. Name three things you can see. Two you can hear. One you can feel. You're here. You're safe.",
+          "okay": "'Okay' can mean a hundred different things. And all of them are valid. Whether okay actually means okay or okay means 'I don't want to talk about it yet' — both are fine.",
+          "lost": "It's okay to not know where you're going. You don't need a map right now. You just need to take the next step. Whatever that looks like. I'll walk with you."
+        }
+      },
+      "featureReleaseDates": {
+        "general": "2026-07-05",
+        "poetry": "2026-07-05",
+        "paradox": "2026-07-05",
+        "sky": "2026-07-05",
+        "reasons": "2026-07-06",
+        "timer": "2026-07-05",
+        "jukebox": "",
+        "garden": "2026-07-06",
+        "checkin": "2026-07-05",
+        "unreadThought": "2026-07-06",
+        "moodCheck": "2026-07-07",
+        "ifeel": "2026-07-08",
+        "memoryJar": "2026-07-09",
+        "observations": "2026-07-05",
+        "openWhen": "2026-07-05",
+        "reminders": "2026-07-05",
+        "sleepCheck": "2026-07-05",
+        "proudWall": "2026-07-10",
+        "safeSpace": "2026-07-10",
+        "heartMeter": "2026-07-05",
+        "growthTracker": "2026-07-08",
+        "compliments": "2026-07-05",
+        "media": "2026-07-05"
+      }
     },
     {
       "id": "moazam",

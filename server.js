@@ -623,6 +623,159 @@ app.post('/api/person/:id/record-voice', requireAuth, (req, res) => {
   res.json({ success: true, filename: filename });
 });
 
+// ─── EESHAH FEATURES CRUD ───
+// Helper for simple array features
+function addArrayItem(person, field, value) {
+  if (!person[field]) person[field] = [];
+  person[field].push(value);
+}
+function deleteArrayItem(person, field, index) {
+  if (person[field] && person[field][index]) {
+    person[field].splice(parseInt(index), 1);
+  }
+}
+
+// checkIns
+app.post('/api/person/:id/checkin/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'checkIns', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/checkin/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'checkIns', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// unreadThoughts
+app.post('/api/person/:id/unreadthought/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'unreadThoughts', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/unreadthought/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'unreadThoughts', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// moodResponses (object: key -> value)
+app.post('/api/person/:id/moodresponse/set', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.key || !req.body.text) return res.json({ error: 'Key and text required' });
+  if (!p.moodResponses) p.moodResponses = {};
+  p.moodResponses[req.body.key] = req.body.text; saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// ifTodayFeels (object: key -> value)
+app.post('/api/person/:id/iftodayfeel/set', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.key || !req.body.text) return res.json({ error: 'Key and text required' });
+  if (!p.ifTodayFeels) p.ifTodayFeels = {};
+  p.ifTodayFeels[req.body.key] = req.body.text; saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// memories
+app.post('/api/person/:id/memory/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'memories', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/memory/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'memories', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// observations
+app.post('/api/person/:id/observation/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'observations', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/observation/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'observations', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// openWhen (object: key -> value)
+app.post('/api/person/:id/openwhen/set', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.key || !req.body.text) return res.json({ error: 'Key and text required' });
+  if (!p.openWhen) p.openWhen = {};
+  p.openWhen[req.body.key] = req.body.text; saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// reminders
+app.post('/api/person/:id/reminder/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'reminders', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/reminder/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'reminders', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// proudMessages
+app.post('/api/person/:id/proudmessage/add', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!req.body.text) return res.json({ error: 'Text required' });
+  addArrayItem(p, 'proudMessages', req.body.text); saveConfig(cfg);
+  res.json({ success: true });
+});
+app.post('/api/person/:id/proudmessage/delete', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  deleteArrayItem(p, 'proudMessages', req.body.index); saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// safeSpace (object: question, gentle, responses.key -> value)
+app.post('/api/person/:id/safespace/set', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!p.safeSpace) p.safeSpace = { question: '', gentle: '', responses: {} };
+  if (req.body.question !== undefined) p.safeSpace.question = req.body.question;
+  if (req.body.gentle !== undefined) p.safeSpace.gentle = req.body.gentle;
+  if (req.body.responseKey && req.body.responseText !== undefined) {
+    if (!p.safeSpace.responses) p.safeSpace.responses = {};
+    p.safeSpace.responses[req.body.responseKey] = req.body.responseText;
+  }
+  saveConfig(cfg);
+  res.json({ success: true });
+});
+
+// ─── FEATURE LOCK DATES ───
+app.post('/api/person/:id/feature-lock-dates', requireAuth, (req, res) => {
+  const cfg = loadConfig(); const p = cfg.people.find(x => x.id === req.params.id);
+  if (!p) return res.json({ error: 'Not found' });
+  if (!p.featureReleaseDates) p.featureReleaseDates = {};
+  Object.keys(req.body).forEach(function(k) {
+    p.featureReleaseDates[k] = req.body[k] || '';
+  });
+  saveConfig(cfg);
+  res.json({ success: true, msg: 'Lock dates saved' });
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   if (err instanceof multer.MulterError) {
