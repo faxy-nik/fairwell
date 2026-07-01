@@ -100,7 +100,7 @@ const uploadMusic = multer({
   storage: musicStorage,
   limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = /\.(mp3|wav|ogg|m4a|flac)$/i;
+    const allowed = /\.(mp3|wav|ogg|m4a|flac|mp4|webm)$/i;
     cb(null, allowed.test(path.extname(file.originalname)));
   }
 });
@@ -626,7 +626,13 @@ app.post('/api/person/:id/record-voice', requireAuth, (req, res) => {
 app.use((err, req, res, next) => {
   console.error(err);
   if (err instanceof multer.MulterError) {
-    return res.status(400).send('File too large (max 100MB)');
+    return res.json({ error: 'File too large (max 100MB)' });
+  }
+  if (err.message === 'File type not allowed') {
+    return res.json({ error: 'File type not allowed. Use mp3, wav, ogg, m4a, flac, mp4, or webm.' });
+  }
+  if (req.xhr || req.headers.accept && req.headers.accept.indexOf('json') > -1) {
+    return res.json({ error: err.message || 'Something went wrong' });
   }
   res.status(500).send('Something went wrong');
 });
