@@ -1395,24 +1395,50 @@
       "badge": "My Cousin BSF 💜",
       "customMessage": "Cousin by blood, best friend by choice. Some bonds don't need explaining.",
       "roadmap": [],
-      "sections": [],
+      "sections": [
+        {
+          "id": "images",
+          "title": "Our Photos",
+          "type": "images",
+          "items": []
+        },
+        {
+          "id": "videos",
+          "title": "Our Videos",
+          "type": "videos",
+          "items": []
+        },
+        {
+          "id": "vms",
+          "title": "Voice Notes For You",
+          "type": "voice",
+          "items": []
+        }
+      ],
       "playlist": [
         {
           "title": "A",
           "filename": "1782987169169-r07ido.mp4"
         }
       ],
+      "birthday": "2026-07-06",
+      "birthdayMessage": "Happy Birthday, Areeha! 🎂 Today the world celebrates what I've always known — that you are absolutely extraordinary. This page is just a small piece of how much you mean to me. I hope your day is as beautiful as your soul. 🎉💜",
+      "giftCardUrl": "/cards/areeha-birthday.html",
       "reasons": [
         "You're family, but you're also my favorite person",
         "We don't need to explain our bond to anyone",
-        "You understand me in ways nobody else does"
+        "You understand me in ways nobody else does",
+        "You make every family gathering worth attending",
+        "Your laughter is contagious and I love it"
       ],
       "compliments": [
         "You're proof that the best friends are the ones God handpicks for you",
         "Your soul is as beautiful as your smile",
         "You make family gatherings actually worth going to",
         "Being related to you is my favorite flex",
-        "You're not just my cousin, you're my person"
+        "You're not just my cousin, you're my person",
+        "The world is brighter because you're in it",
+        "You deserve every good thing coming your way"
       ],
       "quiz": [
         {
@@ -1498,7 +1524,7 @@
           "icon": "💫"
         }
       ],
-      "visits": 15,
+      "visits": 16,
       "gardenFlowers": 0,
       "lastVisitDate": "2026-07-02"
     }

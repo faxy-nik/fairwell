@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Areeha! 🎂</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0e1a;
+      color: #e0d8d0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .card-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+    .card {
+      background: linear-gradient(135deg, #1a1830, #252240);
+      border: 1px solid #818cf844;
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 60px #818cf822;
+      animation: cardIn 1s ease;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, #818cf811 0%, transparent 60%);
+      animation: glow 4s ease-in-out infinite;
+    }
+    .card * { position: relative; z-index: 1; }
+    .cake { font-size: 4rem; margin-bottom: 10px; animation: bounce 2s ease-in-out infinite; }
+    .title {
+      font-size: 2rem;
+      background: linear-gradient(135deg, #818cf8, #ec4899, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+    .subtitle { color: #a5a0d8; font-size: 0.9rem; margin-bottom: 24px; }
+    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #818cf8, transparent); margin: 0 auto 24px; }
+    .message { color: #c8c0d8; line-height: 1.8; font-size: 0.95rem; margin-bottom: 24px; }
+    .message p { margin-bottom: 14px; }
+    .signature {
+      font-style: italic;
+      color: #818cf8;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+    .hearts {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      font-size: 1.2rem;
+      animation: floatUp linear infinite;
+      opacity: 0.3;
+    }
+    @keyframes cardIn { from { opacity:0; transform:scale(0.9) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    @keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+    @keyframes glow { 0%,100% { transform:rotate(0deg); } 50% { transform:rotate(180deg); } }
+    @keyframes floatUp { 0% { transform:translateY(110vh) rotate(0); opacity:0; } 10% { opacity:0.3; } 90% { opacity:0.3; } 100% { transform:translateY(-10vh) rotate(360deg); opacity:0; } }
+    .confetti-piece {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      top: -10px;
+      z-index: 999;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  <div class="card-wrapper">
+    <div class="card">
+      <div class="cake">🎂</div>
+      <h1 class="title">Happy Birthday, Areeha!</h1>
+      <p class="subtitle">July 6th, 2026 ✨</p>
+      <div class="divider"></div>
+      <div class="message">
+        <p>Some people come into your life and change it in ways you never expected. You're one of those people.</p>
+        <p>You're not just my cousin — you're my safe place, my favorite person to do absolutely nothing with, and the one who makes every family gathering worth showing up to.</p>
+        <p>On your birthday, I just want you to know — you are loved more than you'll ever understand. And this little corner of the internet? It's my way of saying thank you for being you.</p>
+        <p>I hope this year brings you everything your beautiful heart deserves. And I hope you always know — no matter where life takes us — you've got me. Always.</p>
+      </div>
+      <div class="divider"></div>
+      <p class="signature">With all my love, always 💜</p>
+    </div>
+  </div>
+  <script>
+    // Floating hearts
+    var hearts = document.getElementById('hearts');
+    var emojis = ['💜','✨','🎂','礼物','💫','🦋','🌙'];
+    for (var i = 0; i < 25; i++) {
+      var h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + '%';
+      h.style.animationDuration = (8 + Math.random() * 12) + 's';
+      h.style.animationDelay = Math.random() * 10 + 's';
+      h.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+      hearts.appendChild(h);
+    }
+    // Initial confetti burst
+    var colors = ['#818cf8','#ec4899','#f59e0b','#4ade80','#fff','#a78bfa'];
+    for (var j = 0; j < 60; j++) {
+      var c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + '%';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      c.style.animationDuration = (2 + Math.random() * 3) + 's';
+      c.style.animationDelay = Math.random() * 1 + 's';
+      document.body.appendChild(c);
+    }
+  </script>
+</body>
+</html>

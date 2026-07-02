@@ -136,6 +136,78 @@
       <p class="friend-visit-count">You've been here <strong><%= person.visits || 0 %></strong> times ✨</p>
     </header>
 
+    <% if (person.birthday) { %>
+    <!-- ── Birthday Section ── -->
+    <%
+      var now = new Date();
+      var bday = new Date(person.birthday + 'T00:00:00');
+      var thisYearBday = new Date(now.getFullYear(), bday.getMonth(), bday.getDate());
+      if (thisYearBday < now) thisYearBday = new Date(now.getFullYear()+1, bday.getMonth(), bday.getDate());
+      var diff = thisYearBday - now;
+      var daysLeft = Math.floor(diff / 86400000);
+      var hoursLeft = Math.floor((diff % 86400000) / 3600000);
+      var minsLeft = Math.floor((diff % 3600000) / 60000);
+      var isBirthday = now.getMonth() === bday.getMonth() && now.getDate() === bday.getDate();
+    %>
+    <div class="f-section" style="text-align:center; border-color: #f59e0b44; background: linear-gradient(135deg, #2a1a05, #1e1a10);">
+      <% if (isBirthday) { %>
+        <div style="font-size:3rem;margin-bottom:8px;">🎂</div>
+        <h2 style="color:#f59e0b;font-size:1.6rem;margin-bottom:10px;">Happy Birthday, <%= person.name %>!</h2>
+        <p style="color:#c9a84c;line-height:1.7;font-size:0.95rem;max-width:500px;margin:0 auto;"><%= person.birthdayMessage || 'Today is all about you. 🎉' %></p>
+        <a href="<%= person.giftCardUrl || '#' %>" target="_blank" style="display:inline-block;margin-top:16px;background:#f59e0b;color:#000;padding:10px 28px;border-radius:25px;text-decoration:none;font-weight:600;">Open Your Gift 🎁</a>
+        <div id="birthday-confetti" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></div>
+        <script>
+        (function(){
+          var c=document.getElementById('birthday-confetti');
+          var colors=['#f59e0b','#ec4899','#818cf8','#4ade80','#f87171','#fff'];
+          for(var i=0;i<80;i++){
+            var p=document.createElement('div');
+            p.style.cssText='position:absolute;width:'+(4+Math.random()*8)+'px;height:'+(4+Math.random()*8)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:'+Math.random()*100+'%;top:-10px;border-radius:'+(Math.random()>0.5?'50%':'2px')+';animation:confettiFall '+(2+Math.random()*3)+'s linear '+Math.random()*2+'s infinite;opacity:0.8;';
+            c.appendChild(p);
+          }
+        })();
+        </script>
+        <style>@keyframes confettiFall{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}</style>
+      <% } else { %>
+        <div style="font-size:2.5rem;margin-bottom:8px;">🎂</div>
+        <h2 style="color:#f59e0b;font-size:1.3rem;margin-bottom:8px;">Counting down to <%= person.name %>'s birthday!</h2>
+        <p style="color:#c9a84c;margin-bottom:14px;font-size:0.9rem;">July 6th is going to be special ✨</p>
+        <div style="display:flex;justify-content:center;gap:14px;margin-bottom:12px;">
+          <div style="background:#2a1a05;border:1px solid #f59e0b33;border-radius:12px;padding:12px 18px;text-align:center;min-width:60px;">
+            <div style="font-size:1.6rem;font-weight:700;color:#f59e0b;" id="bday-days"><%= daysLeft %></div>
+            <div style="font-size:0.7rem;color:#888;">Days</div>
+          </div>
+          <div style="background:#2a1a05;border:1px solid #f59e0b33;border-radius:12px;padding:12px 18px;text-align:center;min-width:60px;">
+            <div style="font-size:1.6rem;font-weight:700;color:#f59e0b;" id="bday-hours"><%= hoursLeft %></div>
+            <div style="font-size:0.7rem;color:#888;">Hours</div>
+          </div>
+          <div style="background:#2a1a05;border:1px solid #f59e0b33;border-radius:12px;padding:12px 18px;text-align:center;min-width:60px;">
+            <div style="font-size:1.6rem;font-weight:700;color:#f59e0b;" id="bday-mins"><%= minsLeft %></div>
+            <div style="font-size:0.7rem;color:#888;">Mins</div>
+          </div>
+        </div>
+        <% if (person.giftCardUrl) { %>
+        <a href="<%= person.giftCardUrl %>" target="_blank" style="display:inline-block;margin-top:4px;background:transparent;border:1px solid #f59e0b55;color:#f59e0b;padding:8px 22px;border-radius:20px;text-decoration:none;font-size:0.85rem;">Preview Gift Card 🎁</a>
+        <% } %>
+        <script>
+        (function(){
+          var target=new Date('<%= person.birthday %>T00:00:00');
+          var thisYear=new Date(new Date().getFullYear(),target.getMonth(),target.getDate());
+          if(thisYear<new Date()) thisYear=new Date(new Date().getFullYear()+1,target.getMonth(),target.getDate());
+          function tick(){
+            var d=thisYear-new Date();
+            if(d<=0){location.reload();return;}
+            document.getElementById('bday-days').textContent=Math.floor(d/86400000);
+            document.getElementById('bday-hours').textContent=Math.floor((d%86400000)/3600000);
+            document.getElementById('bday-mins').textContent=Math.floor((d%3600000)/60000);
+          }
+          tick();setInterval(tick,60000);
+        })();
+        </script>
+      <% } %>
+    </div>
+    <% } %>
+
     <% if (person.memories && person.memories.length > 0) { %>
     <!-- ── Timeline ── -->
     <div class="f-section">
@@ -390,6 +462,55 @@
     }
     initTTT();
     </script>
+    <% } %>
+
+    <% if (person.sections && person.sections.length > 0) { %>
+    <!-- ── Media Sections ── -->
+    <% person.sections.forEach(function(section) { %>
+    <% if (section.items && section.items.length > 0) { %>
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon"><%= {images:'🖼️',videos:'🎬',voice:'🎤',texts:'📝',other:'📦'}[section.type] || '📦' %></span>
+        <h2><%= section.title %></h2>
+        <span class="count"><%= section.items.length %></span>
+      </div>
+      <% if (section.type === 'images') { %>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;">
+        <% section.items.forEach(function(item) { %>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--accent-dim);">
+          <img src="/uploads/<%= person.id %>/<%= section.id %>/<%= item.filename %>" alt="<%= item.title %>" loading="lazy" style="width:100%;height:140px;object-fit:cover;display:block;">
+          <div style="padding:8px;"><span style="font-size:0.8rem;color:var(--text2);"><%= item.title %></span></div>
+        </div>
+        <% }); %>
+      </div>
+      <% } else if (section.type === 'videos') { %>
+      <% section.items.forEach(function(item) { %>
+      <div style="margin-bottom:12px;border-radius:10px;overflow:hidden;border:1px solid var(--accent-dim);">
+        <video controls preload="metadata" style="width:100%;max-height:300px;display:block;background:#000;">
+          <source src="/uploads/<%= person.id %>/<%= section.id %>/<%= item.filename %>">
+        </video>
+        <div style="padding:8px;"><span style="font-size:0.8rem;color:var(--text2);"><%= item.title %></span></div>
+      </div>
+      <% }); %>
+      <% } else if (section.type === 'voice') { %>
+      <% section.items.forEach(function(item) { %>
+      <div style="margin-bottom:10px;background:var(--bg2);border:1px solid var(--accent-dim);border-radius:10px;padding:12px;">
+        <p style="font-size:0.85rem;color:var(--text2);margin-bottom:8px;">🎤 <%= item.title %></p>
+        <audio controls preload="metadata" style="width:100%;">
+          <source src="/uploads/<%= person.id %>/<%= section.id %>/<%= item.filename %>">
+        </audio>
+      </div>
+      <% }); %>
+      <% } %>
+    </div>
+    <% } %>
+    <% }); %>
+    <% } %>
+
+    <% if (person.giftCardUrl) { %>
+    <div class="f-section" style="text-align:center;">
+      <a href="<%= person.giftCardUrl %>" target="_blank" style="display:inline-block;background:linear-gradient(135deg,var(--accent),#ec4899);color:#fff;padding:12px 32px;border-radius:25px;text-decoration:none;font-weight:600;font-size:1rem;">Open Your Gift Card 🎁</a>
+    </div>
     <% } %>
 
     <footer class="friend-footer">
