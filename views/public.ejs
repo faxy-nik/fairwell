@@ -48,7 +48,7 @@
                   <% section.items.forEach(function(item) { %>
                     <% var now = new Date(); %>
                     <% var release = new Date(item.releaseDate + 'T23:59:59'); %>
-                    <% var isUnlocked = now >= release; %>
+                    <% var isUnlocked = true; %>
                     <% var fileUrl = '/uploads/' + person.id + '/' + section.id + '/' + item.filename; %>
                     <% var isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(item.filename); %>
                     <% var isVideo = /\.(mp4|webm|mov)$/i.test(item.filename); %>

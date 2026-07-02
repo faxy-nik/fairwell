@@ -137,11 +137,87 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
     @keyframes confettiFall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+    /* ── Sky Generator ── */
+    .sky-section{position:relative;width:100%;max-width:750px;margin:24px auto 32px;border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.3)}
+    .sky-canvas{position:relative;width:100%;height:280px;overflow:hidden}
+    .sky-message{text-align:center;padding:18px 24px;font-size:0.9rem;color:#ccc;font-style:italic;letter-spacing:0.5px;background:rgba(0,0,0,0.25);border-top:1px solid rgba(255,255,255,0.04);line-height:1.6}
+    @keyframes skyDrift{0%{transform:translateX(0)}100%{transform:translateX(800px)}}
+    @keyframes skyRain{0%{transform:translateY(0) translateX(0);opacity:1}100%{transform:translateY(300px) translateX(-20px);opacity:0.2}}
+    @keyframes skyTwinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+    @keyframes skyPulse{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.06);opacity:1}}
+    @keyframes skySnow{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:0.8}90%{opacity:0.8}100%{transform:translateY(300px) translateX(30px);opacity:0}}
+    @keyframes skyAurora{0%,100%{transform:translateX(0) scale(1);opacity:0.3}25%{transform:translateX(30px) scale(1.05);opacity:0.5}50%{transform:translateX(0) scale(0.95);opacity:0.4}75%{transform:translateX(-20px) scale(1.02);opacity:0.6}}
+    .sky-label{font-weight:600;font-style:normal}
+
+    /* Lock Overlay */
+    .page-lock{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0e1a,#1a1030,#251a3a);overflow:hidden}
+    .lock-content{text-align:center;z-index:2;padding:20px;max-width:500px;animation:fadeUp 1s ease}
+    .lock-cake-big{font-size:5rem;margin-bottom:10px;animation:bounce 2s ease-in-out infinite}
+    .lock-title{font-family:'Playfair Display',serif;font-size:2.4rem;background:linear-gradient(135deg,#f59e0b,#ec4899,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+    .lock-subtitle{color:#a5a0d8;font-size:1rem;margin-bottom:24px;letter-spacing:1px}
+    .lock-message{color:#c9a84c;font-size:0.9rem;font-style:italic;margin-bottom:24px;line-height:1.6}
+    .lock-countdown{display:flex;justify-content:center;gap:14px;margin:16px 0}
+    .lock-cd-box{background:rgba(26,16,8,0.6);border:1px solid #f59e0b33;border-radius:12px;padding:12px 18px;text-align:center;min-width:60px;backdrop-filter:blur(4px)}
+    .lock-cd-val{font-size:1.8rem;font-weight:700;color:#f59e0b}
+    .lock-cd-lbl{font-size:0.7rem;color:#888;text-transform:uppercase;margin-top:2px}
+    .lock-flower{position:absolute;font-size:2rem;opacity:0.3;animation:flowerFloat var(--dur,20s) ease-in-out infinite;animation-delay:var(--delay,0s);pointer-events:none}
+    .lock-flower:nth-child(1){top:5%;left:5%;--dur:22s;--delay:0s;font-size:2.5rem}
+    .lock-flower:nth-child(2){top:10%;right:8%;--dur:25s;--delay:2s;font-size:2rem}
+    .lock-flower:nth-child(3){top:30%;left:2%;--dur:28s;--delay:5s;font-size:3rem}
+    .lock-flower:nth-child(4){bottom:20%;right:5%;--dur:20s;--delay:3s;font-size:2.2rem}
+    .lock-flower:nth-child(5){bottom:10%;left:10%;--dur:24s;--delay:7s;font-size:2.8rem}
+    .lock-flower:nth-child(6){top:50%;right:15%;--dur:26s;--delay:1s;font-size:1.8rem}
+    .lock-flower:nth-child(7){bottom:30%;right:25%;--dur:23s;--delay:4s;font-size:2.4rem}
+    .lock-flower:nth-child(8){top:70%;left:50%;--dur:30s;--delay:6s;font-size:2rem}
+    .lock-flower:nth-child(9){bottom:5%;left:50%;--dur:21s;--delay:8s;font-size:2.6rem}
+    .lock-flower:nth-child(10){top:15%;left:40%;--dur:27s;--delay:9s;font-size:1.8rem}
+    .page-content{display:none}
+    .page-content.unlocked{display:block}
   </style>
 </head>
 <body>
+  <!-- ═══ LOCK OVERLAY ═══ -->
+  <div class="page-lock" id="page-lock">
+    <div class="lock-flower">🎂</div>
+    <div class="lock-flower">🎂</div>
+    <div class="lock-flower">🎂</div>
+    <div class="lock-flower">🌸</div>
+    <div class="lock-flower">🌷</div>
+    <div class="lock-flower">🌹</div>
+    <div class="lock-flower">🌺</div>
+    <div class="lock-flower">🌻</div>
+    <div class="lock-flower">🌼</div>
+    <div class="lock-flower">💐</div>
+    <div class="lock-content">
+      <div class="lock-cake-big">🎂</div>
+      <h1 class="lock-title">Locked Until July 6th</h1>
+      <p class="lock-subtitle">Areeha's Birthday Special</p>
+      <p class="lock-message">This page unlocks on her birthday. Until then, enjoy the celebration from here ✨</p>
+      <div class="lock-countdown">
+        <div class="lock-cd-box"><div class="lock-cd-val" id="lock-days">-</div><div class="lock-cd-lbl">Days</div></div>
+        <div class="lock-cd-box"><div class="lock-cd-val" id="lock-hours">-</div><div class="lock-cd-lbl">Hours</div></div>
+        <div class="lock-cd-box"><div class="lock-cd-val" id="lock-mins">-</div><div class="lock-cd-lbl">Mins</div></div>
+        <div class="lock-cd-box"><div class="lock-cd-val" id="lock-secs">-</div><div class="lock-cd-lbl">Secs</div></div>
+      </div>
+    </div>
+  </div>
+
   <div class="particles" id="particles"></div>
-  <div class="page">
+  <div class="page-content" id="page-content">
+
+    <!-- ═══ BIRTHDAY COUNTDOWN ═══ -->
+    <div class="bday-banner">
+      <div class="cake">🎂</div>
+      <h2>Happy Birthday, Ria!</h2>
+      <p class="bday-msg">July 6th is going to be special. This page is my way of saying — you matter. More than you'll ever know.</p>
+      <div class="bday-countdown">
+        <div class="cd-box"><div class="cd-val" id="cd-days">-</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-hours">-</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-mins">-</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-secs">-</div><div class="cd-lbl">Secs</div></div>
+      </div>
+    </div>
 
     <!-- ═══ HERO ═══ -->
     <div class="hero">
@@ -150,6 +226,12 @@
       <p class="nickname">— for RIA —</p>
       <p class="birthday-line">Birthday Special • <span>July 6, 2026</span> 🎂</p>
       <div class="hero-divider"></div>
+    </div>
+
+    <!-- ═══ SKY GENERATOR ═══ -->
+    <div class="sky-section" id="sky-section">
+      <div class="sky-canvas" id="sky-canvas"></div>
+      <div class="sky-message"><span class="sky-label" id="sky-label"></span> Wherever you are, I hope you looked at this sky today too.</div>
     </div>
 
     <!-- ═══ INTRODUCTION ═══ -->
@@ -274,12 +356,12 @@
       <span class="section-icon">⏳</span>
       <h2>Our Timeline</h2>
       <div class="timeline">
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Childhood</div><div class="tl-text">We met long before either of us understood what friendship meant.</div></div>
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Growing Up</div><div class="tl-text">Family slowly became friendship. Friendship slowly became trust.</div></div>
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Countless Laughs</div><div class="tl-text">Inside jokes. Random teasing. Family events. Small conversations. The kind of memories no camera ever captures.</div></div>
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Lake View Park</div><div class="tl-text">One beautiful day. One beautiful smile. One photograph that somehow became another memory I'd never forget.</div></div>
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Today</div><div class="tl-text">Still my cousin. Still my best friend. Still someone whose happiness matters deeply.</div></div>
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Future</div><div class="tl-text">Maybe different cities. Different careers. Different responsibilities. But I hope years from now we'll still celebrate birthdays, laugh over old stories, and remind ourselves that family like this never becomes distant.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">🌸 The Beginning</div><div class="tl-text">Late 2023. We were cousins long before we became friends. But somewhere near the end of 2023, something changed. We started talking more. Sharing random moments. Without realizing it, you became one of my favorite people.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">💙 The Golden Days</div><div class="tl-text">Those conversations weren't ordinary. We shared stories, dreams, fears, and secrets you only trust with someone who truly understands you. You slowly became my best friend among all my cousins.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">🌙 When Life Got Busy</div><div class="tl-text">Mid 2025. Life happened. Conversations became shorter. Late night talks became rare. Nothing was wrong — we just weren't talking the way we used to. Still, I quietly missed those days.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">📞 July 2, 2026</div><div class="tl-text">After what felt like forever, we talked. One hour and twenty minutes. And somehow it felt like no time had passed at all. The same laughter. The same comfort. The same friendship.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">🫂 The Safe Place</div><div class="tl-text">You know my weakest points. My fears. My secrets. The parts of me I don't easily show. And somehow, I've always felt safe trusting you with them. That's a rare kind of friendship.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">✨ Always</div><div class="tl-text">You're more than just my cousin. You're my best friend in the family. One of the purest souls I've ever known. Life may change our routines, but I hope it never changes this bond.</div></div>
       </div>
     </div>
 
@@ -363,19 +445,6 @@
       </div>
     </div>
 
-    <!-- ═══ BIRTHDAY COUNTDOWN ═══ -->
-    <div class="bday-banner">
-      <div class="cake">🎂</div>
-      <h2>Happy Birthday, Ria!</h2>
-      <p class="bday-msg">July 6th is going to be special. This page is my way of saying — you matter. More than you'll ever know.</p>
-      <div class="bday-countdown">
-        <div class="cd-box"><div class="cd-val" id="cd-days">-</div><div class="cd-lbl">Days</div></div>
-        <div class="cd-box"><div class="cd-val" id="cd-hours">-</div><div class="cd-lbl">Hours</div></div>
-        <div class="cd-box"><div class="cd-val" id="cd-mins">-</div><div class="cd-lbl">Mins</div></div>
-        <div class="cd-box"><div class="cd-val" id="cd-secs">-</div><div class="cd-lbl">Secs</div></div>
-      </div>
-    </div>
-
     <!-- ═══ MEDIA (upload via admin) ═══ -->
     <div class="section" id="media-section" style="animation-delay:0.7s;display:none">
       <span class="section-icon">🖼️</span>
@@ -412,6 +481,201 @@
   <div id="confetti-box" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999"></div>
 
   <script>
+  // ─── Lock / Unlock ───
+  (function(){
+    var bday = new Date('2026-07-06T00:00:00');
+    var now = new Date();
+    var lock = document.getElementById('page-lock');
+    var content = document.getElementById('page-content');
+    if (now >= bday) {
+      if (lock) lock.style.display = 'none';
+      if (content) content.classList.add('unlocked');
+    }
+  })();
+
+  // ─── Lock Fireworks ───
+  (function() {
+    var lock = document.getElementById('page-lock');
+    if (!lock || lock.style.display === 'none') return;
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:1';
+    lock.insertBefore(canvas, lock.firstChild);
+    var ctx = canvas.getContext('2d');
+    var W, H, particles = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    var colors = ['#f59e0b','#fbbf24','#fcd34d','#fef3c7','#fff','#ec4899','#818cf8'];
+    function burst(x, y) {
+      var count = 40 + Math.floor(Math.random() * 30);
+      for (var i = 0; i < count; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 2 + Math.random() * 4;
+        var c = colors[Math.floor(Math.random() * colors.length)];
+        particles.push({ x: x, y: y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: 1, decay: 0.01 + Math.random() * 0.015, size: 2 + Math.random() * 3, color: c });
+      }
+    }
+    function launch() { burst(Math.random() * W, Math.random() * H * 0.6); }
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.life -= p.decay; p.vx *= 0.98; p.vy *= 0.98;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.globalAlpha = p.life; ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1; requestAnimationFrame(animate);
+    }
+    setInterval(launch, 1800);
+    setTimeout(function() { launch(); setTimeout(launch, 300); setTimeout(launch, 600); }, 500);
+    animate();
+  })();
+
+  // ─── Lock Countdown ───
+  (function(){
+    var lock = document.getElementById('page-lock');
+    if (!lock || lock.style.display === 'none') return;
+    var bday = new Date('2026-07-06T00:00:00');
+    function tick(){
+      var now = new Date();
+      var diff = bday - now;
+      if (diff <= 0) { location.reload(); return; }
+      document.getElementById('lock-days').textContent = Math.floor(diff / 86400000);
+      document.getElementById('lock-hours').textContent = Math.floor((diff % 86400000) / 3600000);
+      document.getElementById('lock-mins').textContent = Math.floor((diff % 3600000) / 60000);
+      document.getElementById('lock-secs').textContent = Math.floor((diff % 60000) / 1000);
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // ─── Sky Generator ───
+  (function() {
+    var canvas = document.getElementById('sky-canvas');
+    if (!canvas) return;
+    var types = ['morning','rain','night','sunset','storm','snow','aurora','fog'];
+    var sky = types[Math.floor(Math.random() * types.length)];
+    canvas.className = 'sky-canvas sky-' + sky;
+    var label = document.getElementById('sky-label');
+    if (label) label.textContent = '\u2601\ufe0f ' + sky.charAt(0).toUpperCase() + sky.slice(1) + '. ';
+
+    function el(tag, cls, parent) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+
+    if (sky === 'morning') {
+      canvas.style.background = 'linear-gradient(180deg, #fdd89b 0%, #f9a825 40%, #ff8f00 70%, #ff6f00 100%)';
+      var sun = el('div','sky-sun',canvas);
+      sun.style.cssText = 'position:absolute;top:18%;right:22%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff9c4,#ffd54f);box-shadow:0 0 60px rgba(255,213,79,0.6);animation:skyPulse 3s ease-in-out infinite';
+      for (var i=0;i<4;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 40 + Math.random()*60;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*25)+'%;left:'+(-10+Math.random()*80)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(255,255,255,'+(0.3+Math.random()*0.2)+');animation:skyDrift '+(12+Math.random()*10)+'s linear infinite;opacity:0.6';
+      }
+    }
+    else if (sky === 'rain') {
+      canvas.style.background = 'linear-gradient(180deg, #4a5568 0%, #2d3748 40%, #1a202c 100%)';
+      for (var i=0;i<60;i++) {
+        var d = el('div','sky-drop',canvas);
+        var left = Math.random()*100;
+        var delay = Math.random()*2;
+        var dur = 0.5 + Math.random()*0.4;
+        d.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:1.5px;height:'+(12+Math.random()*18)+'px;background:rgba(180,200,255,'+(0.2+Math.random()*0.3)+');animation:skyRain ' + dur + 's linear ' + delay + 's infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 80 + Math.random()*100;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*12)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.45)+'px;border-radius:50px;background:rgba(60,70,90,0.7);animation:skyDrift '+(18+Math.random()*12)+'s linear infinite;opacity:0.8';
+      }
+    }
+    else if (sky === 'night') {
+      canvas.style.background = 'linear-gradient(180deg, #0b0e1a 0%, #141b33 40%, #1a2456 100%)';
+      for (var i=0;i<50;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2.5;
+        var delay = Math.random()*4;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*60)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+delay+'s infinite;opacity:'+(0.3+Math.random()*0.5);
+      }
+      var moon = el('div','sky-moon',canvas);
+      moon.style.cssText = 'position:absolute;top:14%;left:65%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffde7,#fff9c4);box-shadow:0 0 80px rgba(255,249,196,0.25);opacity:0.85';
+      var moonC = el('div','sky-moon-crater',moon);
+      moonC.style.cssText = 'position:absolute;top:25%;left:55%;width:14px;height:14px;border-radius:50%;background:rgba(200,190,160,0.2)';
+      var moonC2 = el('div','sky-moon-crater',moon);
+      moonC2.style.cssText = 'position:absolute;top:55%;left:25%;width:8px;height:8px;border-radius:50%;background:rgba(200,190,160,0.15)';
+    }
+    else if (sky === 'sunset') {
+      canvas.style.background = 'linear-gradient(180deg, #1a0533 0%, #4a1942 20%, #c0392b 45%, #e67e22 65%, #f39c12 80%, #f1c40f 100%)';
+      var sun = el('div','sky-sunset-sun',canvas);
+      sun.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ffe082,#ff8f00);box-shadow:0 0 100px rgba(255,143,0,0.5);opacity:0.9';
+      var horizon = el('div','sky-horizon',canvas);
+      horizon.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:18%;background:#1a0a12;border-radius:50% 50% 0 0 / 100% 100% 0 0;opacity:0.6';
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-sunset-cloud',canvas);
+        var s = 50 + Math.random()*70;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*18)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.4)+'px;border-radius:50px;background:rgba(200,100,60,'+(0.15+Math.random()*0.15)+');animation:skyDrift '+(15+Math.random()*10)+'s linear infinite';
+      }
+    }
+    else if (sky === 'storm') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+      for (var i=0;i<80;i++) {
+        var d = el('div','sky-storm-rain',canvas);
+        d.style.cssText = 'position:absolute;top:-10px;left:'+(Math.random()*100)+'%;width:1.5px;height:'+(15+Math.random()*25)+'px;background:rgba(150,180,220,'+(0.15+Math.random()*0.2)+');animation:skyRain '+(0.3+Math.random()*0.3)+'s linear '+(Math.random()*2)+'s infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-storm-cloud',canvas);
+        var s = 100 + Math.random()*120;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*10)+'%;left:'+(-10+Math.random()*60)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(30,35,50,0.8);animation:skyDrift '+(20+Math.random()*15)+'s linear infinite;opacity:0.9';
+      }
+      setInterval(function() {
+        if (Math.random() > 0.6) {
+          canvas.style.transition = 'background 0.1s';
+          canvas.style.background = 'linear-gradient(180deg, #2a2a4e 0%, #263158 30%, #1f4070 60%, #2a2a4e 100%)';
+          setTimeout(function() {
+            canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+          }, 100);
+        }
+      }, 3000);
+    }
+    else if (sky === 'snow') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #2d3a4a 30%, #3d5a6d 60%, #4a6a7a 100%)';
+      for (var i=0;i<80;i++) {
+        var flake = el('div','sky-snowflake',canvas);
+        var size = 2 + Math.random()*4;
+        var left = Math.random()*100;
+        var delay = Math.random()*5;
+        var dur = 3 + Math.random()*4;
+        flake.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:rgba(220,235,255,'+(0.5+Math.random()*0.3)+');animation:skySnow '+dur+'s linear '+delay+'s infinite;opacity:'+(0.4+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'aurora') {
+      canvas.style.background = 'linear-gradient(180deg, #0a0a1a 0%, #0f1525 30%, #1a1f35 100%)';
+      for (var i=0;i<5;i++) {
+        var band = el('div','sky-aurora-band',canvas);
+        var hue = 120 + Math.random()*60;
+        var top = 10 + Math.random()*40;
+        var dur = 6 + Math.random()*4;
+        band.style.cssText = 'position:absolute;top:'+top+'%;left:-10%;width:'+(120+Math.random()*80)+'%;height:'+(8+Math.random()*12)+'px;background:linear-gradient(90deg,transparent,hsla('+hue+',80%,60%,0.4),hsla('+(hue+40)+',80%,50%,0.3),transparent);border-radius:50%;filter:blur(8px);animation:skyAurora '+dur+'s ease-in-out infinite;opacity:'+(0.3+Math.random()*0.3);
+      }
+      for (var i=0;i<30;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*50)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+(Math.random()*4)+'s infinite;opacity:'+(0.2+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'fog') {
+      canvas.style.background = 'linear-gradient(180deg, #3a4048 0%, #4a5058 30%, #5a6068 60%, #6a7078 100%)';
+      for (var i=0;i<6;i++) {
+        var mist = el('div','sky-mist',canvas);
+        var s = 100 + Math.random()*150;
+        var top = 10 + Math.random()*60;
+        var dur = 15 + Math.random()*15;
+        mist.style.cssText = 'position:absolute;top:'+top+'%;left:'+(-10+Math.random()*20)+'%;width:'+s+'px;height:'+(10+Math.random()*15)+'px;border-radius:50%;background:rgba(180,190,200,'+(0.06+Math.random()*0.06)+');filter:blur(12px);animation:skyDrift '+dur+'s linear infinite;opacity:'+(0.3+Math.random()*0.2);
+      }
+    }
+  })();
+
   // Particles
   (function(){
     var c=document.getElementById('particles');

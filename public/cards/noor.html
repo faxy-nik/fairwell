@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noor — Our Story</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:#0f0e1a;color:#d0c8d0;line-height:1.8;overflow-x:hidden}
+    ::selection{background:#f59e0b44;color:#e0d8d0}
+
+    .page{max-width:750px;margin:0 auto;padding:20px}
+
+    /* Hero */
+    .hero{text-align:center;padding:80px 20px 50px;position:relative}
+    .hero-badge{display:inline-block;background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44;padding:6px 20px;border-radius:25px;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;animation:fadeDown 1s ease}
+    .hero h1{font-family:'Playfair Display',serif;font-size:2.6rem;color:#f0e8d8;line-height:1.3;margin-bottom:10px;animation:fadeDown 1s ease 0.2s both}
+    .hero .subtitle{font-size:1rem;color:#f59e0b;animation:fadeDown 1s ease 0.4s both}
+    .hero .custom-msg{margin-top:16px;color:#c9a84c;font-style:italic;font-size:0.95rem;max-width:500px;margin-left:auto;margin-right:auto;animation:fadeDown 1s ease 0.5s both}
+    .hero-divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,#f59e0b,transparent);margin:30px auto;animation:fadeDown 1s ease 0.6s both}
+
+    /* Chapter */
+    .chapter{padding:50px 0;border-top:1px solid #ffffff08;animation:fadeUp 0.6s ease;animation-fill-mode:both}
+    .chapter-icon{font-size:2rem;margin-bottom:12px;display:block}
+    .chapter h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#f0d8a0;margin-bottom:6px}
+    .chapter .chapter-sub{font-size:0.85rem;color:#f59e0b88;margin-bottom:20px;letter-spacing:1px}
+    .chapter p{color:#b8b0a8;font-size:0.95rem;margin-bottom:10px}
+    .chapter p.em{color:#d0c0a0;font-style:italic;font-weight:400}
+
+    .separator{width:100%;height:1px;background:linear-gradient(90deg,transparent,#f59e0b33,transparent);margin:0}
+
+    /* Quote */
+    .big-quote{font-family:'Playfair Display',serif;font-size:1.3rem;color:#e0d0b0;text-align:center;padding:40px 20px;line-height:1.8;font-style:italic;position:relative}
+    .big-quote::before,.big-quote::after{content:'"';font-size:4rem;color:#f59e0b33;position:absolute;font-style:normal}
+    .big-quote::before{top:0;left:10px}
+    .big-quote::after{bottom:-20px;right:10px}
+
+    /* Final Chapter */
+    .final-chapter{text-align:center;padding:60px 20px}
+    .final-chapter .fc-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:#e0d0b0;line-height:1.8;margin-bottom:16px}
+    .final-chapter .fc-attr{color:#f59e0b;font-size:0.9rem}
+
+    /* Jukebox */
+    .jukebox-section{background:#1e1a10;border:1px solid #f59e0b33;border-radius:16px;padding:24px;margin:30px 0}
+    .jukebox-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#f0d8a0;text-align:center;margin-bottom:16px}
+    .jukebox-player{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .jukebox-disc{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2a1f0a,#3a2f1a);border:3px solid #f59e0b44;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#f59e0b;transition:transform 0.3s;flex-shrink:0}
+    .jukebox-disc.spinning{animation:jukeboxSpin 2s linear infinite}
+    @keyframes jukeboxSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .jukebox-info{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+    .jukebox-song-title{font-size:1rem;font-weight:600;color:#e0d8d0;text-align:center}
+    .jukebox-controls{display:flex;gap:12px;align-items:center}
+    .jukebox-btn{background:#f59e0b22;border:1px solid #f59e0b44;color:#f59e0b;width:40px;height:36px;border-radius:8px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+    .jukebox-btn:hover{background:#f59e0b;color:#000;transform:scale(1.1)}
+    .jukebox-play-btn{width:48px;height:42px;font-size:1.1rem}
+    .jukebox-tracklist{width:100%;display:flex;flex-direction:column;gap:4px;padding:8px 0}
+    .jukebox-track{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:#94a3b8;transition:all 0.2s;cursor:pointer}
+    .jukebox-track:hover{background:#f59e0b11;color:#e0d8d0}
+    .jukebox-track.active{background:#f59e0b22;color:#f59e0b}
+    .track-num{width:20px;text-align:center;font-size:0.75rem;opacity:0.6}
+    .track-title{flex:1;font-size:0.85rem}
+    .track-play-icon{font-size:0.7rem;opacity:0;transition:opacity 0.2s}
+    .jukebox-track:hover .track-play-icon,.jukebox-track.active .track-play-icon{opacity:0.7}
+
+    /* Games */
+    .games-section{background:#1e1a10;border:1px solid #f59e0b33;border-radius:16px;padding:24px;margin:30px 0}
+    .games-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#f0d8a0;text-align:center;margin-bottom:16px}
+    .games-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+    .game-tab{background:#2a1f0a;border:1px solid #f59e0b44;color:#888;padding:8px 18px;border-radius:20px;cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+    .game-tab.active{background:#f59e0b;color:#000;border-color:#f59e0b;font-weight:600}
+    .game-panel{display:none}
+    .game-panel.active{display:block}
+    .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:400px;margin:0 auto}
+    @media(max-width:400px){.card-grid{grid-template-columns:repeat(3,1fr)}}
+    .mem-card{aspect-ratio:1;cursor:pointer;perspective:600px}
+    .mem-card-inner{position:relative;width:100%;height:100%;transition:transform 0.4s;transform-style:preserve-3d}
+    .mem-card.flipped .mem-card-inner{transform:rotateY(180deg)}
+    .mem-card-front,.mem-card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+    .mem-card-front{background:#f59e0b;color:#000;font-weight:700}
+    .mem-card-back{background:#2a1f0a;border:1px solid #f59e0b44;transform:rotateY(180deg)}
+    .mem-card.matched .mem-card-inner{transform:rotateY(180deg)}
+    .mem-card.matched .mem-card-back{background:#4ade8033;border-color:#4ade80}
+    .mem-score{text-align:center;margin-top:12px;color:#f59e0b;font-size:0.9rem}
+    .mem-reset,.ttt-reset{display:block;margin:12px auto 0;background:#f59e0b;color:#000;border:none;padding:8px 20px;border-radius:20px;cursor:pointer;font-weight:600;font-size:0.85rem}
+    .ttt-board{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:300px;margin:0 auto}
+    .ttt-cell{aspect-ratio:1;background:#2a1f0a;border:1px solid #f59e0b44;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;color:#f59e0b}
+    .ttt-cell:hover{border-color:#f59e0b}
+    .ttt-cell.taken{cursor:default}
+    .ttt-status{text-align:center;margin-top:12px;color:#f59e0b;font-size:0.95rem}
+
+    /* Sky */
+    .sky-section{position:relative;width:100%;max-width:750px;margin:24px auto 32px;border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.3)}
+    .sky-canvas{position:relative;width:100%;height:280px;overflow:hidden}
+    .sky-message{text-align:center;padding:18px 24px;font-size:0.9rem;color:#ccc;font-style:italic;letter-spacing:0.5px;background:rgba(0,0,0,0.25);border-top:1px solid rgba(255,255,255,0.04);line-height:1.6}
+    @keyframes skyDrift{0%{transform:translateX(0)}100%{transform:translateX(800px)}}
+    @keyframes skyRain{0%{transform:translateY(0) translateX(0);opacity:1}100%{transform:translateY(300px) translateX(-20px);opacity:0.2}}
+    @keyframes skyTwinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+    @keyframes skyPulse{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.06);opacity:1}}
+    @keyframes skySnow{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:0.8}90%{opacity:0.8}100%{transform:translateY(300px) translateX(30px);opacity:0}}
+    @keyframes skyAurora{0%,100%{transform:translateX(0) scale(1);opacity:0.3}25%{transform:translateX(30px) scale(1.05);opacity:0.5}50%{transform:translateX(0) scale(0.95);opacity:0.4}75%{transform:translateX(-20px) scale(1.02);opacity:0.6}}
+    .sky-label{font-weight:600;font-style:normal}
+
+    /* Fireworks */
+    .fireworks-canvas{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+    /* Floating Flowers */
+    .flowers-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .flower{position:absolute;font-size:1.6rem;opacity:0.35;animation:flowerFloat var(--dur,20s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+    .flower:nth-child(1){top:5%;left:8%;--dur:22s;--delay:0s;font-size:1.8rem;opacity:0.3}
+    .flower:nth-child(2){top:15%;right:12%;--dur:25s;--delay:2s;font-size:1.4rem;opacity:0.25}
+    .flower:nth-child(3){top:45%;left:3%;--dur:28s;--delay:5s;font-size:2rem;opacity:0.2}
+    .flower:nth-child(4){top:60%;right:5%;--dur:20s;--delay:3s;font-size:1.5rem;opacity:0.3}
+    .flower:nth-child(5){top:80%;left:15%;--dur:24s;--delay:7s;font-size:1.7rem;opacity:0.25}
+    .flower:nth-child(6){top:30%;right:25%;--dur:26s;--delay:1s;font-size:1.3rem;opacity:0.2}
+    .flower:nth-child(7){top:75%;right:30%;--dur:23s;--delay:4s;font-size:1.6rem;opacity:0.25}
+    .flower:nth-child(8){top:50%;left:50%;--dur:30s;--delay:6s;font-size:1.5rem;opacity:0.2}
+    .flower:nth-child(9){top:90%;left:50%;--dur:21s;--delay:8s;font-size:1.8rem;opacity:0.2}
+    .flower:nth-child(10){top:10%;left:50%;--dur:27s;--delay:9s;font-size:1.4rem;opacity:0.25}
+    @keyframes flowerFloat{0%,100%{transform:translateY(0) rotate(0deg) scale(1)}25%{transform:translateY(-20px) rotate(5deg) scale(1.05)}50%{transform:translateY(10px) rotate(-3deg) scale(0.95)}75%{transform:translateY(-15px) rotate(4deg) scale(1.02)}}
+
+    /* Virtual Garden */
+    .garden-section{background:#1e1a10;border:1px solid rgba(74,222,128,0.15);border-radius:16px;padding:24px;margin:30px 0}
+    .garden-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#6ee7b7;text-align:center;margin-bottom:16px}
+    .garden-plot{display:flex;flex-wrap:wrap;gap:6px;padding:16px 12px;min-height:80px;justify-content:center;align-items:center}
+    .garden-flower{font-size:1.6rem;display:inline-block;animation:gardenBloom 0.5s ease both}
+    .garden-note{text-align:center;font-size:0.8rem;color:#6ee7b7;margin:4px 0 0}
+    @keyframes gardenBloom{0%{transform:scale(0) rotate(-20deg);opacity:0}100%{transform:scale(1) rotate(0deg);opacity:1}}
+
+    /* Particles */
+    .particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+    .particle{position:absolute;width:3px;height:3px;border-radius:50%;background:#f59e0b;opacity:0.1;animation:drift linear infinite}
+    @keyframes drift{0%{transform:translateY(100vh);opacity:0}10%{opacity:0.1}90%{opacity:0.1}100%{transform:translateY(-10vh);opacity:0}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+    /* Footer */
+    .footer{text-align:center;padding:40px 0 20px;color:#555;font-size:0.8rem}
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="flowers-container">
+    <span class="flower">🌸</span><span class="flower">🌷</span><span class="flower">🌹</span>
+    <span class="flower">🌺</span><span class="flower">🌻</span><span class="flower">🌼</span>
+    <span class="flower">🌸</span><span class="flower">🌷</span><span class="flower">🌹</span>
+    <span class="flower">🌺</span>
+  </div>
+  <canvas class="fireworks-canvas" id="fireworks-canvas"></canvas>
+  <div class="page">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="hero">
+      <div class="hero-badge">My BSF ✨</div>
+      <h1>Hey Noor</h1>
+      <p class="subtitle">This is our story</p>
+      <p class="custom-msg">Some people walk into your life and suddenly every room feels warmer. You're that person for me.</p>
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- ═══ SKY ═══ -->
+    <div class="sky-section" id="sky-section">
+      <div class="sky-canvas" id="sky-canvas"></div>
+      <div class="sky-message"><span class="sky-label" id="sky-label"></span> Wherever you are, I hope you looked at this sky today too.</div>
+    </div>
+
+    <!-- ═══ JUKEBOX ═══ -->
+    <div class="jukebox-section">
+      <h2>🎧 Our Song</h2>
+      <div class="jukebox-player">
+        <div class="jukebox-disc" id="jukebox-disc">&#9835;</div>
+        <div class="jukebox-info">
+          <span class="jukebox-song-title" id="jukebox-title">a</span>
+          <div class="jukebox-controls">
+            <button class="jukebox-btn" onclick="jukeboxPrev()">⏮</button>
+            <button class="jukebox-btn jukebox-play-btn" id="jukebox-play-btn" onclick="jukeboxToggle()">▶</button>
+            <button class="jukebox-btn" onclick="jukeboxNext()">⏭</button>
+          </div>
+        </div>
+        <div class="jukebox-tracklist" id="jukebox-tracklist">
+          <div class="jukebox-track active" data-idx="0" data-title="a" data-filename="1782987155230-af5eto.mp4"><span class="track-num">1</span><span class="track-title">a</span><span class="track-play-icon">▶</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CHAPTER 1 ═══ -->
+    <div class="chapter" style="animation-delay:0.1s">
+      <span class="chapter-icon">🌱</span>
+      <h2>Chapter 1 — A Random Group Chat</h2>
+      <p class="chapter-sub">2023</p>
+      <p>We didn't meet through fate.</p>
+      <p>We met through chaos.</p>
+      <p>A random group chat from our old school. You were my junior who had already left. Just another person in a sea of messages.</p>
+      <p class="em">Neither of us knew we'd still be talking years later.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 2 ═══ -->
+    <div class="chapter" style="animation-delay:0.15s">
+      <span class="chapter-icon">🚫</span>
+      <h2>Chapter 2 — "Main DM Mein Nahi Aati."</h2>
+      <p>That sentence became your trademark.</p>
+      <p>Every time someone mentioned DMs, your answer was almost automatic.</p>
+      <p class="em">"Sorry, main DM mein nahi aati."</p>
+      <p>Ironically...</p>
+      <p>The best part of our friendship started exactly there.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 3 ═══ -->
+    <div class="chapter" style="animation-delay:0.2s">
+      <span class="chapter-icon">💬</span>
+      <h2>Chapter 3 — The DM Era</h2>
+      <p>Somehow... you texted.</p>
+      <p>And everything clicked.</p>
+      <p>Dark humor. Unhinged jokes. Zero filters. Infinite sarcasm.</p>
+      <p>It felt less like talking to another person...</p>
+      <p class="em">...and more like arguing with my female version.</p>
+      <p>Even today, I still call you that.</p>
+      <p>My female variant.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 4 ═══ -->
+    <div class="chapter" style="animation-delay:0.25s">
+      <span class="chapter-icon">🎭</span>
+      <h2>Chapter 4 — The Friendship That Refused To End</h2>
+      <p>Most friendships have one beginning.</p>
+      <p>Ours had several.</p>
+      <p>We got close. We drifted apart. Found each other again. Separated once more. Met again.</p>
+      <p class="em">Some people leave once. We kept proving that our story wasn't finished.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 5 ═══ -->
+    <div class="chapter" style="animation-delay:0.3s">
+      <span class="chapter-icon">🔥</span>
+      <h2>Chapter 5 — October 2024</h2>
+      <p class="chapter-sub">PGC Protest</p>
+      <p>The chapter that changed everything.</p>
+      <p>Out of all the chaos happening around us... our friendship found its strongest foundation.</p>
+      <p>Since that day, we've stayed.</p>
+      <p>Not because life became easier.</p>
+      <p class="em">Because we finally chose to.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 6 ═══ -->
+    <div class="chapter" style="animation-delay:0.35s">
+      <span class="chapter-icon">🌙</span>
+      <h2>Chapter 6 — Your Break</h2>
+      <p>There was a time when you disappeared.</p>
+      <p>You needed distance. I didn't stop you.</p>
+      <p>Truthfully... it hurt more than I admitted.</p>
+      <p class="em">Sometimes caring means letting someone leave, even when every part of you wants them to stay.</p>
+      <p>Then one day... you came back. With regret. With honesty.</p>
+      <p>And somehow... our friendship became stronger than before.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 7 ═══ -->
+    <div class="chapter" style="animation-delay:0.4s">
+      <span class="chapter-icon">🫂</span>
+      <h2>Chapter 7 — The Battles Nobody Saw</h2>
+      <p>You overthought everything. Sometimes your own thoughts became louder than reality.</p>
+      <p>You'd tell me about the strange paranormal things that scared you. Hospital visits because dehydration decided to become your monthly hobby. Days when life simply wasn't kind.</p>
+      <p>Your relationship with your mother wasn't always easy.</p>
+      <p class="em">I couldn't fix those things. But I could stay. Sometimes that's enough.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 8 ═══ -->
+    <div class="chapter" style="animation-delay:0.45s">
+      <span class="chapter-icon">🎥</span>
+      <h2>Chapter 8 — The Reels</h2>
+      <p>Thousands of chats. Random voice notes. Countless inside jokes.</p>
+      <p>Making reels together.</p>
+      <p class="em">Turning ordinary days into memories we'll probably laugh about years from now.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 9 ═══ -->
+    <div class="chapter" style="animation-delay:0.5s">
+      <span class="chapter-icon">💔</span>
+      <h2>Chapter 9 — The People Who Left</h2>
+      <p>There were chapters named Haris. There were chapters named Roohan.</p>
+      <p>People who once meant everything. Then... they became memories.</p>
+      <p>Life has a strange habit of introducing people just to test who remains.</p>
+      <p class="em">When those chapters ended... I stayed. Not because I had to. Because I wanted to.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 10 ═══ -->
+    <div class="chapter" style="animation-delay:0.55s">
+      <span class="chapter-icon">🤝</span>
+      <h2>Chapter 10 — We Saved Each Other</h2>
+      <p>People often think support only goes one way. It never did.</p>
+      <p>I stood beside you when your world felt heavy. You stood beside me when mine did.</p>
+      <p>You weren't just someone I helped. You helped me become someone stronger too.</p>
+      <p class="em">For that... I'll always be grateful.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 11 ═══ -->
+    <div class="chapter" style="animation-delay:0.6s">
+      <span class="chapter-icon">🎂</span>
+      <h2>Chapter 11 — The Birthday Curse</h2>
+      <p>There's one running joke between us.</p>
+      <p>Somehow... I've always been there for your birthdays.</p>
+      <p>Yet somehow... you've never really been there for mine.</p>
+      <p class="em">It's funny now. Maybe one day we'll finally break that curse.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ CHAPTER 12 ═══ -->
+    <div class="chapter" style="animation-delay:0.65s">
+      <span class="chapter-icon">🌅</span>
+      <h2>Chapter 12 — Three Years Later</h2>
+      <p>Three years. Several goodbyes. Several reunions. Hundreds of conversations. Thousands of laughs. More emotional talks than either of us will admit.</p>
+      <p>You're still the girl who overthinks. Still my female variant. Still the friend who somehow understands jokes nobody else would.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ QUOTE ═══ -->
+    <div class="chapter" style="animation-delay:0.7s">
+      <div class="big-quote">
+        No matter how many times life separated us...<br>
+        we always found our way back.<br><br>
+        Maybe that's what real friendships are.<br>
+        Not the ones that never break.<br>
+        The ones that keep choosing each other after every crack.
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- ═══ FINAL CHAPTER ═══ -->
+    <div class="chapter" style="animation-delay:0.75s">
+      <div class="final-chapter">
+        <span style="font-size:2rem">♾️</span>
+        <p class="fc-text">This isn't the ending.</p>
+        <p style="color:#b8b0a8;font-size:0.95rem;max-width:500px;margin:0 auto">It's simply the latest chapter. And if our story has taught me anything... it's that the next one is already being written.</p>
+      </div>
+    </div>
+
+    <!-- ═══ GARDEN ═══ -->
+    <div class="garden-section">
+      <h2>🌱 Our Growing Garden</h2>
+      <div class="garden-plot" id="garden-plot">
+        <span class="garden-flower" style="animation-delay:0s">🌸</span>
+        <span class="garden-flower" style="animation-delay:0.1s">🌷</span>
+        <span class="garden-flower" style="animation-delay:0.2s">🌹</span>
+        <span class="garden-flower" style="animation-delay:0.3s">🌺</span>
+        <span class="garden-flower" style="animation-delay:0.4s">🌻</span>
+        <span class="garden-flower" style="animation-delay:0.5s">🌼</span>
+        <span class="garden-flower" style="animation-delay:0.6s">💐</span>
+        <span class="garden-flower" style="animation-delay:0.7s">🌿</span>
+      </div>
+      <p class="garden-note">Every visit grows a flower. Keep coming back to watch it bloom 🌷</p>
+    </div>
+
+    <!-- ═══ GAMES ═══ -->
+    <div class="games-section">
+      <h2>🎮 Play With Me</h2>
+      <div class="games-nav">
+        <button class="game-tab active" onclick="switchGame('cardflip',this)">🃏 Memory Flip</button>
+        <button class="game-tab" onclick="switchGame('ttt',this)">❌ Tic Tac Toe</button>
+      </div>
+      <div class="game-panel active" id="panel-cardflip">
+        <div class="card-grid" id="card-grid"></div>
+        <p class="mem-score" id="mem-score">Find all the pairs!</p>
+        <button class="mem-reset" onclick="initCardFlip()">Restart</button>
+      </div>
+      <div class="game-panel" id="panel-ttt">
+        <div class="ttt-board" id="ttt-board"></div>
+        <p class="ttt-status" id="ttt-status">Your turn — pick a square!</p>
+        <button class="ttt-reset" onclick="initTTT()">Restart</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Made with love, just for you 💛</p>
+    </div>
+  </div>
+
+  <audio id="jukebox-audio" style="display:none"></audio>
+
+  <script>
+  // ─── Fireworks ───
+  (function() {
+    var canvas = document.getElementById('fireworks-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, particles = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    var colors = ['#f59e0b','#fbbf24','#fcd34d','#fef3c7','#fff','#f59e0b','#fbbf24'];
+
+    function burst(x, y) {
+      var count = 40 + Math.floor(Math.random() * 30);
+      for (var i = 0; i < count; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 2 + Math.random() * 4;
+        var c = colors[Math.floor(Math.random() * colors.length)];
+        particles.push({
+          x: x, y: y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+          life: 1, decay: 0.01 + Math.random() * 0.015, size: 2 + Math.random() * 3, color: c
+        });
+      }
+    }
+
+    function launch() {
+      burst(Math.random() * W, Math.random() * H * 0.6);
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.04;
+        p.life -= p.decay;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(launch, 1800);
+    setTimeout(function() { launch(); setTimeout(launch, 300); setTimeout(launch, 600); }, 500);
+    animate();
+  })();
+
+  // ─── Sky Generator ───
+  (function() {
+    var canvas = document.getElementById('sky-canvas');
+    if (!canvas) return;
+    var types = ['morning','rain','night','sunset','storm','snow','aurora','fog'];
+    var sky = types[Math.floor(Math.random() * types.length)];
+    canvas.className = 'sky-canvas sky-' + sky;
+    var label = document.getElementById('sky-label');
+    if (label) label.textContent = '\u2601\ufe0f ' + sky.charAt(0).toUpperCase() + sky.slice(1) + '. ';
+
+    function el(tag, cls, parent) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+
+    if (sky === 'morning') {
+      canvas.style.background = 'linear-gradient(180deg, #fdd89b 0%, #f9a825 40%, #ff8f00 70%, #ff6f00 100%)';
+      var sun = el('div','sky-sun',canvas);
+      sun.style.cssText = 'position:absolute;top:18%;right:22%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff9c4,#ffd54f);box-shadow:0 0 60px rgba(255,213,79,0.6);animation:skyPulse 3s ease-in-out infinite';
+      for (var i=0;i<4;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 40 + Math.random()*60;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*25)+'%;left:'+(-10+Math.random()*80)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(255,255,255,'+(0.3+Math.random()*0.2)+');animation:skyDrift '+(12+Math.random()*10)+'s linear infinite;opacity:0.6';
+      }
+    }
+    else if (sky === 'rain') {
+      canvas.style.background = 'linear-gradient(180deg, #4a5568 0%, #2d3748 40%, #1a202c 100%)';
+      for (var i=0;i<60;i++) {
+        var d = el('div','sky-drop',canvas);
+        var left = Math.random()*100;
+        var delay = Math.random()*2;
+        var dur = 0.5 + Math.random()*0.4;
+        d.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:1.5px;height:'+(12+Math.random()*18)+'px;background:rgba(180,200,255,'+(0.2+Math.random()*0.3)+');animation:skyRain ' + dur + 's linear ' + delay + 's infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 80 + Math.random()*100;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*12)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.45)+'px;border-radius:50px;background:rgba(60,70,90,0.7);animation:skyDrift '+(18+Math.random()*12)+'s linear infinite;opacity:0.8';
+      }
+    }
+    else if (sky === 'night') {
+      canvas.style.background = 'linear-gradient(180deg, #0b0e1a 0%, #141b33 40%, #1a2456 100%)';
+      for (var i=0;i<50;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2.5;
+        var delay = Math.random()*4;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*60)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+delay+'s infinite;opacity:'+(0.3+Math.random()*0.5);
+      }
+      var moon = el('div','sky-moon',canvas);
+      moon.style.cssText = 'position:absolute;top:14%;left:65%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffde7,#fff9c4);box-shadow:0 0 80px rgba(255,249,196,0.25);opacity:0.85';
+      var moonC = el('div','sky-moon-crater',moon);
+      moonC.style.cssText = 'position:absolute;top:25%;left:55%;width:14px;height:14px;border-radius:50%;background:rgba(200,190,160,0.2)';
+      var moonC2 = el('div','sky-moon-crater',moon);
+      moonC2.style.cssText = 'position:absolute;top:55%;left:25%;width:8px;height:8px;border-radius:50%;background:rgba(200,190,160,0.15)';
+    }
+    else if (sky === 'sunset') {
+      canvas.style.background = 'linear-gradient(180deg, #1a0533 0%, #4a1942 20%, #c0392b 45%, #e67e22 65%, #f39c12 80%, #f1c40f 100%)';
+      var sun = el('div','sky-sunset-sun',canvas);
+      sun.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ffe082,#ff8f00);box-shadow:0 0 100px rgba(255,143,0,0.5);opacity:0.9';
+      var horizon = el('div','sky-horizon',canvas);
+      horizon.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:18%;background:#1a0a12;border-radius:50% 50% 0 0 / 100% 100% 0 0;opacity:0.6';
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-sunset-cloud',canvas);
+        var s = 50 + Math.random()*70;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*18)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.4)+'px;border-radius:50px;background:rgba(200,100,60,'+(0.15+Math.random()*0.15)+');animation:skyDrift '+(15+Math.random()*10)+'s linear infinite';
+      }
+    }
+    else if (sky === 'storm') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+      for (var i=0;i<80;i++) {
+        var d = el('div','sky-storm-rain',canvas);
+        d.style.cssText = 'position:absolute;top:-10px;left:'+(Math.random()*100)+'%;width:1.5px;height:'+(15+Math.random()*25)+'px;background:rgba(150,180,220,'+(0.15+Math.random()*0.2)+');animation:skyRain '+(0.3+Math.random()*0.3)+'s linear '+(Math.random()*2)+'s infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-storm-cloud',canvas);
+        var s = 100 + Math.random()*120;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*10)+'%;left:'+(-10+Math.random()*60)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(30,35,50,0.8);animation:skyDrift '+(20+Math.random()*15)+'s linear infinite;opacity:0.9';
+      }
+      setInterval(function() {
+        if (Math.random() > 0.6) {
+          canvas.style.transition = 'background 0.1s';
+          canvas.style.background = 'linear-gradient(180deg, #2a2a4e 0%, #263158 30%, #1f4070 60%, #2a2a4e 100%)';
+          setTimeout(function() {
+            canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+          }, 100);
+        }
+      }, 3000);
+    }
+    else if (sky === 'snow') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #2d3a4a 30%, #3d5a6d 60%, #4a6a7a 100%)';
+      for (var i=0;i<80;i++) {
+        var flake = el('div','sky-snowflake',canvas);
+        var size = 2 + Math.random()*4;
+        var left = Math.random()*100;
+        var delay = Math.random()*5;
+        var dur = 3 + Math.random()*4;
+        flake.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:rgba(220,235,255,'+(0.5+Math.random()*0.3)+');animation:skySnow '+dur+'s linear '+delay+'s infinite;opacity:'+(0.4+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'aurora') {
+      canvas.style.background = 'linear-gradient(180deg, #0a0a1a 0%, #0f1525 30%, #1a1f35 100%)';
+      for (var i=0;i<5;i++) {
+        var band = el('div','sky-aurora-band',canvas);
+        var hue = 120 + Math.random()*60;
+        var top = 10 + Math.random()*40;
+        var dur = 6 + Math.random()*4;
+        band.style.cssText = 'position:absolute;top:'+top+'%;left:-10%;width:'+(120+Math.random()*80)+'%;height:'+(8+Math.random()*12)+'px;background:linear-gradient(90deg,transparent,hsla('+hue+',80%,60%,0.4),hsla('+(hue+40)+',80%,50%,0.3),transparent);border-radius:50%;filter:blur(8px);animation:skyAurora '+dur+'s ease-in-out infinite;opacity:'+(0.3+Math.random()*0.3);
+      }
+      for (var i=0;i<30;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*50)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+(Math.random()*4)+'s infinite;opacity:'+(0.2+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'fog') {
+      canvas.style.background = 'linear-gradient(180deg, #3a4048 0%, #4a5058 30%, #5a6068 60%, #6a7078 100%)';
+      for (var i=0;i<6;i++) {
+        var mist = el('div','sky-mist',canvas);
+        var s = 100 + Math.random()*150;
+        var top = 10 + Math.random()*60;
+        var dur = 15 + Math.random()*15;
+        mist.style.cssText = 'position:absolute;top:'+top+'%;left:'+(-10+Math.random()*20)+'%;width:'+s+'px;height:'+(10+Math.random()*15)+'px;border-radius:50%;background:rgba(180,190,200,'+(0.06+Math.random()*0.06)+');filter:blur(12px);animation:skyDrift '+dur+'s linear infinite;opacity:'+(0.3+Math.random()*0.2);
+      }
+    }
+  })();
+
+  // ─── Particles ───
+  (function(){
+    var c=document.getElementById('particles');
+    for(var i=0;i<20;i++){
+      var p=document.createElement('div');p.className='particle';
+      p.style.left=Math.random()*100+'%';
+      p.style.animationDuration=(10+Math.random()*20)+'s';
+      p.style.animationDelay=Math.random()*15+'s';
+      c.appendChild(p);
+    }
+  })();
+
+  // ─── Jukebox ───
+  (function() {
+    var tracks = document.querySelectorAll('.jukebox-track');
+    var titleEl = document.getElementById('jukebox-title');
+    var disc = document.getElementById('jukebox-disc');
+    var playBtn = document.getElementById('jukebox-play-btn');
+    var audio = document.getElementById('jukebox-audio');
+    var currentIdx = 0;
+    var spinning = false;
+
+    function getSongUrl(idx) {
+      var t = tracks[idx];
+      if (!t) return '';
+      var filename = t.getAttribute('data-filename');
+      if (filename) return '/uploads/noor/music/' + filename;
+      return t.getAttribute('data-url') || '';
+    }
+
+    function jukeboxPlay(idx) {
+      tracks.forEach(function(t) { t.classList.remove('active'); });
+      if (tracks[idx]) tracks[idx].classList.add('active');
+      currentIdx = idx;
+      var title = tracks[idx] ? tracks[idx].getAttribute('data-title') : '';
+      if (titleEl) titleEl.textContent = title;
+      var url = getSongUrl(idx);
+      if (url && !url.startsWith('http')) {
+        audio.src = url;
+        audio.currentTime = 0;
+        audio.play().then(function() {
+          spinning = true;
+          if (disc) disc.classList.add('spinning');
+          if (playBtn) playBtn.textContent = '⏸';
+        }).catch(function() {});
+      } else if (url) {
+        window.open(url, '_blank');
+      }
+    }
+
+    window.jukeboxToggle = function() {
+      if (audio.src && !audio.paused) {
+        audio.pause();
+        spinning = false;
+        if (disc) disc.classList.remove('spinning');
+        if (playBtn) playBtn.textContent = '▶';
+      } else if (audio.src) {
+        audio.play().then(function() {
+          spinning = true;
+          if (disc) disc.classList.add('spinning');
+          if (playBtn) playBtn.textContent = '⏸';
+        }).catch(function() {});
+      } else {
+        jukeboxPlay(currentIdx);
+      }
+    };
+
+    window.jukeboxNext = function() {
+      var next = (currentIdx + 1) % tracks.length;
+      jukeboxPlay(next);
+    };
+
+    window.jukeboxPrev = function() {
+      var prev = (currentIdx - 1 + tracks.length) % tracks.length;
+      jukeboxPlay(prev);
+    };
+
+    audio.addEventListener('ended', function() {
+      jukeboxNext();
+    });
+
+    tracks.forEach(function(t) {
+      t.addEventListener('click', function() {
+        var idx = parseInt(t.getAttribute('data-idx'));
+        jukeboxPlay(idx);
+      });
+    });
+
+    if (tracks.length > 0) jukeboxPlay(0);
+  })();
+
+  // ─── Games ───
+  var cardEmojis = ['🌸','🌙','💫','🦋','🌊','🎵','⭐','🌈'];
+  var cardPairs, cardFlipped, cardLocked, cardMatched;
+  function initCardFlip(){
+    cardPairs=cardEmojis.concat(cardEmojis);
+    cardPairs.sort(function(){return Math.random()-0.5});
+    cardFlipped=null;cardLocked=false;cardMatched=0;
+    var grid=document.getElementById('card-grid');grid.innerHTML='';
+    cardPairs.forEach(function(e,i){
+      var card=document.createElement('div');card.className='mem-card';
+      card.innerHTML='<div class="mem-card-inner"><div class="mem-card-front">?</div><div class="mem-card-back">'+e+'</div></div>';
+      card.addEventListener('click',function(){flipCard(card,i)});
+      grid.appendChild(card);
+    });
+    document.getElementById('mem-score').textContent='Find all the pairs!';
+  }
+  function flipCard(card,idx){
+    if(cardLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+    card.classList.add('flipped');
+    if(!cardFlipped){cardFlipped={card:card,idx:idx,emoji:cardPairs[idx]};return}
+    cardLocked=true;var first=cardFlipped;
+    if(first.emoji===cardPairs[idx]){
+      card.classList.add('matched');first.card.classList.add('matched');cardMatched++;
+      document.getElementById('mem-score').textContent=cardMatched+'/'+cardEmojis.length+' pairs found!';
+      if(cardMatched===cardEmojis.length)document.getElementById('mem-score').textContent='You won! 🎉';
+    }else{setTimeout(function(){card.classList.remove('flipped');first.card.classList.remove('flipped')},800)}
+    cardFlipped=null;setTimeout(function(){cardLocked=false},900);
+  }
+  initCardFlip();
+
+  var tttBoard,tttTurn,tttOver;
+  function initTTT(){
+    tttBoard=['','','','','','','','',''];tttTurn='X';tttOver=false;
+    var board=document.getElementById('ttt-board');board.innerHTML='';
+    for(var i=0;i<9;i++){
+      var cell=document.createElement('div');cell.className='ttt-cell';cell.setAttribute('data-i',i);
+      cell.addEventListener('click',function(){tttPlay(this)});
+      board.appendChild(cell);
+    }
+    document.getElementById('ttt-status').textContent='Your turn — pick a square!';
+  }
+  function tttPlay(cell){
+    if(tttOver||cell.classList.contains('taken'))return;
+    var i=parseInt(cell.getAttribute('data-i'));
+    tttBoard[i]='X';cell.textContent='X';cell.classList.add('taken');
+    if(tttCheck('X')){document.getElementById('ttt-status').textContent='You win! 🎉';tttOver=true;return}
+    if(tttBoard.every(function(c){return c!==''})){document.getElementById('ttt-status').textContent="It's a draw!";tttOver=true;return}
+    setTimeout(function(){
+      var empty=[];tttBoard.forEach(function(c,j){if(c==='')empty.push(j)});
+      if(!empty.length)return;
+      var bi=empty[Math.floor(Math.random()*empty.length)];
+      tttBoard[bi]='O';
+      var botCell=document.querySelector('[data-i="'+bi+'"]');botCell.textContent='O';botCell.classList.add('taken');
+      if(tttCheck('O')){document.getElementById('ttt-status').textContent='I win! 😄';tttOver=true;return}
+      if(tttBoard.every(function(c){return c!==''})){document.getElementById('ttt-status').textContent="It's a draw!";tttOver=true;return}
+      document.getElementById('ttt-status').textContent='Your turn — pick a square!';
+    },400);
+    document.getElementById('ttt-status').textContent='My turn...';
+  }
+  function tttCheck(p){
+    var w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    return w.some(function(l){return l.every(function(i){return tttBoard[i]===p})});
+  }
+  initTTT();
+
+  function switchGame(id,btn){
+    document.querySelectorAll('.game-tab').forEach(function(t){t.classList.remove('active')});
+    document.querySelectorAll('.game-panel').forEach(function(p){p.classList.remove('active')});
+    btn.classList.add('active');document.getElementById('panel-'+id).classList.add('active');
+  }
+  </script>
+</body>
+</html>

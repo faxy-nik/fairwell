@@ -221,6 +221,9 @@ app.get('/friend/:token', (req, res) => {
   if (person.id === 'areeha' && fs.existsSync(path.join(__dirname, 'public', 'cards', 'areeha-birthday.html'))) {
     return res.sendFile(path.join(__dirname, 'public', 'cards', 'areeha-birthday.html'));
   }
+  if (person.id === 'noor' && fs.existsSync(path.join(__dirname, 'public', 'cards', 'noor.html'))) {
+    return res.sendFile(path.join(__dirname, 'public', 'cards', 'noor.html'));
+  }
   res.render('friend', { person });
 });
 

@@ -27,14 +27,12 @@
     <%
       var now = new Date();
       var unlock = person.unlockDate ? new Date(person.unlockDate) : new Date('2026-07-05T00:00:00');
-      var locked = now < unlock;
+      var locked = false;
       var showGeneral = person.id !== 'muaaz' && person.id !== 'moazam';
       var gu = typeof generalUrls !== 'undefined' ? generalUrls : {};
       var frd = person.featureReleaseDates || {};
       function isUnlocked(fid) {
-        if (person.id !== 'eeshah') return true;
-        if (!frd[fid]) return true;
-        return now >= new Date(frd[fid] + 'T00:00:00');
+        return true;
       }
       function teaserBox(fid, extra) {
         var d = frd[fid] || 'soon';
@@ -726,7 +724,7 @@
             <% section.items.forEach(function(item) { %>
               <% var now = new Date(); %>
               <% var release = new Date(item.releaseDate + 'T23:59:59'); %>
-              <% var isUnlocked = now >= release; %>
+              <% var isUnlocked = true; %>
               <% var isExternal = item.filename.indexOf('http') === 0; %>
               <% var fileUrl = isExternal ? item.filename : '/uploads/' + person.id + '/' + section.id + '/' + item.filename; %>
               <% var cleanName = item.filename.split('?')[0].split('/').pop(); %>
@@ -1281,7 +1279,7 @@
   (function() {
     var canvas = document.getElementById('sky-canvas');
     if (!canvas) return;
-    var types = ['morning','rain','night','sunset','storm'];
+    var types = ['morning','rain','night','sunset','storm','snow','aurora','fog'];
     var sky = types[Math.floor(Math.random() * types.length)];
     canvas.className = 'sky-canvas sky-' + sky;
     var label = document.getElementById('sky-label');
@@ -1367,6 +1365,42 @@
           }, 100);
         }
       }, 3000);
+    }
+    else if (sky === 'snow') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #2d3a4a 30%, #3d5a6d 60%, #4a6a7a 100%)';
+      for (var i=0;i<80;i++) {
+        var flake = el('div','sky-snowflake',canvas);
+        var size = 2 + Math.random()*4;
+        var left = Math.random()*100;
+        var delay = Math.random()*5;
+        var dur = 3 + Math.random()*4;
+        flake.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:rgba(220,235,255,'+(0.5+Math.random()*0.3)+');animation:skySnow '+dur+'s linear '+delay+'s infinite;opacity:'+(0.4+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'aurora') {
+      canvas.style.background = 'linear-gradient(180deg, #0a0a1a 0%, #0f1525 30%, #1a1f35 100%)';
+      for (var i=0;i<5;i++) {
+        var band = el('div','sky-aurora-band',canvas);
+        var hue = 120 + Math.random()*60;
+        var top = 10 + Math.random()*40;
+        var dur = 6 + Math.random()*4;
+        band.style.cssText = 'position:absolute;top:'+top+'%;left:-10%;width:'+(120+Math.random()*80)+'%;height:'+(8+Math.random()*12)+'px;background:linear-gradient(90deg,transparent,hsla('+hue+',80%,60%,0.4),hsla('+(hue+40)+',80%,50%,0.3),transparent);border-radius:50%;filter:blur(8px);animation:skyAurora '+dur+'s ease-in-out infinite;opacity:'+(0.3+Math.random()*0.3);
+      }
+      for (var i=0;i<30;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*50)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+(Math.random()*4)+'s infinite;opacity:'+(0.2+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'fog') {
+      canvas.style.background = 'linear-gradient(180deg, #3a4048 0%, #4a5058 30%, #5a6068 60%, #6a7078 100%)';
+      for (var i=0;i<6;i++) {
+        var mist = el('div','sky-mist',canvas);
+        var s = 100 + Math.random()*150;
+        var top = 10 + Math.random()*60;
+        var dur = 15 + Math.random()*15;
+        mist.style.cssText = 'position:absolute;top:'+top+'%;left:'+(-10+Math.random()*20)+'%;width:'+s+'px;height:'+(10+Math.random()*15)+'px;border-radius:50%;background:rgba(180,190,200,'+(0.06+Math.random()*0.06)+');filter:blur(12px);animation:skyDrift '+dur+'s linear infinite;opacity:'+(0.3+Math.random()*0.2);
+      }
     }
   })();
 

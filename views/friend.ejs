@@ -121,6 +121,41 @@
     .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
     .particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.15; animation: drift linear infinite; }
     @keyframes drift { 0% { transform:translateY(100vh) rotate(0deg); opacity:0; } 10% { opacity:0.15; } 90% { opacity:0.15; } 100% { transform:translateY(-10vh) rotate(360deg); opacity:0; } }
+
+    /* ── Jukebox ── */
+    .jukebox-player { display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 12px; }
+    .jukebox-disc { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #1e293b, #334155); border: 3px solid var(--accent-dim); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent); transition: transform 0.3s; flex-shrink: 0; }
+    .jukebox-disc.spinning { animation: jukeboxSpin 2s linear infinite; }
+    @keyframes jukeboxSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .jukebox-info { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+    .jukebox-song-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; text-align: center; }
+    .jukebox-controls { display: flex; gap: 12px; align-items: center; }
+    .jukebox-btn { background: var(--accent-dim); border: 1px solid var(--accent-dim); color: var(--accent); width: 40px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .jukebox-btn:hover { background: var(--accent); color: #000; transform: scale(1.1); }
+    .jukebox-play-btn { width: 48px; height: 42px; font-size: 1.1rem; }
+    .jukebox-tracklist { width: 100%; display: flex; flex-direction: column; gap: 4px; padding: 8px 0; }
+    .jukebox-track { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: #94a3b8; transition: all 0.2s; cursor: pointer; }
+    .jukebox-track:hover { background: var(--accent-dim); color: #e2e8f0; }
+    .jukebox-track.active { background: var(--accent-dim); color: var(--accent); }
+    .track-num { width: 20px; text-align: center; font-size: 0.75rem; opacity: 0.6; }
+    .track-title { flex: 1; font-size: 0.85rem; }
+    .track-play-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.2s; }
+    .jukebox-track:hover .track-play-icon, .jukebox-track.active .track-play-icon { opacity: 0.7; }
+    .jukebox-progress { width: 100%; padding: 0 12px 8px; }
+    .jukebox-progress input[type="range"] { -webkit-appearance: none; height: 4px; background: var(--accent-dim); border-radius: 4px; outline: none; cursor: pointer; }
+    .jukebox-progress input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; }
+
+    /* ── Sky Generator ── */
+    .sky-section { position: relative; width: 100%; max-width: 700px; margin: 24px auto 32px; border-radius: 20px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.3); }
+    .sky-canvas { position: relative; width: 100%; height: 280px; overflow: hidden; }
+    .sky-message { text-align: center; padding: 18px 24px; font-size: 0.9rem; color: #ccc; font-style: italic; letter-spacing: 0.5px; background: rgba(0,0,0,0.25); border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.6; }
+    @keyframes skyDrift { 0% { transform: translateX(0); } 100% { transform: translateX(800px); } }
+    @keyframes skyRain { 0% { transform: translateY(0) translateX(0); opacity: 1; } 100% { transform: translateY(300px) translateX(-20px); opacity: 0.2; } }
+    @keyframes skyTwinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+    @keyframes skyPulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.06); opacity: 1; } }
+    @keyframes skySnow { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(300px) translateX(30px); opacity: 0; } }
+    @keyframes skyAurora { 0%, 100% { transform: translateX(0) scale(1); opacity: 0.3; } 25% { transform: translateX(30px) scale(1.05); opacity: 0.5; } 50% { transform: translateX(0) scale(0.95); opacity: 0.4; } 75% { transform: translateX(-20px) scale(1.02); opacity: 0.6; } }
+    .sky-label { font-weight: 600; font-style: normal; }
   </style>
 </head>
 <body class="theme-<%= person.themeName || 'golden' %>">
@@ -135,6 +170,12 @@
       <% if (person.customMessage) { %><p class="friend-custom-msg"><%= person.customMessage %></p><% } %>
       <p class="friend-visit-count">You've been here <strong><%= person.visits || 0 %></strong> times ✨</p>
     </header>
+
+    <!-- ── Sky Generator ── -->
+    <div class="sky-section" id="sky-section">
+      <div class="sky-canvas" id="sky-canvas"></div>
+      <div class="sky-message"><span class="sky-label" id="sky-label"></span> Wherever you are, I hope you looked at this sky today too.</div>
+    </div>
 
     <% if (person.birthday) { %>
     <!-- ── Birthday Section ── -->
@@ -507,6 +548,131 @@
     <% }); %>
     <% } %>
 
+    <% if (person.playlist && person.playlist.length > 0) { %>
+    <!-- ── Jukebox ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">🎧</span>
+        <h2>Our Songs</h2>
+        <span class="count"><%= person.playlist.length %></span>
+      </div>
+      <div class="jukebox-player">
+        <div class="jukebox-disc" id="jukebox-disc">&#9835;</div>
+        <div class="jukebox-info">
+          <span class="jukebox-song-title" id="jukebox-title"><%= person.playlist[0].title %></span>
+          <div class="jukebox-controls">
+            <button class="jukebox-btn" onclick="jukeboxPrev()">⏮</button>
+            <button class="jukebox-btn jukebox-play-btn" id="jukebox-play-btn" onclick="jukeboxToggle()">▶</button>
+            <button class="jukebox-btn" onclick="jukeboxNext()">⏭</button>
+          </div>
+        </div>
+        <div class="jukebox-progress" id="jukebox-progress" style="display:none">
+          <input type="range" min="0" max="100" value="0" id="jukebox-seek" style="width:100%">
+        </div>
+        <div class="jukebox-tracklist" id="jukebox-tracklist">
+          <% person.playlist.forEach(function(song, i) { %>
+            <div class="jukebox-track <%= i === 0 ? 'active' : '' %>" data-idx="<%= i %>" data-title="<%= song.title %>" data-url="<%= song.url || '' %>" data-filename="<%= song.filename || '' %>"><span class="track-num"><%= i+1 %></span><span class="track-title"><%= song.title %></span><span class="track-play-icon">▶</span></div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <audio id="jukebox-audio" style="display:none"></audio>
+    <script>
+    (function() {
+      var tracks = document.querySelectorAll('.jukebox-track');
+      var titleEl = document.getElementById('jukebox-title');
+      var disc = document.getElementById('jukebox-disc');
+      var playBtn = document.getElementById('jukebox-play-btn');
+      var audio = document.getElementById('jukebox-audio');
+      var seek = document.getElementById('jukebox-seek');
+      var progress = document.getElementById('jukebox-progress');
+      var currentIdx = 0;
+      var spinning = false;
+
+      function getSongUrl(idx) {
+        var t = tracks[idx];
+        if (!t) return '';
+        var filename = t.getAttribute('data-filename');
+        if (filename) return '/uploads/<%= person.id %>/music/' + filename;
+        return t.getAttribute('data-url') || '';
+      }
+
+      function jukeboxPlay(idx) {
+        tracks.forEach(function(t) { t.classList.remove('active'); });
+        if (tracks[idx]) tracks[idx].classList.add('active');
+        currentIdx = idx;
+        var title = tracks[idx] ? tracks[idx].getAttribute('data-title') : '';
+        if (titleEl) titleEl.textContent = title;
+        var url = getSongUrl(idx);
+        if (url && !url.startsWith('http')) {
+          audio.src = url;
+          audio.currentTime = 0;
+          audio.play().then(function() {
+            spinning = true;
+            if (disc) disc.classList.add('spinning');
+            if (playBtn) playBtn.textContent = '⏸';
+            if (progress) progress.style.display = 'block';
+          }).catch(function() {});
+        } else if (url) {
+          window.open(url, '_blank');
+        }
+      }
+
+      window.jukeboxToggle = function() {
+        if (audio.src && !audio.paused) {
+          audio.pause();
+          spinning = false;
+          if (disc) disc.classList.remove('spinning');
+          if (playBtn) playBtn.textContent = '▶';
+        } else if (audio.src) {
+          audio.play().then(function() {
+            spinning = true;
+            if (disc) disc.classList.add('spinning');
+            if (playBtn) playBtn.textContent = '⏸';
+          }).catch(function() {});
+        } else {
+          jukeboxPlay(currentIdx);
+        }
+      };
+
+      window.jukeboxNext = function() {
+        var next = (currentIdx + 1) % tracks.length;
+        jukeboxPlay(next);
+      };
+
+      window.jukeboxPrev = function() {
+        var prev = (currentIdx - 1 + tracks.length) % tracks.length;
+        jukeboxPlay(prev);
+      };
+
+      audio.addEventListener('ended', function() {
+        jukeboxNext();
+      });
+
+      audio.addEventListener('timeupdate', function() {
+        if (seek && audio.duration) {
+          seek.value = (audio.currentTime / audio.duration) * 100;
+        }
+      });
+
+      if (seek) {
+        seek.addEventListener('input', function() {
+          if (audio.duration) audio.currentTime = (seek.value / 100) * audio.duration;
+        });
+      }
+
+      tracks.forEach(function(t) {
+        t.addEventListener('click', function() {
+          var idx = parseInt(t.getAttribute('data-idx'));
+          jukeboxPlay(idx);
+        });
+      });
+
+      if (tracks.length > 0) jukeboxPlay(0);
+    })();
+    </script>
+    <% } %>
+
     <% if (person.giftCardUrl) { %>
     <div class="f-section" style="text-align:center;">
       <a href="<%= person.giftCardUrl %>" target="_blank" style="display:inline-block;background:linear-gradient(135deg,var(--accent),#ec4899);color:#fff;padding:12px 32px;border-radius:25px;text-decoration:none;font-weight:600;font-size:1rem;">Open Your Gift Card 🎁</a>
@@ -517,6 +683,136 @@
       <p>Made with love, just for you 💛</p>
     </footer>
   </div>
+
+  <!-- ── Sky Generator ── -->
+  <script>
+  (function() {
+    var canvas = document.getElementById('sky-canvas');
+    if (!canvas) return;
+    var types = ['morning','rain','night','sunset','storm','snow','aurora','fog'];
+    var sky = types[Math.floor(Math.random() * types.length)];
+    canvas.className = 'sky-canvas sky-' + sky;
+    var label = document.getElementById('sky-label');
+    if (label) label.textContent = '\u2601\ufe0f ' + sky.charAt(0).toUpperCase() + sky.slice(1) + '. ';
+
+    function el(tag, cls, parent) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+
+    if (sky === 'morning') {
+      canvas.style.background = 'linear-gradient(180deg, #fdd89b 0%, #f9a825 40%, #ff8f00 70%, #ff6f00 100%)';
+      var sun = el('div','sky-sun',canvas);
+      sun.style.cssText = 'position:absolute;top:18%;right:22%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#fff9c4,#ffd54f);box-shadow:0 0 60px rgba(255,213,79,0.6);animation:skyPulse 3s ease-in-out infinite';
+      for (var i=0;i<4;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 40 + Math.random()*60;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*25)+'%;left:'+(-10+Math.random()*80)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(255,255,255,'+(0.3+Math.random()*0.2)+');animation:skyDrift '+(12+Math.random()*10)+'s linear infinite;opacity:0.6';
+      }
+    }
+    else if (sky === 'rain') {
+      canvas.style.background = 'linear-gradient(180deg, #4a5568 0%, #2d3748 40%, #1a202c 100%)';
+      for (var i=0;i<60;i++) {
+        var d = el('div','sky-drop',canvas);
+        var left = Math.random()*100;
+        var delay = Math.random()*2;
+        var dur = 0.5 + Math.random()*0.4;
+        d.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:1.5px;height:'+(12+Math.random()*18)+'px;background:rgba(180,200,255,'+(0.2+Math.random()*0.3)+');animation:skyRain ' + dur + 's linear ' + delay + 's infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-cloud',canvas);
+        var s = 80 + Math.random()*100;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*12)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.45)+'px;border-radius:50px;background:rgba(60,70,90,0.7);animation:skyDrift '+(18+Math.random()*12)+'s linear infinite;opacity:0.8';
+      }
+    }
+    else if (sky === 'night') {
+      canvas.style.background = 'linear-gradient(180deg, #0b0e1a 0%, #141b33 40%, #1a2456 100%)';
+      for (var i=0;i<50;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2.5;
+        var delay = Math.random()*4;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*60)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+delay+'s infinite;opacity:'+(0.3+Math.random()*0.5);
+      }
+      var moon = el('div','sky-moon',canvas);
+      moon.style.cssText = 'position:absolute;top:14%;left:65%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffde7,#fff9c4);box-shadow:0 0 80px rgba(255,249,196,0.25);opacity:0.85';
+      var moonC = el('div','sky-moon-crater',moon);
+      moonC.style.cssText = 'position:absolute;top:25%;left:55%;width:14px;height:14px;border-radius:50%;background:rgba(200,190,160,0.2)';
+      var moonC2 = el('div','sky-moon-crater',moon);
+      moonC2.style.cssText = 'position:absolute;top:55%;left:25%;width:8px;height:8px;border-radius:50%;background:rgba(200,190,160,0.15)';
+    }
+    else if (sky === 'sunset') {
+      canvas.style.background = 'linear-gradient(180deg, #1a0533 0%, #4a1942 20%, #c0392b 45%, #e67e22 65%, #f39c12 80%, #f1c40f 100%)';
+      var sun = el('div','sky-sunset-sun',canvas);
+      sun.style.cssText = 'position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ffe082,#ff8f00);box-shadow:0 0 100px rgba(255,143,0,0.5);opacity:0.9';
+      var horizon = el('div','sky-horizon',canvas);
+      horizon.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:18%;background:#1a0a12;border-radius:50% 50% 0 0 / 100% 100% 0 0;opacity:0.6';
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-sunset-cloud',canvas);
+        var s = 50 + Math.random()*70;
+        c.style.cssText = 'position:absolute;top:'+(8+Math.random()*18)+'%;left:'+(-5+Math.random()*70)+'%;width:'+s+'px;height:'+(s*0.4)+'px;border-radius:50px;background:rgba(200,100,60,'+(0.15+Math.random()*0.15)+');animation:skyDrift '+(15+Math.random()*10)+'s linear infinite';
+      }
+    }
+    else if (sky === 'storm') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+      for (var i=0;i<80;i++) {
+        var d = el('div','sky-storm-rain',canvas);
+        d.style.cssText = 'position:absolute;top:-10px;left:'+(Math.random()*100)+'%;width:1.5px;height:'+(15+Math.random()*25)+'px;background:rgba(150,180,220,'+(0.15+Math.random()*0.2)+');animation:skyRain '+(0.3+Math.random()*0.3)+'s linear '+(Math.random()*2)+'s infinite';
+      }
+      for (var i=0;i<3;i++) {
+        var c = el('div','sky-storm-cloud',canvas);
+        var s = 100 + Math.random()*120;
+        c.style.cssText = 'position:absolute;top:'+(2+Math.random()*10)+'%;left:'+(-10+Math.random()*60)+'%;width:'+s+'px;height:'+(s*0.5)+'px;border-radius:50px;background:rgba(30,35,50,0.8);animation:skyDrift '+(20+Math.random()*15)+'s linear infinite;opacity:0.9';
+      }
+      setInterval(function() {
+        if (Math.random() > 0.6) {
+          canvas.style.transition = 'background 0.1s';
+          canvas.style.background = 'linear-gradient(180deg, #2a2a4e 0%, #263158 30%, #1f4070 60%, #2a2a4e 100%)';
+          setTimeout(function() {
+            canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%)';
+          }, 100);
+        }
+      }, 3000);
+    }
+    else if (sky === 'snow') {
+      canvas.style.background = 'linear-gradient(180deg, #1a1a2e 0%, #2d3a4a 30%, #3d5a6d 60%, #4a6a7a 100%)';
+      for (var i=0;i<80;i++) {
+        var flake = el('div','sky-snowflake',canvas);
+        var size = 2 + Math.random()*4;
+        var left = Math.random()*100;
+        var delay = Math.random()*5;
+        var dur = 3 + Math.random()*4;
+        flake.style.cssText = 'position:absolute;top:-10px;left:'+left+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:rgba(220,235,255,'+(0.5+Math.random()*0.3)+');animation:skySnow '+dur+'s linear '+delay+'s infinite;opacity:'+(0.4+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'aurora') {
+      canvas.style.background = 'linear-gradient(180deg, #0a0a1a 0%, #0f1525 30%, #1a1f35 100%)';
+      for (var i=0;i<5;i++) {
+        var band = el('div','sky-aurora-band',canvas);
+        var hue = 120 + Math.random()*60;
+        var top = 10 + Math.random()*40;
+        var dur = 6 + Math.random()*4;
+        band.style.cssText = 'position:absolute;top:'+top+'%;left:-10%;width:'+(120+Math.random()*80)+'%;height:'+(8+Math.random()*12)+'px;background:linear-gradient(90deg,transparent,hsla('+hue+',80%,60%,0.4),hsla('+(hue+40)+',80%,50%,0.3),transparent);border-radius:50%;filter:blur(8px);animation:skyAurora '+dur+'s ease-in-out infinite;opacity:'+(0.3+Math.random()*0.3);
+      }
+      for (var i=0;i<30;i++) {
+        var st = el('div','sky-star',canvas);
+        var size = 1 + Math.random()*2;
+        st.style.cssText = 'position:absolute;top:'+(Math.random()*50)+'%;left:'+(Math.random()*100)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;animation:skyTwinkle '+(2+Math.random()*3)+'s ease-in-out '+(Math.random()*4)+'s infinite;opacity:'+(0.2+Math.random()*0.4);
+      }
+    }
+    else if (sky === 'fog') {
+      canvas.style.background = 'linear-gradient(180deg, #3a4048 0%, #4a5058 30%, #5a6068 60%, #6a7078 100%)';
+      for (var i=0;i<6;i++) {
+        var mist = el('div','sky-mist',canvas);
+        var s = 100 + Math.random()*150;
+        var top = 10 + Math.random()*60;
+        var dur = 15 + Math.random()*15;
+        mist.style.cssText = 'position:absolute;top:'+top+'%;left:'+(-10+Math.random()*20)+'%;width:'+s+'px;height:'+(10+Math.random()*15)+'px;border-radius:50%;background:rgba(180,190,200,'+(0.06+Math.random()*0.06)+');filter:blur(12px);animation:skyDrift '+dur+'s linear infinite;opacity:'+(0.3+Math.random()*0.2);
+      }
+    }
+  })();
+  </script>
 
   <!-- ── Particles ── -->
   <script>
