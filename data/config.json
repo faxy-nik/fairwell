@@ -461,7 +461,7 @@
           ]
         }
       ],
-      "visits": 45,
+      "visits": 46,
       "unlockDate": "2026-05-01",
       "lastVisitDate": "2026-07-02",
       "playlist": [
@@ -783,31 +783,7 @@
           "lost": "It's okay to not know where you're going. You don't need a map right now. You just need to take the next step. Whatever that looks like. I'll walk with you."
         }
       },
-      "featureReleaseDates": {
-        "general": "2026-07-05",
-        "poetry": "2026-07-05",
-        "paradox": "2026-07-05",
-        "sky": "2026-07-05",
-        "reasons": "2026-07-06",
-        "timer": "2026-07-05",
-        "jukebox": "",
-        "garden": "2026-07-06",
-        "checkin": "2026-07-05",
-        "unreadThought": "2026-07-06",
-        "moodCheck": "2026-07-07",
-        "ifeel": "2026-07-08",
-        "memoryJar": "2026-07-09",
-        "observations": "2026-07-05",
-        "openWhen": "2026-07-05",
-        "reminders": "2026-07-05",
-        "sleepCheck": "2026-07-05",
-        "proudWall": "2026-07-10",
-        "safeSpace": "2026-07-10",
-        "heartMeter": "2026-07-05",
-        "growthTracker": "2026-07-08",
-        "compliments": "2026-07-05",
-        "media": "2026-07-05"
-      }
+      "featureReleaseDates": {}
     },
     {
       "id": "moazam",
