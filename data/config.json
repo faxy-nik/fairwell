@@ -23,7 +23,6 @@
       "name": "maham",
       "accessToken": "e702fee7adb630168a7ce27f46e6cd6c",
       "avatar": "🌺",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -159,7 +158,6 @@
       "name": "muaaz",
       "accessToken": "b385b46e7d88ce1e5646b234b5d048ff",
       "avatar": "⚡",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -293,7 +291,6 @@
       "name": "fahad",
       "accessToken": "c70285dbe96086842dee1b3097f7f77d",
       "avatar": "🔥",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -426,7 +423,6 @@
       "name": "aimal",
       "accessToken": "0041b01074470c6b7a9bc68c085180d3",
       "avatar": "💫",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -1026,14 +1022,37 @@
           "lost": "It's okay to not know where you're going. You don't need a map right now. You just need to take the next step. Whatever that looks like. I'll walk with you."
         }
       },
-      "featureReleaseDates": {}
+      "featureReleaseDates": {
+        "general": "2026-07-05",
+        "poetry": "2026-07-05",
+        "paradox": "2026-07-05",
+        "sky": "2026-07-05",
+        "reasons": "2026-07-06",
+        "timer": "2026-07-05",
+        "jukebox": "",
+        "garden": "2026-07-06",
+        "checkin": "2026-07-05",
+        "unreadThought": "2026-07-06",
+        "moodCheck": "2026-07-07",
+        "ifeel": "2026-07-08",
+        "memoryJar": "2026-07-09",
+        "observations": "2026-07-05",
+        "openWhen": "2026-07-05",
+        "reminders": "2026-07-05",
+        "sleepCheck": "2026-07-05",
+        "proudWall": "2026-07-10",
+        "safeSpace": "2026-07-10",
+        "heartMeter": "2026-07-05",
+        "growthTracker": "2026-07-08",
+        "compliments": "2026-07-05",
+        "media": "2026-07-05"
+      }
     },
     {
       "id": "moazam",
       "name": "moazam",
       "accessToken": "34970b7b0ed757656d6de55ec63dbd5c",
       "avatar": "🌊",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -1152,7 +1171,6 @@
       "name": "ahsan",
       "accessToken": "0614388c389b0d2e5bd18de225198984",
       "avatar": "🌄",
-      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -1270,7 +1288,6 @@
       "id": "noor",
       "name": "noor",
       "accessToken": "3debce55835e9e03345120caf6d57e1b",
-      "unlockDate": "2026-05-01",
       "type": "friend",
       "theme": "#f59e0b",
       "themeName": "golden",
@@ -1388,7 +1405,6 @@
       "id": "areeha",
       "name": "areeha",
       "accessToken": "184428e50bdda85fe64ad9f80785066e",
-      "unlockDate": "2026-05-01",
       "type": "friend",
       "theme": "#818cf8",
       "themeName": "lavender",
