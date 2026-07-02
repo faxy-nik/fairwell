@@ -194,6 +194,7 @@ app.get('/p/:token', (req, res) => {
   const config = loadConfig();
   const person = config.people.find(p => p.accessToken === req.params.token);
   if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
+  if (person.type === 'friend') return res.redirect('/friend/' + req.params.token);
   if (!person.visits) person.visits = 0;
   person.visits++;
   if (person.id === 'eeshah') {
@@ -206,6 +207,18 @@ app.get('/p/:token', (req, res) => {
   const hasCard = fs.existsSync(cardPath);
   const hasFiles = person.sections.some(function(s) { return s.items.length > 0; });
   res.render('person', { person, hasCard, hasFiles, generalUrls: config.generalUrls });
+});
+
+app.get('/friend/:token', (req, res) => {
+  const config = loadConfig();
+  const person = config.people.find(p => p.accessToken === req.params.token);
+  if (!person) return res.status(404).render('index', { error: 'Invalid or expired link' });
+  if (person.type !== 'friend') return res.redirect('/p/' + req.params.token);
+  if (!person.visits) person.visits = 0;
+  person.visits++;
+  person.lastVisitDate = new Date().toISOString().split('T')[0];
+  saveConfig(config);
+  res.render('friend', { person });
 });
 
 app.get('/admin/login', (req, res) => {

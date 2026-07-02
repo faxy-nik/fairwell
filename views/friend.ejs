@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= person.name %> — For You</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: <%= person.themeName === 'golden' ? '#1a1208' : '#0f0e1a' %>;
+      color: #e0d8d0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body.theme-golden { --accent: #f59e0b; --accent-dim: #f59e0b33; --accent-glow: #f59e0b44; --bg2: #2a1f0a; --text2: #c9a84c; --card-bg: #1e1a10; }
+    body.theme-lavender { --accent: #818cf8; --accent-dim: #818cf833; --accent-glow: #818cf844; --bg2: #1a1830; --text2: #a5a0d8; --card-bg: #16142a; }
+
+    .friend-container { max-width: 700px; margin: 0 auto; padding: 20px; }
+
+    /* ── Header ── */
+    .friend-header { text-align: center; padding: 50px 0 30px; animation: fadeDown 0.8s ease; }
+    .friend-avatar { font-size: 4rem; margin-bottom: 12px; animation: float 3s ease-in-out infinite; }
+    .friend-badge { display: inline-block; background: var(--accent-dim); color: var(--accent); padding: 4px 16px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 12px; }
+    .friend-header h1 { font-size: 2.2rem; background: linear-gradient(135deg, var(--accent), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .friend-custom-msg { color: var(--text2); margin-top: 10px; font-style: italic; font-size: 0.95rem; line-height: 1.6; }
+    .friend-visit-count { color: #666; font-size: 0.8rem; margin-top: 10px; }
+
+    /* ── Section Boxes ── */
+    .f-section { background: var(--card-bg); border: 1px solid var(--accent-dim); border-radius: 16px; padding: 24px; margin: 20px 0; animation: fadeUp 0.6s ease; }
+    .f-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .f-section-header .icon { font-size: 1.4rem; }
+    .f-section-header h2 { font-size: 1.2rem; color: var(--accent); }
+    .f-section-header .count { background: var(--accent-dim); color: var(--accent); padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin-left: auto; }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 30px; }
+    .timeline::before { content:''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .timeline-item { position: relative; margin-bottom: 28px; animation: fadeUp 0.5s ease; animation-fill-mode: both; }
+    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+    .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+    .timeline-dot { position: absolute; left: -26px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+    .timeline-date { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .timeline-icon { margin-right: 6px; }
+    .timeline-text { color: #c8c0b8; line-height: 1.6; font-size: 0.95rem; }
+
+    /* ── Reasons ── */
+    .reasons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media(max-width:500px) { .reasons-grid { grid-template-columns: 1fr; } }
+    .reason-card { background: var(--bg2); border: 1px solid var(--accent-dim); border-radius: 12px; padding: 14px; cursor: pointer; perspective: 600px; min-height: 80px; }
+    .reason-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
+    .reason-card.flipped .reason-inner { transform: rotateY(180deg); }
+    .reason-front, .reason-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; padding: 12px; text-align: center; }
+    .reason-front { background: var(--bg2); color: var(--accent); }
+    .reason-front .r-num { font-size: 1.2rem; font-weight: 700; }
+    .reason-front .r-hint { font-size: 0.75rem; color: #666; margin-top: 4px; }
+    .reason-back { background: linear-gradient(135deg, var(--bg2), var(--card-bg)); color: #e0d8d0; transform: rotateY(180deg); font-size: 0.9rem; line-height: 1.5; }
+
+    /* ── Compliments ── */
+    .compliment-display { text-align: center; font-size: 1.1rem; color: var(--accent); padding: 20px; line-height: 1.6; min-height: 60px; }
+    .compliment-btn { display: block; margin: 16px auto 0; background: var(--accent); color: #000; border: none; padding: 10px 28px; border-radius: 25px; font-size: 0.95rem; cursor: pointer; font-weight: 600; transition: transform 0.2s; }
+    .compliment-btn:hover { transform: scale(1.05); }
+
+    /* ── Quiz ── */
+    .quiz-q { margin-bottom: 20px; }
+    .quiz-q-text { font-size: 1rem; margin-bottom: 12px; color: #e0d8d0; }
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt { background: var(--bg2); border: 1px solid #333; border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: all 0.2s; color: #c8c0b8; }
+    .quiz-opt:hover { border-color: var(--accent); color: var(--accent); }
+    .quiz-opt.selected { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+    .quiz-opt.correct { border-color: #4ade80; background: #4ade8022; color: #4ade80; }
+    .quiz-opt.wrong { border-color: #f87171; background: #f8717122; color: #f87171; }
+    .quiz-submit { display: block; margin: 12px auto 0; background: var(--accent); color: #000; border: none; padding: 10px 28px; border-radius: 25px; font-weight: 600; cursor: pointer; }
+    .quiz-feedback { text-align: center; margin-top: 8px; font-size: 0.9rem; min-height: 24px; }
+    .quiz-result { text-align: center; font-size: 1.2rem; color: var(--accent); padding: 20px; }
+
+    /* ── Mini Games ── */
+    .games-nav { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center; }
+    .game-tab { background: var(--bg2); border: 1px solid #333; color: #888; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+    .game-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+    .game-panel { display: none; }
+    .game-panel.active { display: block; }
+
+    /* Memory Card Flip */
+    .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 400px; margin: 0 auto; }
+    @media(max-width:400px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+    .mem-card { aspect-ratio: 1; cursor: pointer; perspective: 600px; }
+    .mem-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.4s; transform-style: preserve-3d; }
+    .mem-card.flipped .mem-card-inner { transform: rotateY(180deg); }
+    .mem-card-front, .mem-card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .mem-card-front { background: var(--accent); color: #000; font-weight: 700; }
+    .mem-card-back { background: var(--bg2); border: 1px solid var(--accent-dim); transform: rotateY(180deg); }
+    .mem-card.matched .mem-card-inner { transform: rotateY(180deg); }
+    .mem-card.matched .mem-card-back { background: #4ade8033; border-color: #4ade80; }
+    .mem-score { text-align: center; margin-top: 12px; color: var(--accent); font-size: 0.9rem; }
+    .mem-reset { display: block; margin: 12px auto 0; background: var(--accent); color: #000; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    /* Tic Tac Toe */
+    .ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 300px; margin: 0 auto; }
+    .ttt-cell { aspect-ratio: 1; background: var(--bg2); border: 1px solid var(--accent-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; transition: all 0.2s; color: var(--accent); }
+    .ttt-cell:hover { border-color: var(--accent); }
+    .ttt-cell.taken { cursor: default; }
+    .ttt-status { text-align: center; margin-top: 12px; color: var(--accent); font-size: 0.95rem; }
+    .ttt-reset { display: block; margin: 12px auto 0; background: var(--accent); color: #000; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+    /* ── Footer ── */
+    .friend-footer { text-align: center; padding: 40px 0 30px; color: #555; font-size: 0.8rem; }
+
+    /* ── Animations ── */
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+    @keyframes pop { 0% { transform:scale(1); } 50% { transform:scale(1.15); } 100% { transform:scale(1); } }
+    @keyframes complimentPop { 0% { opacity:0; transform:scale(0.9); } 100% { opacity:1; transform:scale(1); } }
+
+    /* ── Particles bg ── */
+    .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.15; animation: drift linear infinite; }
+    @keyframes drift { 0% { transform:translateY(100vh) rotate(0deg); opacity:0; } 10% { opacity:0.15; } 90% { opacity:0.15; } 100% { transform:translateY(-10vh) rotate(360deg); opacity:0; } }
+  </style>
+</head>
+<body class="theme-<%= person.themeName || 'golden' %>">
+  <div class="particles" id="particles"></div>
+  <div class="friend-container">
+
+    <!-- ── Header ── -->
+    <header class="friend-header">
+      <div class="friend-avatar"><%= person.avatar || '✨' %></div>
+      <% if (person.badge) { %><span class="friend-badge"><%= person.badge %></span><% } %>
+      <h1>Hey <%= person.name %>!</h1>
+      <% if (person.customMessage) { %><p class="friend-custom-msg"><%= person.customMessage %></p><% } %>
+      <p class="friend-visit-count">You've been here <strong><%= person.visits || 0 %></strong> times ✨</p>
+    </header>
+
+    <% if (person.memories && person.memories.length > 0) { %>
+    <!-- ── Timeline ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">📖</span>
+        <h2>Our Story So Far</h2>
+        <span class="count"><%= person.memories.length %> moments</span>
+      </div>
+      <div class="timeline">
+        <% person.memories.forEach(function(m) { %>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date"><%= m.date %></div>
+          <div class="timeline-text"><span class="timeline-icon"><%= m.icon || '✨' %></span> <%= m.text %></div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+
+    <% if (person.reasons && person.reasons.length > 0) { %>
+    <!-- ── Reasons ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">💌</span>
+        <h2>Why You Matter</h2>
+        <span class="count"><%= person.reasons.length %></span>
+      </div>
+      <div class="reasons-grid">
+        <% person.reasons.forEach(function(r, i) { %>
+        <div class="reason-card" onclick="this.classList.toggle('flipped')">
+          <div class="reason-inner">
+            <div class="reason-front"><span class="r-num">#<%= i+1 %></span><span class="r-hint">tap to reveal</span></div>
+            <div class="reason-back"><%= r %></div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+
+    <% if (person.compliments && person.compliments.length > 0) { %>
+    <!-- ── Compliments ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">💎</span>
+        <h2>For When You Need a Smile</h2>
+      </div>
+      <div class="compliment-display" id="compliment-display">✨ <span id="compliment-text"><%= person.compliments[0] %></span> ✨</div>
+      <button class="compliment-btn" onclick="nextCompliment()">Another One ✨</button>
+    </div>
+    <script>
+    var compliments = <%- JSON.stringify(person.compliments) %>;
+    var lastIdx = -1;
+    function nextCompliment() {
+      var el = document.getElementById('compliment-text');
+      if (!el || !compliments.length) return;
+      var idx;
+      do { idx = Math.floor(Math.random() * compliments.length); } while (idx === lastIdx && compliments.length > 1);
+      lastIdx = idx;
+      el.textContent = compliments[idx];
+      el.style.animation = 'none';
+      setTimeout(function() { el.style.animation = 'complimentPop 0.4s ease'; }, 10);
+    }
+    </script>
+    <% } %>
+
+    <% if (person.quiz && person.quiz.length > 0) { %>
+    <!-- ── Quiz ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">🧩</span>
+        <h2>Do You Know Me?</h2>
+        <span class="count"><%= person.quiz.length %> questions</span>
+      </div>
+      <div id="quiz-area">
+        <% person.quiz.forEach(function(q, qi) { %>
+        <div class="quiz-q" id="quiz-q-<%= qi %>" style="<%= qi > 0 ? 'display:none' : '' %>">
+          <p class="quiz-q-text"><%= qi+1 %>. <%= q.question %></p>
+          <div class="quiz-options" id="quiz-opts-<%= qi %>">
+            <% q.options.forEach(function(opt, oi) { %>
+            <div class="quiz-opt" data-q="<%= qi %>" data-o="<%= oi %>" onclick="selectOpt(this)"><%= opt %></div>
+            <% }); %>
+          </div>
+          <button class="quiz-submit" onclick="submitQuiz(<%= qi %>, <%= q.answer %>)">Submit</button>
+          <p class="quiz-feedback" id="quiz-fb-<%= qi %>"></p>
+        </div>
+        <% }); %>
+        <div class="quiz-result" id="quiz-result" style="display:none"></div>
+      </div>
+    </div>
+    <script>
+    var quizScore = 0;
+    function selectOpt(el) {
+      var qi = el.getAttribute('data-q');
+      document.querySelectorAll('[data-q="'+qi+'"]').forEach(function(o) { o.classList.remove('selected'); });
+      el.classList.add('selected');
+    }
+    function submitQuiz(qi, answer) {
+      var opts = document.querySelectorAll('[data-q="'+qi+'"]');
+      var selected = document.querySelector('[data-q="'+qi+'"].selected');
+      var fb = document.getElementById('quiz-fb-' + qi);
+      if (!selected) { if (fb) { fb.textContent = 'Pick an option!'; fb.style.color = '#f87171'; } return; }
+      var val = parseInt(selected.getAttribute('data-o'));
+      opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+      if (val === answer) {
+        quizScore++;
+        selected.classList.add('correct');
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = '#4ade80'; }
+      } else {
+        selected.classList.add('wrong');
+        opts[answer].classList.add('correct');
+        if (fb) { fb.textContent = 'Nope! It was: ' + opts[answer].textContent; fb.style.color = '#fbbf24'; }
+      }
+      document.querySelector('#quiz-q-' + qi + ' .quiz-submit').style.display = 'none';
+      setTimeout(function() {
+        document.getElementById('quiz-q-' + qi).style.display = 'none';
+        var next = document.getElementById('quiz-q-' + (qi + 1));
+        if (next) next.style.display = 'block';
+        else {
+          var res = document.getElementById('quiz-result');
+          res.style.display = 'block';
+          res.textContent = 'You got ' + quizScore + '/' + <%= person.quiz.length %> + '! 🎯';
+        }
+      }, 1200);
+    }
+    </script>
+    <% } %>
+
+    <% if (person.memories && person.memories.length > 0) { %>
+    <!-- ── Mini Games ── -->
+    <div class="f-section">
+      <div class="f-section-header">
+        <span class="icon">🎮</span>
+        <h2>Play With Me</h2>
+      </div>
+      <div class="games-nav">
+        <button class="game-tab active" onclick="switchGame('cardflip')">🃏 Memory Flip</button>
+        <button class="game-tab" onclick="switchGame('ttt')">❌ Tic Tac Toe</button>
+      </div>
+
+      <!-- Memory Card Flip -->
+      <div class="game-panel active" id="panel-cardflip">
+        <div class="card-grid" id="card-grid"></div>
+        <p class="mem-score" id="mem-score">Find all the pairs!</p>
+        <button class="mem-reset" onclick="initCardFlip()">Restart</button>
+      </div>
+
+      <!-- Tic Tac Toe -->
+      <div class="game-panel" id="panel-ttt">
+        <div class="ttt-board" id="ttt-board"></div>
+        <p class="ttt-status" id="ttt-status">Your turn — pick a square!</p>
+        <button class="ttt-reset" onclick="initTTT()">Restart</button>
+      </div>
+    </div>
+    <script>
+    // ── Game Switcher ──
+    function switchGame(id) {
+      document.querySelectorAll('.game-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.game-panel').forEach(function(p) { p.classList.remove('active'); });
+      event.target.classList.add('active');
+      document.getElementById('panel-' + id).classList.add('active');
+    }
+
+    // ── Memory Card Flip ──
+    var cardEmojis = ['🌸','🌙','💫','🦋','🌊','🎵','⭐','🌈'];
+    var cardPairs, cardFlipped, cardLocked, cardMatched;
+    function initCardFlip() {
+      cardPairs = cardEmojis.concat(cardEmojis);
+      cardPairs.sort(function() { return Math.random() - 0.5; });
+      cardFlipped = null;
+      cardLocked = false;
+      cardMatched = 0;
+      var grid = document.getElementById('card-grid');
+      grid.innerHTML = '';
+      cardPairs.forEach(function(e, i) {
+        var card = document.createElement('div');
+        card.className = 'mem-card';
+        card.innerHTML = '<div class="mem-card-inner"><div class="mem-card-front">?</div><div class="mem-card-back">' + e + '</div></div>';
+        card.addEventListener('click', function() { flipCard(card, i); });
+        grid.appendChild(card);
+      });
+      document.getElementById('mem-score').textContent = 'Find all the pairs!';
+    }
+    function flipCard(card, idx) {
+      if (cardLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      card.classList.add('flipped');
+      if (!cardFlipped) { cardFlipped = { card: card, idx: idx, emoji: cardPairs[idx] }; return; }
+      cardLocked = true;
+      var first = cardFlipped;
+      if (first.emoji === cardPairs[idx]) {
+        card.classList.add('matched');
+        first.card.classList.add('matched');
+        cardMatched++;
+        document.getElementById('mem-score').textContent = cardMatched + '/' + cardEmojis.length + ' pairs found!';
+        if (cardMatched === cardEmojis.length) document.getElementById('mem-score').textContent = 'You won! 🎉';
+      } else {
+        setTimeout(function() {
+          card.classList.remove('flipped');
+          first.card.classList.remove('flipped');
+        }, 800);
+      }
+      cardFlipped = null;
+      setTimeout(function() { cardLocked = false; }, 900);
+    }
+    initCardFlip();
+
+    // ── Tic Tac Toe ──
+    var tttBoard, tttTurn, tttOver;
+    function initTTT() {
+      tttBoard = ['','','','','','','','',''];
+      tttTurn = 'X';
+      tttOver = false;
+      var board = document.getElementById('ttt-board');
+      board.innerHTML = '';
+      for (var i = 0; i < 9; i++) {
+        var cell = document.createElement('div');
+        cell.className = 'ttt-cell';
+        cell.setAttribute('data-i', i);
+        cell.addEventListener('click', function() { tttPlay(this); });
+        board.appendChild(cell);
+      }
+      document.getElementById('ttt-status').textContent = 'Your turn — pick a square!';
+    }
+    function tttPlay(cell) {
+      if (tttOver || cell.classList.contains('taken')) return;
+      var i = parseInt(cell.getAttribute('data-i'));
+      tttBoard[i] = 'X';
+      cell.textContent = 'X';
+      cell.classList.add('taken');
+      if (tttCheck('X')) { document.getElementById('ttt-status').textContent = 'You win! 🎉'; tttOver = true; return; }
+      if (tttBoard.every(function(c) { return c !== ''; })) { document.getElementById('ttt-status').textContent = "It's a draw!"; tttOver = true; return; }
+      // Bot turn
+      setTimeout(function() {
+        var empty = [];
+        tttBoard.forEach(function(c, j) { if (c === '') empty.push(j); });
+        if (!empty.length) return;
+        var bi = empty[Math.floor(Math.random() * empty.length)];
+        tttBoard[bi] = 'O';
+        var botCell = document.querySelector('[data-i="'+bi+'"]');
+        botCell.textContent = 'O';
+        botCell.classList.add('taken');
+        if (tttCheck('O')) { document.getElementById('ttt-status').textContent = 'I win! Better luck next time 😄'; tttOver = true; return; }
+        if (tttBoard.every(function(c) { return c !== ''; })) { document.getElementById('ttt-status').textContent = "It's a draw!"; tttOver = true; return; }
+        document.getElementById('ttt-status').textContent = 'Your turn — pick a square!';
+      }, 400);
+      document.getElementById('ttt-status').textContent = 'My turn...';
+    }
+    function tttCheck(p) {
+      var w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return w.some(function(l) { return l.every(function(i) { return tttBoard[i] === p; }); });
+    }
+    initTTT();
+    </script>
+    <% } %>
+
+    <footer class="friend-footer">
+      <p>Made with love, just for you 💛</p>
+    </footer>
+  </div>
+
+  <!-- ── Particles ── -->
+  <script>
+  (function() {
+    var container = document.getElementById('particles');
+    for (var i = 0; i < 20; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (10 + Math.random() * 20) + 's';
+      p.style.animationDelay = Math.random() * 15 + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      container.appendChild(p);
+    }
+  })();
+  </script>
+</body>
+</html>

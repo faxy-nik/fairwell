@@ -540,6 +540,7 @@
       {id:'heartMeter', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">❤️</span><h3>Heart Meter</h3></div><div class=\"heart-meter-container\"><div class=\"heart-meter-fill\" id=\"heart-meter-fill\" style=\"width:0%\"></div></div><p class=\"heart-meter-label\" id=\"heart-meter-label\"></p></div>'},
       {id:'growthTracker', html:'<div class=\"section-box\" style=\"text-align:center\"><div class=\"section-header\" style=\"justify-content:center;gap:8px\"><span class=\"section-icon\">🌱</span><h3>Growth Tracker</h3></div><div class=\"growth-display\"><span class=\"growth-milestone\" id=\"growth-milestone\"></span></div><p class=\"growth-note\" id=\"growth-note\"></p></div>'}
     ]; %>
+    <% if (person.id === 'eeshah') { %>
     <% features.forEach(function(f) { %>
       <% if (isUnlocked(f.id)) { %>
         <%- f.html %>
@@ -547,6 +548,7 @@
         <%- teaserBox(f.id) %>
       <% } %>
     <% }); %>
+    <% } %>
 
     <!-- ── Jukebox ── -->
     <% if (person.playlist && person.playlist.length > 0 && isUnlocked('jukebox')) { %>

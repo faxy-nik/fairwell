@@ -1,21 +1,21 @@
 {
   "generalUrls": {
-    "week1": "",
-    "week2": "",
-    "week3": "",
-    "week4": "",
-    "week5": "",
-    "week6": "",
-    "week7": "",
-    "skill1": "",
-    "skill2": "",
-    "skill3": "",
-    "skill4": "",
-    "skill5": "",
-    "skill6": "",
-    "skill7": "",
-    "skill8": "",
-    "skill9": ""
+    "week1": "https://youtu.be/UrsmFxEIp5k?si=xu_ye-wuVeWnUtiy",
+    "week2": "https://youtu.be/7j1t3UZA1TY?si=PL_qyupEQ5oqGuLW",
+    "week3": "https://youtu.be/BpOsHF5Oj_I?si=KgvuMPpKlqL1av-D",
+    "week4": "https://youtu.be/JJmcL1N2KQs",
+    "week5": "https://www.youtube.com/watch?v=v2TvH5RmDIk",
+    "week6": "https://www.youtube.com/watch?v=85JVKjW-uG0",
+    "week7": "https://www.youtube.com/watch?v=urlCrgNO0HY",
+    "skill1": "https://www.youtube.com/watch?v=q1TEDBy3NbI",
+    "skill2": "https://www.youtube.com/watch?v=2GZ2SNXWK-c",
+    "skill3": "https://www.youtube.com/watch?v=OhI005_aJkA",
+    "skill4": "https://www.youtube.com/watch?v=sVcwVQRHIc8",
+    "skill5": "https://www.youtube.com/watch?v=CcrC5zSv1iA",
+    "skill6": "https://www.youtube.com/watch?v=6Q6TieCBA4E",
+    "skill7": "https://www.youtube.com/watch?v=uCsc0ORcJDo",
+    "skill8": "https://m.youtube.com/watch?v=xNfOFQXood4",
+    "skill9": "https://www.youtube.com/watch?v=TL527yTpxlk"
   },
   "people": [
     {
@@ -23,6 +23,7 @@
       "name": "maham",
       "accessToken": "e702fee7adb630168a7ce27f46e6cd6c",
       "avatar": "🌺",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -103,6 +104,54 @@
             }
           ]
         }
+      ],
+      "visits": 14,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "You understand my silence better than most people's words.",
+        "Our eye contacts have their own language.",
+        "You became the sister I never knew I needed.",
+        "Your presence makes ordinary moments memorable",
+        "Your aura is quietly beautiful and impossible to ignore.",
+        "You have one of the purest hearts I've ever met.",
+        "Even your judging looks are somehow funny and comforting.",
+        "You make ordinary moments worth remembering.",
+        "You have the kind of personality people become attached to naturally.",
+        "You have a beautiful way of caring without making it obvious.",
+        "You're stronger than you believe yourself to be.",
+        "Your laugh is genuinely contagious.",
+        "You never try to stand out, yet you naturally do."
+      ],
+      "compliments": [
+        "Your smile can fix a bad day without trying.",
+        "Your eyes tell stories before you speak.",
+        "Your humor is effortlessly unmatched.",
+        "You're kinder than you let people see",
+        "Being yourself is your most beautiful quality.",
+        "Your innocence and your dark humor somehow exist together perfectly.",
+        "You make people feel comfortable just by being yourself.",
+        "You have one of the purest hearts I've ever met.",
+        "You have the kind of personality people become attached to naturally.",
+        "Your confidence is growing, and I hope one day you see it too.",
+        "Your kindness shows in the smallest things you do."
+      ],
+      "playlist": [
+        {
+          "title": "maham",
+          "filename": "1782987437832-tv84gm.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 3
+        }
       ]
     },
     {
@@ -110,6 +159,7 @@
       "name": "muaaz",
       "accessToken": "b385b46e7d88ce1e5646b234b5d048ff",
       "avatar": "⚡",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -191,6 +241,51 @@
             }
           ]
         }
+      ],
+      "visits": 6,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "You're one of the few people who genuinely listened when I needed it.",
+        "Your honesty is one of your strongest qualities.",
+        "You stand by your words, even when it's difficult.",
+        "You care deeply about the people you love.",
+        "Your loyalty is something I truly respect.",
+        "You have a soft heart hidden behind your calm personality",
+        "You always tried to understand my perspective before judging it.",
+        "You trusted me with parts of your life that weren't easy to share.",
+        "Your friendship has always felt sincere.",
+        "You have the courage to admit when something hurts.",
+        "I admire how much you value your relationship with Maham.",
+        "Even our random conversations somehow turned into life lessons.",
+        "I hope one day you see yourself with the same respect that the people around you see you with."
+      ],
+      "compliments": [
+        "I'm genuinely grateful that our paths crossed this semester.",
+        "Your support, even in small moments, meant more than you probably know.",
+        "You're someone I could always have meaningful discussions with.",
+        "Even our random conversations somehow turned into life lessons.",
+        "You have the potential to become an amazing partner and an even better person.",
+        "You make people feel heard without even realizing it.",
+        "I admire how much you value your relationship with Maham",
+        "You never stopped trying, even during difficult phases."
+      ],
+      "playlist": [
+        {
+          "title": "maza",
+          "filename": "1782987425446-ufp08s.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 1
+        }
       ]
     },
     {
@@ -198,6 +293,7 @@
       "name": "fahad",
       "accessToken": "c70285dbe96086842dee1b3097f7f77d",
       "avatar": "🔥",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -279,6 +375,50 @@
             }
           ]
         }
+      ],
+      "visits": 7,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "Your mind never settles for ordinary ideas.",
+        "You always make me see things from a different perspective.",
+        "You're the kind of person who enjoys thinking beyond the obvious.",
+        "I admire how passionate you become while discussing ideas.",
+        "Your creativity makes every conversation interesting",
+        "You always have a plan, even when nobody else does.",
+        "You can turn random thoughts into meaningful discussions.",
+        "You're someone I can brainstorm with for hours.",
+        "I like how you question everything instead of blindly accepting it.",
+        "You understand psychology and human nature in a unique way.",
+        "You aren't afraid to think differently from everyone else.",
+        "Your curiosity is one of your greatest strengths.",
+        "You're reliable when it comes to sharing ideas and keeping them safe."
+      ],
+      "compliments": [
+        "Even our craziest plans became memorable because of you.",
+        "You push people to think deeper than they usually would.",
+        "You know how to make serious conversations unexpectedly fun.",
+        "You're ambitious, and I hope you never lose that spark.",
+        "Your potential is much bigger than you probably realize.",
+        "I'm grateful that this semester gave me a friend like you.",
+        "Keep building, keep dreaming, and never stop being the person who believes that every problem has another way to solve it."
+      ],
+      "playlist": [
+        {
+          "title": "fahad",
+          "filename": "1782987412232-tktndh.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 1
+        }
       ]
     },
     {
@@ -286,6 +426,7 @@
       "name": "aimal",
       "accessToken": "0041b01074470c6b7a9bc68c085180d3",
       "avatar": "💫",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -368,8 +509,50 @@
           ]
         }
       ],
-      "visits": 1,
-      "lastVisitDate": "2026-07-01"
+      "visits": 6,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "Your innocence is one of the rarest things about you.",
+        "You have a smile that naturally makes people smile back.",
+        "Your humor appears when people least expect it.",
+        "You bring a lighthearted energy wherever you go.",
+        "You know how to make ordinary conversations enjoyable.",
+        "You're genuinely kind, even in the smallest interactions.",
+        "ou care about people more than you show.",
+        "Your cheerful nature makes group moments feel alive.",
+        "You have a beautiful balance of innocence and confidence waiting to grow.",
+        "I admire how you stay true to yourself.",
+        "Even our serious conversations always had meaning.",
+        "You have a comforting presence without even trying.",
+        "You deserve to believe in yourself a little more every day."
+      ],
+      "compliments": [
+        "Your laughter has a way of making the room feel lighter.",
+        "You have the ability to make people feel included.",
+        "I hope you never lose the softness that makes you, you.",
+        "You're capable of much more than you give yourself credit for.",
+        "Your journey has only just begun, and I can't wait to see how much you grow",
+        "Thank you for being part of the memories that made this semester special.",
+        "Never stop being the kind-hearted person you already are, because that's your greatest strength. 🌸"
+      ],
+      "playlist": [
+        {
+          "title": "aimal",
+          "filename": "1782987399845-575yb2.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 1
+        }
+      ]
     },
     {
       "id": "muneeba",
@@ -461,7 +644,7 @@
           ]
         }
       ],
-      "visits": 46,
+      "visits": 50,
       "unlockDate": "2026-05-01",
       "lastVisitDate": "2026-07-02",
       "playlist": [
@@ -471,10 +654,39 @@
         }
       ],
       "compliments": [
-        "sweet of you"
+        "You deserve to see yourself the way the people who love you see you.",
+        "Your friendship became one of the most precious parts of my university life.",
+        "Thank you for every conversation, every laugh, every study session, and every little memory we created together.",
+        "No matter where life takes us, I'll always want to see you happy, successful, and smiling.",
+        "If I could relive one friendship from Semester 2 exactly the way it happened, I'd choose ours without changing a single moment. ❤️"
       ],
       "reasons": [
-        "asd"
+        "asd",
+        "You were my first friend in university, and that will always mean something to me",
+        "You have one of the kindest hearts I've ever come across.",
+        "Your care has always felt genuine, never forced.",
+        "You remember the smallest moments, and that's a beautiful gift.",
+        "You somehow turned ordinary days into unforgettable memories.",
+        "Your voice has a strange way of bringing comfort.",
+        "You have a softness that makes people feel safe around you.",
+        "You always tried to understand me before making assumptions.",
+        "I admire the way you care so deeply about the people you love.",
+        "Studying with you never felt like studying; it felt like making memories.",
+        "You made even a simple Big Apple bottle become something unforgettable.",
+        "Your affection is quiet, but it reaches the heart every single time.",
+        "You have a beautiful way of making people feel important."
+      ],
+      "quiz": [
+        {
+          "question": "What's my favorite thing about you?",
+          "options": [
+            "Your confidence",
+            "Your humor",
+            "Your eyes",
+            "Your fashion"
+          ],
+          "answer": 2
+        }
       ]
     },
     {
@@ -603,14 +815,24 @@
           "filename": "1782914067885-uq0f6y.mp4"
         }
       ],
-      "visits": 273,
+      "visits": 279,
       "unlockDate": "2026-05-01",
       "reasons": [
         "The way you see the world is art",
         "You make ordinary moments feel magical",
         "Your laugh could fix anyone's worst day",
         "You care deeper than anyone I know",
-        "You taught me what peace feels like"
+        "You taught me what peace feels like",
+        "You changed who I became, not just how I felt.",
+        "You taught me that being vulnerable is a strength, not a weakness.",
+        "You became my safe place without ever trying to.",
+        "You listened to the parts of me that I never showed anyone else.",
+        "You made me believe in giving people second chances again.",
+        "You loved me in ways that made me feel understood rather than judged.",
+        "You turned ordinary conversations into memories I'll carry forever.",
+        "You stayed beside me during moments when words weren't enough.",
+        "You showed me what genuine care looks like.",
+        "You became a chapter that will forever be part of the person I am."
       ],
       "compliments": [
         "You shine brighter than you realize",
@@ -619,7 +841,18 @@
         "The world is softer because you're in it",
         "You are someone's favorite thought and you don't even know it",
         "Your presence alone makes everything better",
-        "You have the most beautiful soul"
+        "You have the most beautiful soul",
+        "Your heart is far more beautiful than you believe it is.",
+        "The way you care for people is one of your rarest qualities.",
+        "Your clingy side is one of the cutest things about you.",
+        "You never stopped asking, \"What happened?\" until I finally opened up.",
+        "Your smile has a way of making heavy days feel lighter.",
+        "I admire how strong you've remained despite constantly doubting yourself.",
+        "You make people feel safe just by being there.",
+        "Your eyes carry a softness that words can never fully describe.",
+        "Even when life became difficult, your kindness never disappeared.",
+        "The most beautiful thing about you isn't your smile, your eyes, or your voice—it's simply the person you are",
+        "If I had to choose the most beautiful thing about you, I wouldn't choose your smile, your eyes, or your voice. I'd choose your heart, because that's the part of you that quietly changed mine. 🤍"
       ],
       "gardenFlowers": 50,
       "metDate": "2025-01-15",
@@ -673,6 +906,16 @@
             "Stuff"
           ],
           "answer": 1
+        },
+        {
+          "question": "What's my favorite thing about you?",
+          "options": [
+            "Your confidence",
+            "Your humor",
+            "Your eyes",
+            "Your fashion"
+          ],
+          "answer": 2
         }
       ],
       "lastVisitDate": "2026-07-02",
@@ -790,6 +1033,7 @@
       "name": "moazam",
       "accessToken": "34970b7b0ed757656d6de55ec63dbd5c",
       "avatar": "🌊",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -871,6 +1115,36 @@
             }
           ]
         }
+      ],
+      "visits": 3,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "You bring an energy that instantly lifts the whole group's mood.",
+        "You make even the most ordinary days memorable with your humor.",
+        "You're one of the people who completes the group's vibe just by being there."
+      ],
+      "compliments": [
+        "Your sense of humor can make almost anyone laugh.",
+        "You have a naturally positive and energetic personality.",
+        "You make people feel welcomed without even trying."
+      ],
+      "playlist": [
+        {
+          "title": "moazam",
+          "filename": "1782987373247-ii2eax.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 2
+        }
       ]
     },
     {
@@ -878,6 +1152,7 @@
       "name": "ahsan",
       "accessToken": "0614388c389b0d2e5bd18de225198984",
       "avatar": "🌄",
+      "unlockDate": "2026-05-01",
       "roadmap": [
         {
           "date": "",
@@ -959,33 +1234,273 @@
             }
           ]
         }
+      ],
+      "visits": 3,
+      "lastVisitDate": "2026-07-02",
+      "reasons": [
+        "You add your own unique energy to every gathering.",
+        "You always make the group feel more alive.",
+        "Even the smallest conversations with you are enjoyable."
+      ],
+      "compliments": [
+        "Your cheerful nature is genuinely contagious.",
+        "You have a simple and genuine personality.",
+        "I admire how effortlessly you spread good vibes wherever you go."
+      ],
+      "playlist": [
+        {
+          "title": "ahsan",
+          "filename": "1782987358120-86kwc1.mp4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What's one thing you'll remember most about me?",
+          "options": [
+            "My words",
+            "My care",
+            "The memories",
+            "Everything"
+          ],
+          "answer": 2
+        }
       ]
     },
     {
       "id": "noor",
       "name": "noor",
       "accessToken": "3debce55835e9e03345120caf6d57e1b",
+      "unlockDate": "2026-05-01",
+      "type": "friend",
+      "theme": "#f59e0b",
+      "themeName": "golden",
+      "badge": "My BSF ✨",
+      "customMessage": "Some people walk into your life and suddenly every room feels warmer. You're that person for me.",
       "roadmap": [],
       "sections": [],
-      "playlist": [],
-      "reasons": [],
-      "compliments": [],
-      "quiz": [],
-      "visits": 0,
-      "gardenFlowers": 0
+      "playlist": [
+        {
+          "title": "a",
+          "filename": "1782987155230-af5eto.mp4"
+        }
+      ],
+      "reasons": [
+        "You're the one person I can be completely myself with",
+        "You somehow always know when something's wrong",
+        "Your laugh is literally my favorite sound in the world"
+      ],
+      "compliments": [
+        "You make every bad day feel manageable just by existing",
+        "Your heart is pure gold — the world doesn't deserve you",
+        "You're the kind of friend people write songs about",
+        "You're not just my best friend, you're my safe place",
+        "I hope you know how truly irreplaceable you are"
+      ],
+      "quiz": [
+        {
+          "question": "Where did we first become friends?",
+          "options": [
+            "School",
+            "Online",
+            "Through mutual friends",
+            "Tuition"
+          ],
+          "answer": 0
+        },
+        {
+          "question": "What's my comfort food?",
+          "options": [
+            "Biryani",
+            "Pizza",
+            "Chocolate",
+            "Paratha Roll"
+          ],
+          "answer": 2
+        },
+        {
+          "question": "What do I do when I'm overthinking?",
+          "options": [
+            "Sleep",
+            "Call you",
+            "Listen to music",
+            "Go silent"
+          ],
+          "answer": 3
+        },
+        {
+          "question": "What's our thing?",
+          "options": [
+            "Inside jokes",
+            "Late night calls",
+            "Sending reels",
+            "All of the above"
+          ],
+          "answer": 3
+        },
+        {
+          "question": "Who texts first more?",
+          "options": [
+            "Me",
+            "You",
+            "Both equally",
+            "It depends"
+          ],
+          "answer": 1
+        }
+      ],
+      "memories": [
+        {
+          "date": "2024-09-01",
+          "text": "The day we officially became inseparable. Didn't even realize it was happening until it was already everything.",
+          "icon": "✨"
+        },
+        {
+          "date": "2024-11-15",
+          "text": "That late night call where we talked about everything and nothing until 3 AM. My face hurt from smiling.",
+          "icon": "🌙"
+        },
+        {
+          "date": "2025-01-20",
+          "text": "You brought me food when I was sad. No questions asked. Just showed up. That's when I knew.",
+          "icon": "💫"
+        },
+        {
+          "date": "2025-03-08",
+          "text": "The day we laughed so hard we couldn't breathe. I still think about it and smile randomly.",
+          "icon": "😂"
+        },
+        {
+          "date": "2025-05-14",
+          "text": "You stood up for me when I wasn't even there. That's loyalty.",
+          "icon": "🛡️"
+        },
+        {
+          "date": "2025-07-04",
+          "text": "Farewell day. We promised this isn't goodbye. It's just a different kind of together.",
+          "icon": "🤍"
+        }
+      ],
+      "visits": 7,
+      "gardenFlowers": 0,
+      "lastVisitDate": "2026-07-02"
     },
     {
       "id": "areeha",
       "name": "areeha",
       "accessToken": "184428e50bdda85fe64ad9f80785066e",
+      "unlockDate": "2026-05-01",
+      "type": "friend",
+      "theme": "#818cf8",
+      "themeName": "lavender",
+      "badge": "My Cousin BSF 💜",
+      "customMessage": "Cousin by blood, best friend by choice. Some bonds don't need explaining.",
       "roadmap": [],
       "sections": [],
-      "playlist": [],
-      "reasons": [],
-      "compliments": [],
-      "quiz": [],
-      "visits": 0,
-      "gardenFlowers": 0
+      "playlist": [
+        {
+          "title": "A",
+          "filename": "1782987169169-r07ido.mp4"
+        }
+      ],
+      "reasons": [
+        "You're family, but you're also my favorite person",
+        "We don't need to explain our bond to anyone",
+        "You understand me in ways nobody else does"
+      ],
+      "compliments": [
+        "You're proof that the best friends are the ones God handpicks for you",
+        "Your soul is as beautiful as your smile",
+        "You make family gatherings actually worth going to",
+        "Being related to you is my favorite flex",
+        "You're not just my cousin, you're my person"
+      ],
+      "quiz": [
+        {
+          "question": "What's our go-to activity together?",
+          "options": [
+            "Gossip",
+            "Shopping",
+            "Just sitting and talking",
+            "All of the above"
+          ],
+          "answer": 3
+        },
+        {
+          "question": "Who's the responsible one?",
+          "options": [
+            "Me",
+            "You",
+            "Neither",
+            "Both equally"
+          ],
+          "answer": 1
+        },
+        {
+          "question": "What annoys me the most?",
+          "options": [
+            "Being ignored",
+            "Lying",
+            "Being late",
+            "Noise"
+          ],
+          "answer": 1
+        },
+        {
+          "question": "What do we argue about most?",
+          "options": [
+            "Who's right",
+            "What to eat",
+            "Phone calls",
+            "We never argue"
+          ],
+          "answer": 2
+        },
+        {
+          "question": "Our friendship in 3 words?",
+          "options": [
+            "Crazy but real",
+            "Love and chaos",
+            "Unbreakable bond",
+            "All of these"
+          ],
+          "answer": 3
+        }
+      ],
+      "memories": [
+        {
+          "date": "2024-08-10",
+          "text": "Remember when we decided we're not just cousins but actual best friends? No one was surprised.",
+          "icon": "💜"
+        },
+        {
+          "date": "2024-10-25",
+          "text": "The family gathering where we snuck away to just talk for hours. Best part of the whole night.",
+          "icon": "🌙"
+        },
+        {
+          "date": "2025-02-14",
+          "text": "Valentine's day and we spent it together laughing at everyone else. Perfect.",
+          "icon": "😂"
+        },
+        {
+          "date": "2025-04-02",
+          "text": "You helped me through that family drama without judging. Just listened. I needed that.",
+          "icon": "🤍"
+        },
+        {
+          "date": "2025-06-20",
+          "text": "Our late night gossip sessions. The ones where we solve everyone's problems except our own.",
+          "icon": "✨"
+        },
+        {
+          "date": "2025-07-04",
+          "text": "Farewell. We cried. We promised. This family bond just got stronger.",
+          "icon": "💫"
+        }
+      ],
+      "visits": 15,
+      "gardenFlowers": 0,
+      "lastVisitDate": "2026-07-02"
     }
   ]
 }
