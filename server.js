@@ -218,6 +218,9 @@ app.get('/friend/:token', (req, res) => {
   person.visits++;
   person.lastVisitDate = new Date().toISOString().split('T')[0];
   saveConfig(config);
+  if (person.id === 'areeha' && fs.existsSync(path.join(__dirname, 'public', 'cards', 'areeha-birthday.html'))) {
+    return res.sendFile(path.join(__dirname, 'public', 'cards', 'areeha-birthday.html'));
+  }
   res.render('friend', { person });
 });
 

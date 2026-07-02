@@ -3,143 +3,536 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, Areeha! 🎂</title>
+  <title>To The Girl Who Became Home Without Even Trying</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f0e1a;
-      color: #e0d8d0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .card-wrapper {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 600px;
-      padding: 20px;
-    }
-    .card {
-      background: linear-gradient(135deg, #1a1830, #252240);
-      border: 1px solid #818cf844;
-      border-radius: 20px;
-      padding: 40px 30px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 60px #818cf822;
-      animation: cardIn 1s ease;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, #818cf811 0%, transparent 60%);
-      animation: glow 4s ease-in-out infinite;
-    }
-    .card * { position: relative; z-index: 1; }
-    .cake { font-size: 4rem; margin-bottom: 10px; animation: bounce 2s ease-in-out infinite; }
-    .title {
-      font-size: 2rem;
-      background: linear-gradient(135deg, #818cf8, #ec4899, #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 6px;
-    }
-    .subtitle { color: #a5a0d8; font-size: 0.9rem; margin-bottom: 24px; }
-    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #818cf8, transparent); margin: 0 auto 24px; }
-    .message { color: #c8c0d8; line-height: 1.8; font-size: 0.95rem; margin-bottom: 24px; }
-    .message p { margin-bottom: 14px; }
-    .signature {
-      font-style: italic;
-      color: #818cf8;
-      font-size: 1rem;
-      margin-top: 20px;
-    }
-    .hearts {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .heart {
-      position: absolute;
-      font-size: 1.2rem;
-      animation: floatUp linear infinite;
-      opacity: 0.3;
-    }
-    @keyframes cardIn { from { opacity:0; transform:scale(0.9) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
-    @keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
-    @keyframes glow { 0%,100% { transform:rotate(0deg); } 50% { transform:rotate(180deg); } }
-    @keyframes floatUp { 0% { transform:translateY(110vh) rotate(0); opacity:0; } 10% { opacity:0.3; } 90% { opacity:0.3; } 100% { transform:translateY(-10vh) rotate(360deg); opacity:0; } }
-    .confetti-piece {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      top: -10px;
-      z-index: 999;
-      animation: confettiFall linear forwards;
-      pointer-events: none;
-    }
-    @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:#0f0e1a;color:#d0c8e0;line-height:1.8;overflow-x:hidden}
+    ::selection{background:#818cf844;color:#c8c0e0}
+
+    .page{max-width:750px;margin:0 auto;padding:20px}
+
+    /* Hero */
+    .hero{text-align:center;padding:80px 20px 50px;position:relative}
+    .hero-badge{display:inline-block;background:#818cf822;color:#818cf8;border:1px solid #818cf844;padding:6px 20px;border-radius:25px;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;animation:fadeDown 1s ease}
+    .hero h1{font-family:'Playfair Display',serif;font-size:2.6rem;color:#e8e0ff;line-height:1.3;margin-bottom:10px;animation:fadeDown 1s ease 0.2s both}
+    .hero .nickname{font-size:1rem;color:#818cf8;animation:fadeDown 1s ease 0.4s both}
+    .hero .birthday-line{margin-top:16px;color:#a5a0d8;font-size:0.9rem;animation:fadeDown 1s ease 0.5s both}
+    .hero .birthday-line span{color:#f59e0b;font-weight:600}
+    .hero-divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,#818cf8,transparent);margin:30px auto;animation:fadeDown 1s ease 0.6s both}
+
+    /* Sections */
+    .section{padding:40px 0;border-top:1px solid #ffffff08;animation:fadeUp 0.6s ease;animation-fill-mode:both}
+    .section-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+    .section h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:#c8b8f0;margin-bottom:16px}
+    .section p,.section li{color:#b0a8c8;font-size:0.95rem;margin-bottom:12px}
+    .section-lead{font-size:1.05rem;color:#c8c0e0;font-style:italic;line-height:2}
+
+    /* Divider */
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,#818cf844,transparent);margin:20px 0}
+
+    /* Quote */
+    .big-quote{font-family:'Playfair Display',serif;font-size:1.3rem;color:#d0c0f0;text-align:center;padding:40px 20px;line-height:1.8;font-style:italic;position:relative}
+    .big-quote::before,.big-quote::after{content:'"';font-size:4rem;color:#818cf833;position:absolute;font-style:normal}
+    .big-quote::before{top:0;left:10px}
+    .big-quote::after{bottom:-20px;right:10px}
+
+    /* Admire List */
+    .admire-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:500px){.admire-grid{grid-template-columns:1fr}}
+    .admire-item{background:#16142a;border:1px solid #818cf822;border-radius:10px;padding:10px 14px;color:#c8c0e0;font-size:0.9rem;display:flex;align-items:center;gap:8px}
+    .admire-item::before{content:'✦';color:#818cf8;font-size:0.7rem;flex-shrink:0}
+
+    /* Facts */
+    .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:500px){.facts-grid{grid-template-columns:1fr}}
+    .fact-item{background:#16142a;border:1px solid #818cf811;border-radius:8px;padding:10px 12px;color:#a8a0c0;font-size:0.85rem;line-height:1.5}
+    .fact-item .fact-num{color:#818cf8;font-weight:600;margin-right:6px}
+
+    /* Timeline */
+    .timeline{position:relative;padding-left:30px;margin:20px 0}
+    .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#818cf8,#818cf833,transparent)}
+    .tl-item{position:relative;margin-bottom:30px}
+    .tl-dot{position:absolute;left:-28px;top:6px;width:12px;height:12px;border-radius:50%;background:#818cf8;box-shadow:0 0 12px #818cf844}
+    .tl-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#c8b8f0;margin-bottom:6px}
+    .tl-text{color:#a8a0c0;font-size:0.9rem;line-height:1.7}
+
+    /* Stats */
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+    @media(max-width:500px){.stats-grid{grid-template-columns:1fr}}
+    .stat-card{background:#16142a;border:1px solid #818cf822;border-radius:12px;padding:14px 16px;text-align:center}
+    .stat-label{font-size:0.75rem;color:#7068a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+    .stat-value{font-size:1rem;color:#c8b8f0;font-weight:600}
+
+    /* Letter */
+    .letter-box{background:linear-gradient(135deg,#16142a,#1e1a30);border:1px solid #818cf833;border-radius:16px;padding:30px;position:relative;overflow:hidden}
+    .letter-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#818cf8,#ec4899,#f59e0b)}
+    .letter-box p{color:#b8b0d0;font-size:0.95rem;margin-bottom:14px}
+    .letter-box .sign{color:#818cf8;font-style:italic;margin-top:20px}
+
+    /* Final Quote */
+    .final-quote{text-align:center;padding:60px 20px}
+    .final-quote .fq-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:#d0c0f0;line-height:1.8;margin-bottom:12px}
+    .final-quote .fq-attr{color:#818cf8;font-size:0.9rem}
+
+    /* Thankful */
+    .thankful-list{list-style:none;padding:0}
+    .thankful-list li{padding:8px 0;border-bottom:1px solid #ffffff08;color:#b0a8c8;font-size:0.95rem}
+    .thankful-list li::before{content:'🤍 ';margin-right:4px}
+
+    /* Media */
+    .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .media-item{border-radius:10px;overflow:hidden;border:1px solid #818cf822;background:#16142a}
+    .media-item img{width:100%;height:150px;object-fit:cover;display:block}
+    .media-item .media-label{padding:8px 10px;font-size:0.8rem;color:#a8a0c0}
+    .media-item video{width:100%;display:block;background:#000}
+    .vm-item{background:#16142a;border:1px solid #818cf822;border-radius:10px;padding:12px;margin-bottom:10px}
+    .vm-item .vm-label{font-size:0.85rem;color:#a8a0c0;margin-bottom:6px}
+    .vm-item audio{width:100%}
+
+    /* Birthday Banner */
+    .bday-banner{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#1a1030,#251a3a);border:1px solid #f59e0b33;border-radius:16px;margin:30px 0}
+    .bday-banner .cake{font-size:3rem;margin-bottom:10px;animation:bounce 2s ease-in-out infinite}
+    .bday-banner h2{font-family:'Playfair Display',serif;font-size:1.8rem;background:linear-gradient(135deg,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+    .bday-banner .bday-msg{color:#c9a84c;font-size:0.95rem;line-height:1.7;max-width:500px;margin:0 auto 16px}
+    .bday-countdown{display:flex;justify-content:center;gap:14px;margin:16px 0}
+    .cd-box{background:#1a1208;border:1px solid #f59e0b33;border-radius:12px;padding:12px 18px;text-align:center;min-width:60px}
+    .cd-val{font-size:1.5rem;font-weight:700;color:#f59e0b}
+    .cd-lbl{font-size:0.7rem;color:#888;text-transform:uppercase}
+
+    /* Gift Button */
+    .gift-btn{display:inline-block;background:linear-gradient(135deg,#818cf8,#ec4899);color:#fff;padding:12px 32px;border-radius:25px;text-decoration:none;font-weight:600;font-size:1rem;transition:transform 0.2s,box-shadow 0.2s}
+    .gift-btn:hover{transform:scale(1.05);box-shadow:0 0 30px #818cf844}
+
+    /* Games */
+    .games-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+    .game-tab{background:#16142a;border:1px solid #333;color:#888;padding:8px 18px;border-radius:20px;cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+    .game-tab.active{background:#818cf8;color:#000;border-color:#818cf8;font-weight:600}
+    .game-panel{display:none}
+    .game-panel.active{display:block}
+    .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:400px;margin:0 auto}
+    @media(max-width:400px){.card-grid{grid-template-columns:repeat(3,1fr)}}
+    .mem-card{aspect-ratio:1;cursor:pointer;perspective:600px}
+    .mem-card-inner{position:relative;width:100%;height:100%;transition:transform 0.4s;transform-style:preserve-3d}
+    .mem-card.flipped .mem-card-inner{transform:rotateY(180deg)}
+    .mem-card-front,.mem-card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+    .mem-card-front{background:#818cf8;color:#000;font-weight:700}
+    .mem-card-back{background:#16142a;border:1px solid #818cf844;transform:rotateY(180deg)}
+    .mem-card.matched .mem-card-inner{transform:rotateY(180deg)}
+    .mem-card.matched .mem-card-back{background:#4ade8033;border-color:#4ade80}
+    .mem-score{text-align:center;margin-top:12px;color:#818cf8;font-size:0.9rem}
+    .mem-reset,.ttt-reset{display:block;margin:12px auto 0;background:#818cf8;color:#000;border:none;padding:8px 20px;border-radius:20px;cursor:pointer;font-weight:600;font-size:0.85rem}
+    .ttt-board{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:300px;margin:0 auto}
+    .ttt-cell{aspect-ratio:1;background:#16142a;border:1px solid #818cf844;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;color:#818cf8}
+    .ttt-cell:hover{border-color:#818cf8}
+    .ttt-cell.taken{cursor:default}
+    .ttt-status{text-align:center;margin-top:12px;color:#818cf8;font-size:0.95rem}
+
+    /* Particles */
+    .particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+    .particle{position:absolute;width:3px;height:3px;border-radius:50%;background:#818cf8;opacity:0.1;animation:drift linear infinite}
+    @keyframes drift{0%{transform:translateY(100vh);opacity:0}10%{opacity:0.1}90%{opacity:0.1}100%{transform:translateY(-10vh);opacity:0}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    @keyframes confettiFall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
   </style>
 </head>
 <body>
-  <div class="hearts" id="hearts"></div>
-  <div class="card-wrapper">
-    <div class="card">
-      <div class="cake">🎂</div>
-      <h1 class="title">Happy Birthday, Areeha!</h1>
-      <p class="subtitle">July 6th, 2026 ✨</p>
+  <div class="particles" id="particles"></div>
+  <div class="page">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="hero">
+      <div class="hero-badge">6 July</div>
+      <h1>To The Girl Who Became Home<br>Without Even Trying</h1>
+      <p class="nickname">— for RIA —</p>
+      <p class="birthday-line">Birthday Special • <span>July 6, 2026</span> 🎂</p>
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- ═══ INTRODUCTION ═══ -->
+    <div class="section" style="animation-delay:0.1s">
+      <span class="section-icon">✨</span>
+      <p class="section-lead">
+        Some people enter your life for a chapter.<br>
+        Some stay for a season.<br>
+        And then there are the rare ones who quietly become part of your identity.
+      </p>
       <div class="divider"></div>
-      <div class="message">
-        <p>Some people come into your life and change it in ways you never expected. You're one of those people.</p>
-        <p>You're not just my cousin — you're my safe place, my favorite person to do absolutely nothing with, and the one who makes every family gathering worth showing up to.</p>
-        <p>On your birthday, I just want you to know — you are loved more than you'll ever understand. And this little corner of the internet? It's my way of saying thank you for being you.</p>
-        <p>I hope this year brings you everything your beautiful heart deserves. And I hope you always know — no matter where life takes us — you've got me. Always.</p>
+      <p style="margin-top:16px">Areeha has never just been my cousin.<br>
+      She became my best friend, my comfort, my favorite family member to annoy, and someone whose happiness has always mattered to me.</p>
+      <p>This page isn't simply a birthday gift.<br>
+      It's a small digital museum built from memories, gratitude, admiration, and years that quietly shaped who we both became.</p>
+    </div>
+
+    <!-- ═══ HERO QUOTE ═══ -->
+    <div class="section" style="animation-delay:0.15s">
+      <div class="big-quote">
+        You were never just another person in my story.<br>
+        You slowly became one of the reasons my story felt complete.
       </div>
-      <div class="divider"></div>
-      <p class="signature">With all my love, always 💜</p>
+    </div>
+
+    <!-- ═══ WHO IS AREEHA ═══ -->
+    <div class="section" style="animation-delay:0.2s">
+      <span class="section-icon">💜</span>
+      <h2>Who Is Areeha?</h2>
+      <p>Areeha is someone whose presence never asks for attention, yet somehow becomes impossible to ignore.</p>
+      <p>She has one of those personalities that makes ordinary conversations memorable.</p>
+      <p>She carries kindness naturally.<br>
+      She laughs genuinely.<br>
+      She makes people feel comfortable without realizing she's doing it.</p>
+      <p>She is beautiful in photographs.<br>
+      Even more beautiful in the way she treats people.</p>
+      <p>She's family.<br>
+      But somewhere through the years, she quietly crossed into another category entirely.</p>
+      <p style="color:#c8b8f0;font-weight:500">She became my best friend.</p>
+    </div>
+
+    <!-- ═══ THINGS I ADMIRE ═══ -->
+    <div class="section" style="animation-delay:0.25s">
+      <span class="section-icon">🌟</span>
+      <h2>Things I Admire About You</h2>
+      <div class="admire-grid">
+        <div class="admire-item">Your kindness</div>
+        <div class="admire-item">Your patience</div>
+        <div class="admire-item">Your beautiful smile</div>
+        <div class="admire-item">Your calm personality</div>
+        <div class="admire-item">The way you care about people</div>
+        <div class="admire-item">Your loyalty</div>
+        <div class="admire-item">Your honesty</div>
+        <div class="admire-item">Your natural elegance</div>
+        <div class="admire-item">Your innocence</div>
+        <div class="admire-item">The peace your presence brings</div>
+        <div class="admire-item">Your ability to make people smile</div>
+        <div class="admire-item">Your confidence when you're happy</div>
+        <div class="admire-item">Your soft heart</div>
+        <div class="admire-item">The way you stay yourself</div>
+        <div class="admire-item">Your beautiful eyes</div>
+        <div class="admire-item">The way you laugh</div>
+        <div class="admire-item">Your positivity</div>
+        <div class="admire-item">Your simplicity</div>
+        <div class="admire-item">Genuinely beautiful inside and out</div>
+        <div class="admire-item">One of my favorite humans</div>
+      </div>
+    </div>
+
+    <!-- ═══ 20 FACTS ═══ -->
+    <div class="section" style="animation-delay:0.3s">
+      <span class="section-icon">📋</span>
+      <h2>20 Random Facts About You</h2>
+      <div class="facts-grid">
+        <div class="fact-item"><span class="fact-num">01</span>Born on 6 July</div>
+        <div class="fact-item"><span class="fact-num">02</span>My cousin</div>
+        <div class="fact-item"><span class="fact-num">03</span>My best friend</div>
+        <div class="fact-item"><span class="fact-num">04</span>One of the oldest people in my life</div>
+        <div class="fact-item"><span class="fact-num">05</span>Loves making memories</div>
+        <div class="fact-item"><span class="fact-num">06</span>Has a peaceful smile</div>
+        <div class="fact-item"><span class="fact-num">07</span>Looks gorgeous in pictures</div>
+        <div class="fact-item"><span class="fact-num">08</span>Visited Lake View Park, Murree, Islamabad</div>
+        <div class="fact-item"><span class="fact-num">09</span>Makes family gatherings more enjoyable</div>
+        <div class="fact-item"><span class="fact-num">10</span>Easy to talk to</div>
+        <div class="fact-item"><span class="fact-num">11</span>One of the safest people I know</div>
+        <div class="fact-item"><span class="fact-num">12</span>Naturally caring</div>
+        <div class="fact-item"><span class="fact-num">13</span>Beautiful without trying</div>
+        <div class="fact-item"><span class="fact-num">14</span>Can make ordinary moments memorable</div>
+        <div class="fact-item"><span class="fact-num">15</span>Deserves every happiness</div>
+        <div class="fact-item"><span class="fact-num">16</span>Someone I'll always respect</div>
+        <div class="fact-item"><span class="fact-num">17</span>Someone I'll always support</div>
+        <div class="fact-item"><span class="fact-num">18</span>Someone I'll always wish well</div>
+        <div class="fact-item"><span class="fact-num">19</span>Someone I'll always be proud to call family</div>
+        <div class="fact-item"><span class="fact-num">20</span>One of life's greatest blessings</div>
+      </div>
+    </div>
+
+    <!-- ═══ OUR STORY ═══ -->
+    <div class="section" style="animation-delay:0.35s">
+      <span class="section-icon">📖</span>
+      <h2>Our Story</h2>
+      <p>It started the way every cousin story starts.</p>
+      <p>Family.<br>Birthdays.<br>Gatherings.<br>Random conversations.<br>Nothing extraordinary.</p>
+      <p>But over time something quietly changed.</p>
+      <p>You stopped being "just my cousin."</p>
+      <p>You became my best friend.<br>
+      The person I could laugh with.<br>
+      The person whose happiness mattered.<br>
+      The person whose birthday never felt ordinary.</p>
+      <p>Years passed.<br>
+      Life became busier.<br>
+      Responsibilities grew.<br>
+      People changed.</p>
+      <p>But one thing somehow remained untouched.</p>
+      <p style="color:#c8b8f0;font-weight:500">Our bond.</p>
+      <p>Not because we forced it.<br>
+      But because some connections simply refuse to disappear.</p>
+    </div>
+
+    <!-- ═══ TIMELINE ═══ -->
+    <div class="section" style="animation-delay:0.4s">
+      <span class="section-icon">⏳</span>
+      <h2>Our Timeline</h2>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Childhood</div><div class="tl-text">We met long before either of us understood what friendship meant.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Growing Up</div><div class="tl-text">Family slowly became friendship. Friendship slowly became trust.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Countless Laughs</div><div class="tl-text">Inside jokes. Random teasing. Family events. Small conversations. The kind of memories no camera ever captures.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Lake View Park</div><div class="tl-text">One beautiful day. One beautiful smile. One photograph that somehow became another memory I'd never forget.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Today</div><div class="tl-text">Still my cousin. Still my best friend. Still someone whose happiness matters deeply.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Future</div><div class="tl-text">Maybe different cities. Different careers. Different responsibilities. But I hope years from now we'll still celebrate birthdays, laugh over old stories, and remind ourselves that family like this never becomes distant.</div></div>
+      </div>
+    </div>
+
+    <!-- ═══ DESCRIBE YOU ═══ -->
+    <div class="section" style="animation-delay:0.45s">
+      <span class="section-icon">🦋</span>
+      <h2>If I Had To Describe You</h2>
+      <p>You're the type of person who doesn't need to speak loudly to be remembered.</p>
+      <p>You're comfort.<br>
+      You're warmth.<br>
+      You're calm.</p>
+      <p>You're one of those people whose existence quietly makes the world better.</p>
+    </div>
+
+    <!-- ═══ THANKFUL ═══ -->
+    <div class="section" style="animation-delay:0.5s">
+      <span class="section-icon">🤍</span>
+      <h2>Things I'm Thankful For</h2>
+      <ul class="thankful-list">
+        <li>Thank you for every laugh.</li>
+        <li>Thank you for every conversation.</li>
+        <li>Thank you for every memory.</li>
+        <li>Thank you for being patient.</li>
+        <li>Thank you for always being yourself.</li>
+        <li>Thank you for making family feel like friendship.</li>
+        <li>Thank you for proving that cousins really can become best friends.</li>
+      </ul>
+    </div>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="section" style="animation-delay:0.55s">
+      <span class="section-icon">📊</span>
+      <h2>Memory Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Relationship</div><div class="stat-value">100% Cousin</div></div>
+        <div class="stat-card"><div class="stat-label">Friendship</div><div class="stat-value">100%</div></div>
+        <div class="stat-card"><div class="stat-label">Trust</div><div class="stat-value">Unlimited</div></div>
+        <div class="stat-card"><div class="stat-label">Arguments</div><div class="stat-value">Temporary</div></div>
+        <div class="stat-card"><div class="stat-label">Support</div><div class="stat-value">Always</div></div>
+        <div class="stat-card"><div class="stat-label">Loyalty</div><div class="stat-value">Infinite</div></div>
+        <div class="stat-card"><div class="stat-label">Replaceable</div><div class="stat-value">False</div></div>
+        <div class="stat-card"><div class="stat-label">Favorite Human Level</div><div class="stat-value">Extremely High</div></div>
+        <div class="stat-card" style="grid-column:1/-1"><div class="stat-label">Happiness You Deserve</div><div class="stat-value" style="color:#f59e0b">Infinite</div></div>
+      </div>
+    </div>
+
+    <!-- ═══ LETTER ═══ -->
+    <div class="section" style="animation-delay:0.6s">
+      <span class="section-icon">✉️</span>
+      <h2>A Letter For You</h2>
+      <div class="letter-box">
+        <p>Dear Aree,</p>
+        <p>Birthdays usually celebrate another year.<br>
+        Today, I think it's more appropriate to celebrate another year of having you in my life.</p>
+        <p>You've never been just another family member.<br>
+        You've been one of the people who quietly made life brighter.</p>
+        <p>You probably don't even realize how many small memories became important simply because you were part of them.</p>
+        <p>Some people leave big impressions through grand moments.<br>
+        You did it through ordinary ones.<br>
+        Through conversations.<br>
+        Through laughter.<br>
+        Through simply being there.</p>
+        <p>I genuinely hope this year gives you everything you've wished for.<br>
+        More happiness.<br>More success.<br>Better health.<br>More unforgettable memories.<br>More reasons to smile.<br>
+        And people who value your heart the way it deserves to be valued.</p>
+        <p>Never let the world convince you to become someone else.<br>
+        The version of you that already exists is more than enough.</p>
+        <p style="color:#c8b8f0;font-weight:500">Happy Birthday, Aree.</p>
+        <p>No matter how much life changes, you'll always be one of my favorite people, one of my greatest blessings, and one of the best parts of my story.</p>
+        <p class="sign">— With love, always 💜</p>
+      </div>
+    </div>
+
+    <!-- ═══ FINAL QUOTE ═══ -->
+    <div class="section" style="animation-delay:0.65s">
+      <div class="final-quote">
+        <p class="fq-text">"Some people become memories.<br>
+        Some become lessons.<br>
+        You became home.<br><br>
+        Happy Birthday, Areeha. 🤍"</p>
+      </div>
+    </div>
+
+    <!-- ═══ BIRTHDAY COUNTDOWN ═══ -->
+    <div class="bday-banner">
+      <div class="cake">🎂</div>
+      <h2>Happy Birthday, Ria!</h2>
+      <p class="bday-msg">July 6th is going to be special. This page is my way of saying — you matter. More than you'll ever know.</p>
+      <div class="bday-countdown">
+        <div class="cd-box"><div class="cd-val" id="cd-days">-</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-hours">-</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-mins">-</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-box"><div class="cd-val" id="cd-secs">-</div><div class="cd-lbl">Secs</div></div>
+      </div>
+      <a href="/cards/areeha-birthday.html" target="_blank" class="gift-btn" style="margin-top:12px">Open Your Gift Card 🎁</a>
+    </div>
+
+    <!-- ═══ MEDIA (upload via admin) ═══ -->
+    <div class="section" id="media-section" style="animation-delay:0.7s;display:none">
+      <span class="section-icon">🖼️</span>
+      <h2>Our Moments</h2>
+      <div id="media-content"></div>
+    </div>
+
+    <!-- ═══ GAMES ═══ -->
+    <div class="section" style="animation-delay:0.75s">
+      <span class="section-icon">🎮</span>
+      <h2>Play With Me</h2>
+      <div class="games-nav">
+        <button class="game-tab active" onclick="switchGame('cardflip',this)">🃏 Memory Flip</button>
+        <button class="game-tab" onclick="switchGame('ttt',this)">❌ Tic Tac Toe</button>
+      </div>
+      <div class="game-panel active" id="panel-cardflip">
+        <div class="card-grid" id="card-grid"></div>
+        <p class="mem-score" id="mem-score">Find all the pairs!</p>
+        <button class="mem-reset" onclick="initCardFlip()">Restart</button>
+      </div>
+      <div class="game-panel" id="panel-ttt">
+        <div class="ttt-board" id="ttt-board"></div>
+        <p class="ttt-status" id="ttt-status">Your turn — pick a square!</p>
+        <button class="ttt-reset" onclick="initTTT()">Restart</button>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:40px 0 20px;color:#555;font-size:0.8rem">
+      <p>Made with love, just for you 💜</p>
     </div>
   </div>
+
+  <!-- ═══ CONFETTI ═══ -->
+  <div id="confetti-box" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999"></div>
+
   <script>
-    // Floating hearts
-    var hearts = document.getElementById('hearts');
-    var emojis = ['💜','✨','🎂','礼物','💫','🦋','🌙'];
-    for (var i = 0; i < 25; i++) {
-      var h = document.createElement('div');
-      h.className = 'heart';
-      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      h.style.left = Math.random() * 100 + '%';
-      h.style.animationDuration = (8 + Math.random() * 12) + 's';
-      h.style.animationDelay = Math.random() * 10 + 's';
-      h.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
-      hearts.appendChild(h);
+  // Particles
+  (function(){
+    var c=document.getElementById('particles');
+    for(var i=0;i<20;i++){
+      var p=document.createElement('div');p.className='particle';
+      p.style.left=Math.random()*100+'%';
+      p.style.animationDuration=(10+Math.random()*20)+'s';
+      p.style.animationDelay=Math.random()*15+'s';
+      c.appendChild(p);
     }
-    // Initial confetti burst
-    var colors = ['#818cf8','#ec4899','#f59e0b','#4ade80','#fff','#a78bfa'];
-    for (var j = 0; j < 60; j++) {
-      var c = document.createElement('div');
-      c.className = 'confetti-piece';
-      c.style.left = Math.random() * 100 + '%';
-      c.style.background = colors[Math.floor(Math.random() * colors.length)];
-      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      c.style.animationDuration = (2 + Math.random() * 3) + 's';
-      c.style.animationDelay = Math.random() * 1 + 's';
-      document.body.appendChild(c);
+  })();
+
+  // Birthday countdown
+  (function(){
+    var bday=new Date('2026-07-06T00:00:00');
+    function tick(){
+      var now=new Date();
+      var diff=bday-now;
+      if(diff<=0){
+        document.getElementById('cd-days').textContent='🎉';
+        document.getElementById('cd-hours').textContent='';
+        document.getElementById('cd-mins').textContent='';
+        document.getElementById('cd-secs').textContent='';
+        launchConfetti();return;
+      }
+      document.getElementById('cd-days').textContent=Math.floor(diff/86400000);
+      document.getElementById('cd-hours').textContent=Math.floor((diff%86400000)/3600000);
+      document.getElementById('cd-mins').textContent=Math.floor((diff%3600000)/60000);
+      document.getElementById('cd-secs').textContent=Math.floor((diff%60000)/1000);
     }
+    tick();setInterval(tick,1000);
+  })();
+
+  function launchConfetti(){
+    var box=document.getElementById('confetti-box');
+    var colors=['#818cf8','#ec4899','#f59e0b','#4ade80','#fff','#a78bfa'];
+    for(var i=0;i<100;i++){
+      var c=document.createElement('div');
+      c.style.cssText='position:absolute;width:'+(4+Math.random()*8)+'px;height:'+(4+Math.random()*8)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:'+Math.random()*100+'%;top:-10px;border-radius:'+(Math.random()>0.5?'50%':'2px')+';animation:confettiFall '+(2+Math.random()*3)+'s linear '+Math.random()*2+'s forwards;opacity:0.8;z-index:999;pointer-events:none;';
+      box.appendChild(c);
+    }
+  }
+
+  // If it's her birthday, launch confetti
+  (function(){
+    var now=new Date();
+    if(now.getMonth()===6 && now.getDate()===6) launchConfetti();
+  })();
+
+  // Memory Card Flip
+  var cardEmojis=['💜','✨','🎂','🦋','🌙','🎵','⭐','🌸'];
+  var cardPairs,cardFlipped,cardLocked,cardMatched;
+  function initCardFlip(){
+    cardPairs=cardEmojis.concat(cardEmojis);
+    cardPairs.sort(function(){return Math.random()-0.5});
+    cardFlipped=null;cardLocked=false;cardMatched=0;
+    var grid=document.getElementById('card-grid');grid.innerHTML='';
+    cardPairs.forEach(function(e,i){
+      var card=document.createElement('div');card.className='mem-card';
+      card.innerHTML='<div class="mem-card-inner"><div class="mem-card-front">?</div><div class="mem-card-back">'+e+'</div></div>';
+      card.addEventListener('click',function(){flipCard(card,i)});
+      grid.appendChild(card);
+    });
+    document.getElementById('mem-score').textContent='Find all the pairs!';
+  }
+  function flipCard(card,idx){
+    if(cardLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+    card.classList.add('flipped');
+    if(!cardFlipped){cardFlipped={card:card,idx:idx,emoji:cardPairs[idx]};return}
+    cardLocked=true;var first=cardFlipped;
+    if(first.emoji===cardPairs[idx]){
+      card.classList.add('matched');first.card.classList.add('matched');cardMatched++;
+      document.getElementById('mem-score').textContent=cardMatched+'/'+cardEmojis.length+' pairs found!';
+      if(cardMatched===cardEmojis.length)document.getElementById('mem-score').textContent='You won! 🎉';
+    }else{setTimeout(function(){card.classList.remove('flipped');first.card.classList.remove('flipped')},800)}
+    cardFlipped=null;setTimeout(function(){cardLocked=false},900);
+  }
+  initCardFlip();
+
+  // Tic Tac Toe
+  var tttBoard,tttTurn,tttOver;
+  function initTTT(){
+    tttBoard=['','','','','','','','',''];tttTurn='X';tttOver=false;
+    var board=document.getElementById('ttt-board');board.innerHTML='';
+    for(var i=0;i<9;i++){
+      var cell=document.createElement('div');cell.className='ttt-cell';cell.setAttribute('data-i',i);
+      cell.addEventListener('click',function(){tttPlay(this)});
+      board.appendChild(cell);
+    }
+    document.getElementById('ttt-status').textContent='Your turn — pick a square!';
+  }
+  function tttPlay(cell){
+    if(tttOver||cell.classList.contains('taken'))return;
+    var i=parseInt(cell.getAttribute('data-i'));
+    tttBoard[i]='X';cell.textContent='X';cell.classList.add('taken');
+    if(tttCheck('X')){document.getElementById('ttt-status').textContent='You win! 🎉';tttOver=true;return}
+    if(tttBoard.every(function(c){return c!==''})){document.getElementById('ttt-status').textContent="It's a draw!";tttOver=true;return}
+    setTimeout(function(){
+      var empty=[];tttBoard.forEach(function(c,j){if(c==='')empty.push(j)});
+      if(!empty.length)return;
+      var bi=empty[Math.floor(Math.random()*empty.length)];
+      tttBoard[bi]='O';
+      var botCell=document.querySelector('[data-i="'+bi+'"]');botCell.textContent='O';botCell.classList.add('taken');
+      if(tttCheck('O')){document.getElementById('ttt-status').textContent='I win! 😄';tttOver=true;return}
+      if(tttBoard.every(function(c){return c!==''})){document.getElementById('ttt-status').textContent="It's a draw!";tttOver=true;return}
+      document.getElementById('ttt-status').textContent='Your turn — pick a square!';
+    },400);
+    document.getElementById('ttt-status').textContent='My turn...';
+  }
+  function tttCheck(p){
+    var w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    return w.some(function(l){return l.every(function(i){return tttBoard[i]===p})});
+  }
+  initTTT();
+
+  function switchGame(id,btn){
+    document.querySelectorAll('.game-tab').forEach(function(t){t.classList.remove('active')});
+    document.querySelectorAll('.game-panel').forEach(function(p){p.classList.remove('active')});
+    btn.classList.add('active');document.getElementById('panel-'+id).classList.add('active');
+  }
   </script>
 </body>
 </html>
