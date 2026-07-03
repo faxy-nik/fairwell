@@ -105,7 +105,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "muaaz",
@@ -195,7 +196,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "fahad",
@@ -285,7 +287,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "aimal",
@@ -375,7 +378,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "muneeba",
@@ -509,7 +513,8 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "gardenFlowers": 0
     },
     {
       "id": "eeshah",
@@ -930,7 +935,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "ahsan",
@@ -1020,7 +1026,8 @@
         }
       ],
       "unlockDate": "2026-07-05",
-      "visits": 0
+      "visits": 0,
+      "gardenFlowers": 0
     },
     {
       "id": "noor",
