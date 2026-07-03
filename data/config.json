@@ -1,203 +1,3 @@
-{
-  "generalUrls": {
-    "week1": "https://youtu.be/UrsmFxEIp5k?si=xu_ye-wuVeWnUtiy",
-    "week2": "https://youtu.be/7j1t3UZA1TY?si=PL_qyupEQ5oqGuLW",
-    "week3": "https://youtu.be/BpOsHF5Oj_I?si=KgvuMPpKlqL1av-D",
-    "week4": "https://youtu.be/JJmcL1N2KQs",
-    "week5": "https://www.youtube.com/watch?v=v2TvH5RmDIk",
-    "week6": "https://www.youtube.com/watch?v=85JVKjW-uG0",
-    "week7": "https://www.youtube.com/watch?v=urlCrgNO0HY",
-    "skill1": "https://www.youtube.com/watch?v=q1TEDBy3NbI",
-    "skill2": "https://www.youtube.com/watch?v=2GZ2SNXWK-c",
-    "skill3": "https://www.youtube.com/watch?v=OhI005_aJkA",
-    "skill4": "https://www.youtube.com/watch?v=sVcwVQRHIc8",
-    "skill5": "https://www.youtube.com/watch?v=CcrC5zSv1iA",
-    "skill6": "https://www.youtube.com/watch?v=6Q6TieCBA4E",
-    "skill7": "https://www.youtube.com/watch?v=uCsc0ORcJDo",
-    "skill8": "https://m.youtube.com/watch?v=xNfOFQXood4",
-    "skill9": "https://www.youtube.com/watch?v=TL527yTpxlk"
-  },
-  "people": [
-    {
-      "id": "maham",
-      "name": "maham",
-      "accessToken": "e702fee7adb630168a7ce27f46e6cd6c",
-      "avatar": "🌺",
-      "roadmap": [
-        {
-          "date": "",
-          "title": "Skill — Sketching or Digital Art",
-          "description": "You already communicate without words. Learn to do it on paper too. One sketch every 3 days."
-        },
-        {
-          "date": "",
-          "title": "Namaz Diary — Isha",
-          "description": "The night prayer. A quiet way to end your day before your mind starts running again."
-        },
-        {
-          "date": "",
-          "title": "Extra — Read & Observe",
-          "description": "Read 'The Art of Happiness' by Dalai Lama. You will find parts of yourself in it. Also, try spending one day without using eye contact to communicate. See how many people actually notice."
-        }
-      ],
-      "sections": [
-        {
-          "id": "images",
-          "title": "images",
-          "type": "images",
-          "items": [
-            {
-              "filename": "1781901707849-94qdbr.jpg",
-              "originalName": "noor (1).jpg",
-              "title": "babar sher",
-              "releaseDate": "2026-06-19",
-              "uploadedAt": "2026-06-21T18:03:07.347Z"
-            }
-          ]
-        },
-        {
-          "id": "a",
-          "title": "a",
-          "type": "videos",
-          "items": []
-        },
-        {
-          "id": "vms",
-          "title": "VMs",
-          "type": "voice",
-          "items": [
-            {
-              "filename": "sample-voice-maham-1.mp3",
-              "originalName": "maham-voice-note.mp3",
-              "title": "A little message for you",
-              "releaseDate": "2026-06-15",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            },
-            {
-              "filename": "sample-voice-maham-2.mp3",
-              "originalName": "group-chat-voice.mp3",
-              "title": "Group voice note — memories",
-              "releaseDate": "2026-07-15",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            }
-          ]
-        },
-        {
-          "id": "videos",
-          "title": "Videos",
-          "type": "videos",
-          "items": [
-            {
-              "filename": "sample-video-maham-1.mp4",
-              "originalName": "class-moment.mp4",
-              "title": "Our class moment",
-              "releaseDate": "2026-06-20",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            },
-            {
-              "filename": "sample-video-maham-2.mp4",
-              "originalName": "farewell-clip.mp4",
-              "title": "Farewell clip",
-              "releaseDate": "2026-07-01",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            }
-          ]
-        }
-      ],
-      "visits": 14,
-      "lastVisitDate": "2026-07-02",
-      "reasons": [
-        "You understand my silence better than most people's words.",
-        "Our eye contacts have their own language.",
-        "You became the sister I never knew I needed.",
-        "Your presence makes ordinary moments memorable",
-        "Your aura is quietly beautiful and impossible to ignore.",
-        "You have one of the purest hearts I've ever met.",
-        "Even your judging looks are somehow funny and comforting.",
-        "You make ordinary moments worth remembering.",
-        "You have the kind of personality people become attached to naturally.",
-        "You have a beautiful way of caring without making it obvious.",
-        "You're stronger than you believe yourself to be.",
-        "Your laugh is genuinely contagious.",
-        "You never try to stand out, yet you naturally do."
-      ],
-      "compliments": [
-        "Your smile can fix a bad day without trying.",
-        "Your eyes tell stories before you speak.",
-        "Your humor is effortlessly unmatched.",
-        "You're kinder than you let people see",
-        "Being yourself is your most beautiful quality.",
-        "Your innocence and your dark humor somehow exist together perfectly.",
-        "You make people feel comfortable just by being yourself.",
-        "You have one of the purest hearts I've ever met.",
-        "You have the kind of personality people become attached to naturally.",
-        "Your confidence is growing, and I hope one day you see it too.",
-        "Your kindness shows in the smallest things you do."
-      ],
-      "playlist": [
-        {
-          "title": "maham",
-          "filename": "1782987437832-tv84gm.mp4"
-        }
-      ],
-      "quiz": [
-        {
-          "question": "What's one thing you'll remember most about me?",
-          "options": [
-            "My words",
-            "My care",
-            "The memories",
-            "Everything"
-          ],
-          "answer": 3
-        }
-      ]
-    },
-    {
-      "id": "muaaz",
-      "name": "muaaz",
-      "accessToken": "b385b46e7d88ce1e5646b234b5d048ff",
-      "avatar": "⚡",
-      "roadmap": [
-        {
-          "date": "",
-          "title": "Skill — Backend Framework (Django or Go)",
-          "description": "You already have the logic. Now learn how to build something that actually ships. Build one small project by the end."
-        },
-        {
-          "date": "",
-          "title": "Namaz Diary — Fajr",
-          "description": "The hardest one. If you can wake up for Fajr consistently for 90 days, you can train yourself to do anything."
-        },
-        {
-          "date": "",
-          "title": "Extra — Read",
-          "description": "Read 'Man's Search for Meaning' by Viktor Frankl. You like deep conversations about human nature. This book will give you more to think about than any cafe discussion ever could."
-        }
-      ],
-      "sections": [
-        {
-          "id": "vms",
-          "title": "VMs",
-          "type": "voice",
-          "items": [
-            {
-              "filename": "sample-voice-muaaz-1.mp3",
-              "originalName": "muaaz-voice-note.mp3",
-              "title": "A little message for you",
-              "releaseDate": "2026-06-15",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            },
-            {
-              "filename": "sample-voice-muaaz-2.mp3",
-              "originalName": "group-chat-voice.mp3",
-              "title": "Group voice note — memories",
-              "releaseDate": "2026-07-15",
-              "uploadedAt": "2026-06-27T12:00:00.000Z"
-            }
-          ]
-        },
-        {
           "id": "images",
           "title": "Images",
           "type": "images",
@@ -240,8 +40,7 @@
           ]
         }
       ],
-      "visits": 6,
-      "lastVisitDate": "2026-07-02",
+      "visits": 0,
       "reasons": [
         "You're one of the few people who genuinely listened when I needed it.",
         "Your honesty is one of your strongest qualities.",
@@ -291,6 +90,7 @@
       "name": "fahad",
       "accessToken": "c70285dbe96086842dee1b3097f7f77d",
       "avatar": "🔥",
+      "unlockDate": "2026-07-05",
       "roadmap": [
         {
           "date": "",
@@ -373,8 +173,7 @@
           ]
         }
       ],
-      "visits": 7,
-      "lastVisitDate": "2026-07-02",
+      "visits": 0,
       "reasons": [
         "Your mind never settles for ordinary ideas.",
         "You always make me see things from a different perspective.",
@@ -423,6 +222,7 @@
       "name": "aimal",
       "accessToken": "0041b01074470c6b7a9bc68c085180d3",
       "avatar": "💫",
+      "unlockDate": "2026-07-05",
       "roadmap": [
         {
           "date": "",
@@ -505,8 +305,7 @@
           ]
         }
       ],
-      "visits": 6,
-      "lastVisitDate": "2026-07-02",
+      "visits": 0,
       "reasons": [
         "Your innocence is one of the rarest things about you.",
         "You have a smile that naturally makes people smile back.",
@@ -640,8 +439,8 @@
           ]
         }
       ],
-      "visits": 50,
-      "lastVisitDate": "2026-07-02",
+      "visits": 2,
+      "unlockDate": "2026-07-05",
       "playlist": [
         {
           "title": "a\\sa",
@@ -682,7 +481,9 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "gardenFlowers": 2,
+      "lastVisitDate": "2026-07-03"
     },
     {
       "id": "eeshah",
@@ -810,7 +611,8 @@
           "filename": "1782914067885-uq0f6y.mp4"
         }
       ],
-      "visits": 279,
+      "visits": 2,
+      "unlockDate": "2026-07-05",
       "reasons": [
         "The way you see the world is art",
         "You make ordinary moments feel magical",
@@ -848,7 +650,7 @@
         "The most beautiful thing about you isn't your smile, your eyes, or your voice—it's simply the person you are",
         "If I had to choose the most beautiful thing about you, I wouldn't choose your smile, your eyes, or your voice. I'd choose your heart, because that's the part of you that quietly changed mine. 🤍"
       ],
-      "gardenFlowers": 50,
+      "gardenFlowers": 2,
       "metDate": "2025-01-15",
       "quiz": [
         {
@@ -912,7 +714,6 @@
           "answer": 2
         }
       ],
-      "lastVisitDate": "2026-07-02",
       "checkIns": [
         "Have you eaten today? Don't skip meals, okay?",
         "Drink some water. Your brain works better when you're hydrated.",
@@ -1020,37 +821,15 @@
           "lost": "It's okay to not know where you're going. You don't need a map right now. You just need to take the next step. Whatever that looks like. I'll walk with you."
         }
       },
-      "featureReleaseDates": {
-        "general": "2026-07-05",
-        "poetry": "2026-07-05",
-        "paradox": "2026-07-05",
-        "sky": "2026-07-05",
-        "reasons": "2026-07-06",
-        "timer": "2026-07-05",
-        "jukebox": "",
-        "garden": "2026-07-06",
-        "checkin": "2026-07-05",
-        "unreadThought": "2026-07-06",
-        "moodCheck": "2026-07-07",
-        "ifeel": "2026-07-08",
-        "memoryJar": "2026-07-09",
-        "observations": "2026-07-05",
-        "openWhen": "2026-07-05",
-        "reminders": "2026-07-05",
-        "sleepCheck": "2026-07-05",
-        "proudWall": "2026-07-10",
-        "safeSpace": "2026-07-10",
-        "heartMeter": "2026-07-05",
-        "growthTracker": "2026-07-08",
-        "compliments": "2026-07-05",
-        "media": "2026-07-05"
-      }
+      "featureReleaseDates": {},
+      "lastVisitDate": "2026-07-03"
     },
     {
       "id": "moazam",
       "name": "moazam",
       "accessToken": "34970b7b0ed757656d6de55ec63dbd5c",
       "avatar": "🌊",
+      "unlockDate": "2026-07-05",
       "roadmap": [
         {
           "date": "",
@@ -1133,8 +912,7 @@
           ]
         }
       ],
-      "visits": 3,
-      "lastVisitDate": "2026-07-02",
+      "visits": 0,
       "reasons": [
         "You bring an energy that instantly lifts the whole group's mood.",
         "You make even the most ordinary days memorable with your humor.",
@@ -1169,6 +947,7 @@
       "name": "ahsan",
       "accessToken": "0614388c389b0d2e5bd18de225198984",
       "avatar": "🌄",
+      "unlockDate": "2026-07-05",
       "roadmap": [
         {
           "date": "",
@@ -1251,8 +1030,7 @@
           ]
         }
       ],
-      "visits": 3,
-      "lastVisitDate": "2026-07-02",
+      "visits": 0,
       "reasons": [
         "You add your own unique energy to every gathering.",
         "You always make the group feel more alive.",
@@ -1286,6 +1064,7 @@
       "id": "noor",
       "name": "noor",
       "accessToken": "3debce55835e9e03345120caf6d57e1b",
+      "unlockDate": "2026-07-05",
       "type": "friend",
       "theme": "#f59e0b",
       "themeName": "golden",
@@ -1395,64 +1174,39 @@
           "icon": "🤍"
         }
       ],
-      "visits": 8,
+      "visits": 1,
       "gardenFlowers": 0,
-      "lastVisitDate": "2026-07-02"
+      "lastVisitDate": "2026-07-03"
     },
     {
       "id": "areeha",
       "name": "areeha",
       "accessToken": "184428e50bdda85fe64ad9f80785066e",
+      "unlockDate": "2026-05-01",
       "type": "friend",
       "theme": "#818cf8",
       "themeName": "lavender",
       "badge": "My Cousin BSF 💜",
       "customMessage": "Cousin by blood, best friend by choice. Some bonds don't need explaining.",
       "roadmap": [],
-      "sections": [
-        {
-          "id": "images",
-          "title": "Our Photos",
-          "type": "images",
-          "items": []
-        },
-        {
-          "id": "videos",
-          "title": "Our Videos",
-          "type": "videos",
-          "items": []
-        },
-        {
-          "id": "vms",
-          "title": "Voice Notes For You",
-          "type": "voice",
-          "items": []
-        }
-      ],
+      "sections": [],
       "playlist": [
         {
           "title": "A",
           "filename": "1782987169169-r07ido.mp4"
         }
       ],
-      "birthday": "2026-07-06",
-      "birthdayMessage": "Happy Birthday, Areeha! 🎂 Today the world celebrates what I've always known — that you are absolutely extraordinary. This page is just a small piece of how much you mean to me. I hope your day is as beautiful as your soul. 🎉💜",
-      "giftCardUrl": "/cards/areeha-birthday.html",
       "reasons": [
         "You're family, but you're also my favorite person",
         "We don't need to explain our bond to anyone",
-        "You understand me in ways nobody else does",
-        "You make every family gathering worth attending",
-        "Your laughter is contagious and I love it"
+        "You understand me in ways nobody else does"
       ],
       "compliments": [
         "You're proof that the best friends are the ones God handpicks for you",
         "Your soul is as beautiful as your smile",
         "You make family gatherings actually worth going to",
         "Being related to you is my favorite flex",
-        "You're not just my cousin, you're my person",
-        "The world is brighter because you're in it",
-        "You deserve every good thing coming your way"
+        "You're not just my cousin, you're my person"
       ],
       "quiz": [
         {
@@ -1538,9 +1292,9 @@
           "icon": "💫"
         }
       ],
-      "visits": 16,
+      "visits": 12,
       "gardenFlowers": 0,
-      "lastVisitDate": "2026-07-02"
+      "lastVisitDate": "2026-07-03"
     }
   ]
 }

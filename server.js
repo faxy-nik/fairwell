@@ -197,10 +197,8 @@ app.get('/p/:token', (req, res) => {
   if (person.type === 'friend') return res.redirect('/friend/' + req.params.token);
   if (!person.visits) person.visits = 0;
   person.visits++;
-  if (person.id === 'eeshah') {
-    if (person.gardenFlowers === undefined) person.gardenFlowers = 0;
-    if (person.gardenFlowers < 50) person.gardenFlowers++;
-  }
+  if (person.gardenFlowers === undefined) person.gardenFlowers = 0;
+  if (person.gardenFlowers < 50) person.gardenFlowers++;
   person.lastVisitDate = new Date().toISOString().split('T')[0];
   saveConfig(config);
   const cardPath = path.join(__dirname, 'public', 'cards', person.id + '.html');

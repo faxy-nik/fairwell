@@ -672,6 +672,44 @@
     </script>
     <% } %>
 
+    <!-- ── Silent Letters (Muneeba exclusive) ── -->
+    <% if (person.id === 'muneeba') { %>
+    <div class="section-box silent-letters-box animate-fade-up">
+      <div class="section-header" style="justify-content:center;gap:8px"><span class="section-icon">✉️</span><h3>Silent Letters</h3></div>
+      <p class="silent-subtitle">Tap a letter. Read what was never said aloud.</p>
+      <div class="silent-grid" id="silent-grid">
+        <% var letters = [
+          'You were my first friend here. That alone made everything worth it.',
+          'I noticed how you always listened before speaking. That stayed with me.',
+          'Your silence has a language of its own — and it is beautiful.',
+          'You made the ordinary days feel like they mattered.',
+          'I still remember how safe I felt just sitting next to you.',
+          'The quietest people carry the deepest oceans.',
+          'You are not forgotten. Not by me.'
+        ]; %>
+        <% for (var si = 0; si < letters.length; si++) { %>
+        <div class="silent-letter" onclick="openSilentLetter(this)">
+          <span class="silent-front">✉️</span>
+          <span class="silent-back"><%= letters[si] %></span>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <script>
+    var openLetter = null;
+    function openSilentLetter(el) {
+      if (openLetter && openLetter !== el) {
+        openLetter.classList.remove('opened');
+      }
+      el.classList.toggle('opened');
+      openLetter = el.classList.contains('opened') ? el : null;
+    }
+    document.querySelectorAll('.silent-letter').forEach(function(el) {
+      el.addEventListener('click', function(e) { e.stopPropagation(); });
+    });
+    </script>
+    <% } %>
+
     <% if (typeof hasCard !== 'undefined' && hasCard) { %>
       <div class="section-box farewell-card-box animate-fade-up">
         <div class="section-header">

@@ -2611,3 +2611,15 @@ body.theme-eeshah .quiz-submit-btn:hover { box-shadow: 0 4px 12px rgba(124,58,23
 .admin-details[open] summary { margin-bottom:8px; color:#e2e8f0; }
 .inline-item { display:flex; align-items:center; gap:6px; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
 .inline-item span { flex:1; font-size:0.78rem; color:#cbd5e1; }
+
+/* ── Silent Letters ── */
+.silent-letters-box { text-align:center; }
+.silent-subtitle { color:#94a3b8; font-size:0.85rem; margin-bottom:16px; }
+.silent-grid { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.silent-letter { width:100px; height:100px; perspective:600px; cursor:pointer; position:relative; transition:transform 0.3s; }
+.silent-letter:hover { transform:scale(1.05); }
+.silent-front, .silent-back { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:12px; font-size:0.78rem; padding:8px; backface-visibility:hidden; transition:transform 0.5s; word-break:break-word; }
+.silent-front { background:linear-gradient(135deg,#ec489922,#ec489944); border:1px solid #ec489966; font-size:1.5rem; }
+.silent-back { background:linear-gradient(135deg,#ec4899,#be185d); color:#fff; transform:rotateY(180deg); }
+.silent-letter.opened .silent-front { transform:rotateY(180deg); }
+.silent-letter.opened .silent-back { transform:rotateY(0deg); }
