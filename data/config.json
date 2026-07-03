@@ -471,7 +471,7 @@
           ]
         }
       ],
-      "visits": 50,
+      "visits": 51,
       "unlockDate": "2026-07-05",
       "playlist": [
         {
@@ -514,7 +514,8 @@
           "answer": 2
         }
       ],
-      "gardenFlowers": 0
+      "gardenFlowers": 1,
+      "lastVisitDate": "2026-07-03"
     },
     {
       "id": "eeshah",
@@ -642,7 +643,7 @@
           "filename": "1782914067885-uq0f6y.mp4"
         }
       ],
-      "visits": 0,
+      "visits": 1,
       "unlockDate": "2026-07-05",
       "reasons": [
         "The way you see the world is art",
@@ -660,7 +661,7 @@
         "Your presence alone makes everything better",
         "You have the most beautiful soul"
       ],
-      "gardenFlowers": 0,
+      "gardenFlowers": 1,
       "metDate": "2025-01-15",
       "quiz": [
         {
@@ -845,7 +846,8 @@
         "growthTracker": "2026-07-05",
         "compliments": "2026-07-05",
         "media": "2026-07-05"
-      }
+      },
+      "lastVisitDate": "2026-07-03"
     },
     {
       "id": "moazam",
