@@ -40,11 +40,15 @@ if (DATA_ROOT !== APP_DATA && !fs.existsSync(CONFIG_PATH) && fs.existsSync(path.
   copyRecursive(APP_DATA, DATA_ROOT);
 }
 
-if (!fs.existsSync(CONFIG_PATH)) {
+if (!fs.existsSync(CONFIG_PATH) || DATA_ROOT !== APP_DATA) {
   const defaultConfig = path.join(APP_DATA, 'config.json');
   if (fs.existsSync(defaultConfig)) {
-    fs.copyFileSync(defaultConfig, CONFIG_PATH);
-  } else {
+    try { JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8')); } catch (e) {
+      console.log('Config corrupted — restoring from git backup');
+      fs.copyFileSync(defaultConfig, CONFIG_PATH);
+    }
+  }
+  if (!fs.existsSync(CONFIG_PATH)) {
     fs.writeFileSync(CONFIG_PATH, JSON.stringify({ people: [], generalUrls: {} }, null, 2));
   }
 }
